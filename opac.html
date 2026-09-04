@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cataloging in Progress</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lottie Player CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen w-screen flex flex-col justify-between p-4 sm:p-8 lg:p-12 box-border">
+
+    <div></div>
+
+    <!-- Main Container Stretched Across the Full Screen -->
+    <div class="w-full max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-16 bg-slate-800/40 p-6 sm:p-10 lg:p-16 rounded-3xl border border-slate-700/60 shadow-2xl backdrop-blur-md">
+        
+        <!-- Left Side: Text Block (Stretched & Expanded) -->
+        <div class="flex-1 text-center md:text-left space-y-6">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300 uppercase leading-tight">
+                Cataloging
+            </h1>
+            <p class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-indigo-200 tracking-wide">
+                Currently in Progress
+            </p>
+            <p class="text-base sm:text-lg lg:text-xl text-slate-400 font-light leading-relaxed max-w-2xl">
+                Please wait patiently until the process is finished.
+            </p>
+        </div>
+
+        <!-- Right Side: Lottie Animation -->
+        <div class="flex-1 flex items-center justify-center relative w-full py-6">
+            <div id="lottie-container" class="w-full max-w-lg lg:max-w-xl h-auto"></div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Section with Go Back Button -->
+    <div class="w-full flex justify-center pb-4">
+        <button onclick="history.back()" class="bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 transition-all duration-300 shadow-xl tracking-wide text-base flex items-center gap-3">
+            ← Go Back
+        </button>
+    </div>
+
+    <!-- Lottie Script -->
+    <script>
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-container'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json'
+        });
+    </script>
+
+</body>
+</html>
