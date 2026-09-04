@@ -49,7 +49,7 @@
 
     <!-- Bottom Section with Go Back Button -->
     <div class="w-full flex justify-center pb-4">
-        <button onclick="history.back()" class="bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 transition-all duration-300 shadow-xl tracking-wide text-base flex items-center gap-3">
+        <button onclick="if (history.length > 1) { history.back(); } else { window.location.href = 'index.html'; }" class="bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 transition-all duration-300 shadow-xl tracking-wide text-base flex items-center gap-3">
             ← Go Back
         </button>
     </div>
