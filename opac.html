@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cataloging in Progress</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lottie Player CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
         html, body {
@@ -24,10 +22,7 @@
 
     <div></div>
 
-    <!-- Main Container Stretched Across the Full Screen -->
     <div class="w-full max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-16 bg-slate-800/40 p-6 sm:p-10 lg:p-16 rounded-3xl border border-slate-700/60 shadow-2xl backdrop-blur-md">
-        
-        <!-- Left Side: Text Block (Stretched & Expanded) -->
         <div class="flex-1 text-center md:text-left space-y-6">
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300 uppercase leading-tight">
                 Cataloging
@@ -40,22 +35,37 @@
             </p>
         </div>
 
-        <!-- Right Side: Lottie Animation -->
         <div class="flex-1 flex items-center justify-center relative w-full py-6">
             <div id="lottie-container" class="w-full max-w-lg lg:max-w-xl h-auto"></div>
         </div>
-
     </div>
 
-    <!-- Bottom Section with Go Back Button -->
     <div class="w-full flex justify-center pb-4">
-        <button onclick="if (history.length > 1) { history.back(); } else { window.location.href = 'index.html'; }" class="bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 transition-all duration-300 shadow-xl tracking-wide text-base flex items-center gap-3">
+        <button id="goBackButton" type="button" class="bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 transition-all duration-300 shadow-xl tracking-wide text-base flex items-center gap-3">
             ← Go Back
         </button>
     </div>
 
-    <!-- Lottie Script -->
     <script>
+        document.getElementById('goBackButton').addEventListener('click', function () {
+            // If this page was opened from index.html, return there.
+            // Otherwise use browser history when it contains a real previous page.
+            const referrer = document.referrer;
+            const sameSiteReferrer = referrer && new URL(referrer).origin === window.location.origin;
+
+            if (sameSiteReferrer) {
+                window.location.replace(referrer);
+                return;
+            }
+
+            if (window.history.length > 1) {
+                window.history.back();
+                return;
+            }
+
+            window.location.replace('./index.html');
+        });
+
         lottie.loadAnimation({
             container: document.getElementById('lottie-container'),
             renderer: 'svg',
