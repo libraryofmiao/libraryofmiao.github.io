@@ -496,6 +496,18 @@
     @media (min-width: 1024px) {
       .svc-grid { grid-template-columns: repeat(3, 1fr); }
     }
+    /* Large desktop only: let the hero use more horizontal and vertical space */
+    @media (min-width: 1200px) {
+      .hero {
+        height: 115dvh;
+        min-height: 115dvh;
+      }
+      .hero-grid {
+        max-width: 92rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
     @media (prefers-reduced-motion: reduce) {
       .fade-up, .dot, .explore svg, .hero-fly-in { animation: none !important; opacity: 1 !important; transform: none !important; font-style: italic !important; }
       html { scroll-behavior: auto; }
