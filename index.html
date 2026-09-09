@@ -367,6 +367,15 @@
 
     /* Mobile responsive adjustments for About Section */
     @media (max-width: 767px) {
+      /* Keep the mobile hero visually full without changing desktop */
+      .hero-grid {
+        padding-top: 4.5rem;
+        padding-bottom: 4.25rem;
+      }
+      .hero-grid > .fade-up {
+        min-height: calc(100dvh - 8.75rem);
+        justify-content: space-between;
+      }
       #about .two {
         display: flex;
         flex-direction: column;
