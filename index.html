@@ -476,6 +476,11 @@
       .qa-grid, .info-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (min-width: 768px) {
+      /* Desktop only: give the hero more vertical presence without altering its design */
+      .hero {
+        height: 110dvh;
+        min-height: 110dvh;
+      }
       section { padding: 7rem 0; }
       .nav-links, .nav-cta { display: flex; }
       .menu-btn, .mobile-menu { display: none !important; }
