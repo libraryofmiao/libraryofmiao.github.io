@@ -369,15 +369,15 @@
 
     /* Mobile responsive adjustments for About Section */
     @media (max-width: 767px) {
-      /* Keep the mobile hero visually full without changing desktop */
+      /* Mobile hero spacing only: preserve all typography/design, keep CTAs above Explore */
       .hero-grid {
-        padding-top: 4.5rem;
+        padding-top: 1.5rem;
         padding-bottom: 4.25rem;
       }
       .hero-grid > .fade-up {
-        min-height: calc(100dvh - 8.75rem);
-        justify-content: space-between;
-        padding-bottom: 5rem;
+        min-height: 0;
+        justify-content: flex-start;
+        padding-bottom: 0;
       }
       #about .two {
         display: flex;
