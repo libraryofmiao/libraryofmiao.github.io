@@ -365,47 +365,50 @@
     .chips { display: flex; flex-wrap: wrap; gap: .75rem; }
     .chip { padding: .5rem 1rem; border-radius: 9999px; border: 1px solid rgba(0,240,255,.4); background: rgba(0,240,255,.1); color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); font-size: .875rem; }
 
-    /* Mobile Side-by-Side adjustments for About Section */
+    /* Mobile responsive adjustments for About Section */
     @media (max-width: 767px) {
       #about .two {
         display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 1.25rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
       }
       #about .photo {
-        flex: 0 0 38%;
-        position: sticky;
-        top: 5rem;
+        flex: none;
+        width: 100%;
+        position: relative;
       }
       #about .photo-frame {
-        aspect-ratio: 3/4;
+        aspect-ratio: 16/10;
         border-radius: 0.75rem;
       }
       #about .badge {
         position: static;
+        display: inline-block;
         margin-top: 0.75rem;
-        padding: 0.6rem;
-        border-radius: 0.5rem;
+        padding: 0.7rem 0.9rem;
+        border-radius: 0.65rem;
       }
       #about .badge .k {
         font-size: 0.625rem;
         margin-bottom: 0.1rem;
       }
       #about .badge .d {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
       }
       #about .badge .s {
-        display: none;
+        display: block;
+        font-size: 0.7rem;
       }
       #about h2 {
-        font-size: 1.6rem;
-        line-height: 1.2;
-        margin-bottom: 0.75rem;
+        font-size: 1.9rem;
+        line-height: 1.15;
+        margin-bottom: 0.9rem;
       }
       #about p.body {
-        font-size: 0.85rem;
-        line-height: 1.45;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        text-align: left !important;
       }
       #about .chip {
         padding: 0.35rem 0.7rem;
