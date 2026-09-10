@@ -130,6 +130,32 @@
       color: var(--blue-neon);
       text-shadow: var(--neon-glow-subtle);
     }
+    /* NALC link: continuous moving neon illumination around the outer outline */
+    .glass-link.nalc-link {
+      border-color: rgba(0,240,255,.5);
+      color: #ffffff;
+      overflow: visible;
+    }
+    .glass-link.nalc-link::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from 0deg, transparent 0deg 285deg, rgba(0,240,255,.15) 305deg, var(--blue-neon) 330deg, rgba(255,255,255,.9) 342deg, transparent 355deg);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: nalcOutline 2.2s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes nalcOutline {
+      to { transform: rotate(360deg); }
+    }
+    .glass-link.nalc-link:hover {
+      border-color: var(--blue-neon);
+      box-shadow: 0 0 20px rgba(0,240,255,.4), inset 0 1px 0 rgba(255,255,255,.15);
+    }
     .blue-divider {
       width: 3rem; height: 2px;
       background: linear-gradient(90deg, var(--blue-neon), transparent);
@@ -533,6 +559,7 @@
         <a class="glass-link" href="#services">Services</a>
         <a class="glass-link" href="#collection">Collection</a>
         <a class="glass-link" href="#contact">Contact</a>
+        <a class="glass-link nalc-link" href="/nalc.html">NALC</a>
       </div>
       <div class="nav-cta">
         <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">
@@ -555,6 +582,7 @@
       <a class="glass-link" href="#services">Services</a>
       <a class="glass-link" href="#collection">Collection</a>
       <a class="glass-link" href="#contact">Contact</a>
+      <a class="glass-link nalc-link" href="/nalc.html">NALC</a>
       <div class="mobile-extra">
         <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books (OPAC)</a>
         <a class="glass-link" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">Admin (Koha)</a>
@@ -814,6 +842,7 @@ Miao Sub-Division</div>
         <a class="glass-link xs" href="#about">About</a>
         <a class="glass-link xs" href="#services">Services</a>
         <a class="glass-link xs" href="#membership">Membership</a>
+        <a class="glass-link xs nalc-link" href="/nalc.html">NALC</a>
         <a class="glass-link xs" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books</a>
         <a class="glass-link xs" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">Admin</a>
       </div>
