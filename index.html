@@ -420,12 +420,18 @@
     /* Mobile responsive adjustments for About Section */
     @media (max-width: 767px) {
       /* Mobile-only NALC animation fix: keep the rotating outline above the wrapper background */
+      .mobile-menu .glow-wrap {
+        align-self: flex-start;
+        width: max-content;
+        max-width: 100%;
+      }
       .mobile-menu .glow-wrap::before {
         z-index: 0;
         will-change: transform;
       }
       .mobile-menu .glow-btn {
         z-index: 1;
+        width: auto;
       }
       /* Mobile hero spacing only: preserve all typography/design, keep CTAs above Explore */
       .hero-grid {
