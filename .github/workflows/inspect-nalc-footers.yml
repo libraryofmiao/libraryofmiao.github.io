@@ -1,6 +1,8 @@
 name: Inspect NALC Footers
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/inspect-nalc-footers.yml'
 permissions:
   contents: read
 jobs:
