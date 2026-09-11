@@ -1,0 +1,44 @@
+name: Use Visit navbar logo on testimonials
+
+on:
+  push:
+    paths:
+      - 'nalc/Visit/testimonials/index.html'
+      - '.github/workflows/use-visit-logo-testimonials.yml'
+
+jobs:
+  update-logo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Replace testimonial navbar logo
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('nalc/Visit/testimonials/index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<span style="display:inline-flex;width:2.3rem;height:2.3rem;border-radius:50%;background:var(--primary);color:#fff;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;">N</span>'
+          new = '<img src="../../Assets/images/logo.png" alt="NALC Miao">'
+          if old not in s:
+              raise SystemExit('Expected testimonial navbar logo markup was not found; no change made.')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Verify exact Visit logo asset path
+        run: |
+          grep -F '<img src="../../Assets/images/logo.png" alt="NALC Miao">' nalc/Visit/testimonials/index.html
+
+      - name: Commit logo change and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/index.html
+          git commit -m 'Use same logo as Visit page in testimonials navbar'
+          rm -f .github/workflows/use-visit-logo-testimonials.yml
+          git add .github/workflows/use-visit-logo-testimonials.yml
+          git commit -m 'Remove temporary logo update workflow'
+          git push
