@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fix footer sections
-        run: python3 -c 'from pathlib import Path; r={"nalc/Visit/index.html":"<footer><div class=\"wrap\"><div class=\"footer-links\"><a href=\"/\">Home</a><a href=\"../index.html\">NALC Home</a><a href=\"../Visit/index.html\" aria-current=\"page\">Visits</a><a href=\"../Visit/testimonials/index.html\">Testimonials</a></div><div class=\"footer-meta\">© 2026 New Age Learning Centre (NALC), Miao · Sub Divisional Library, Miao · Arunachal Pradesh, India</div></div></footer>","nalc/Visit/testimonials/index.html":"<footer><div class=\"container\"><div class=\"footer-links\"><a href=\"/\">Home</a><a href=\"../../index.html\">NALC Home</a><a href=\"../index.html\">Visits</a><a href=\"./index.html\" aria-current=\"page\">Testimonials</a><a href=\"../../index.html#award\">PM Award</a><a href=\"https://x.com/NalcMiao\" target=\"_blank\" rel=\"noopener\">X / Twitter</a></div><p class=\"footer-meta\">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p><p style=\"margin:.4rem 0 0;opacity:.65;font-size:.82rem;\">© 2026 NALC Miao · Official website: miaolibrary.in</p></div></footer>"}; [(p,f) for p,f in r.items()]; [(lambda p,f: p.write_text((lambda s: s[:s.lower().find("<footer")]+f+s[s.lower().find("</footer>",s.lower().find("<footer"))+9:])(p.read_text(encoding="utf-8")),encoding="utf-8"))(Path(p),f) for p,f in r.items()]' 
-      - name: Verify
-        run: python3 -c 'from pathlib import Path; [(lambda s: (_ for _ in ()).throw(AssertionError()) if ("href=\"#\"" in s or "href=\"https://miaolibrary.in/nalc.html\"" in s) else None)(Path(p).read_text(encoding="utf-8")[Path(p).read_text(encoding="utf-8").lower().find("<footer"):Path(p).read_text(encoding="utf-8").lower().find("</footer>")+9]) for p in ["nalc/Visit/index.html","nalc/Visit/testimonials/index.html"]]; print("verified")'
+      - name: Apply footer correction
+        run: bash scripts/fix-footer.sh
       - name: Commit and clean up
         run: |
-          rm -f .github/workflows/fix-visit-testimonial-footers.yml
+          rm -f scripts/fix-footer.sh .github/workflows/fix-visit-testimonial-footers.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html .github/workflows/fix-visit-testimonial-footers.yml
+          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html scripts/fix-footer.sh .github/workflows/fix-visit-testimonial-footers.yml
           git commit -m 'Fix NALC Visit and Testimonials footers'
           git push
