@@ -71,10 +71,10 @@
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
     /* Visits & Testimonials glow buttons — NALC page only */
-    .nav-glow-wrap,.footer-glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:999px;background:linear-gradient(0deg,#000,#222);overflow:hidden;isolation:isolate}
-    .nav-glow-wrap::before,.footer-glow-wrap::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:nalcVisitsTestimonialsGlow 4s linear infinite;z-index:-1}
+    .nav-glow-wrap,.footer-glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:999px;background:#fff;overflow:hidden;isolation:isolate}
+    .nav-glow-wrap::before,.footer-glow-wrap::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:nalcVisitsTestimonialsGlow 4s linear infinite;z-index:0}
     @keyframes nalcVisitsTestimonialsGlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-    .nav-glow-wrap .nav-link,.footer-glow-wrap .footer-link{position:relative;display:inline-flex;align-items:center;justify-content:center;background:#fff!important;color:#232323!important;border-radius:999px;padding:6px 13px!important;font-weight:600;white-space:nowrap}
+    .nav-glow-wrap .nav-link,.footer-glow-wrap .footer-link{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;background:#fff!important;color:#232323!important;border-radius:999px;padding:6px 13px!important;font-weight:600;white-space:nowrap}
     .nav-glow-wrap .nav-link:hover,.footer-glow-wrap .footer-link:hover{background:#fff!important;color:#232323!important}
   </style>
 </head>
