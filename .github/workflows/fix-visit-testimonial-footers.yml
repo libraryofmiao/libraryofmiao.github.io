@@ -1,0 +1,89 @@
+name: Fix NALC Visit and Testimonials Footers
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-visit-testimonial-footers.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fix footer HTML
+        shell: python
+        run: |
+          from pathlib import Path
+
+          replacements = {
+              'nalc/Visit/index.html': '''<footer><div class="wrap"><div class="footer-links"><a href="/">Home</a><a href="../index.html">NALC Home</a><a href="../Visit/index.html" aria-current="page">Visits</a><a href="../Visit/testimonials/index.html">Testimonials</a></div><div class="footer-meta">© 2026 New Age Learning Centre (NALC), Miao · Sub Divisional Library, Miao · Arunachal Pradesh, India</div></div></footer>''',
+              'nalc/Visit/testimonials/index.html': '''<footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="../../index.html">NALC Home</a>
+        <a href="../index.html">Visits</a>
+        <a href="./index.html" aria-current="page">Testimonials</a>
+        <a href="../../index.html#award">PM Award</a>
+        <a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
+      <p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p>
+      <p style="margin:.4rem 0 0;opacity:.65;font-size:.82rem;">© 2026 NALC Miao · Official website: miaolibrary.in</p>
+    </div>
+  </footer>'''
+          }
+
+          for filename, footer in replacements.items():
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              start = text.lower().find('<footer')
+              end = text.lower().find('</footer>', start)
+              if start == -1 or end == -1:
+                  raise RuntimeError(f'Footer not found: {filename}')
+              path.write_text(text[:start] + footer + text[end + len('</footer>'):], encoding='utf-8')
+
+      - name: Verify
+        shell: python
+        run: |
+          from pathlib import Path
+          checks = {
+              'nalc/Visit/index.html': [
+                  'href="/"', 'href="../index.html"',
+                  'href="../Visit/index.html"', 'href="../Visit/testimonials/index.html"'
+              ],
+              'nalc/Visit/testimonials/index.html': [
+                  'href="/"', 'href="../../index.html"', 'href="../index.html"',
+                  'href="./index.html"', 'href="../../index.html#award"',
+                  'href="https://x.com/NalcMiao"'
+              ]
+          }
+          for filename, expected in checks.items():
+              text = Path(filename).read_text(encoding='utf-8')
+              start = text.lower().find('<footer')
+              end = text.lower().find('</footer>', start)
+              footer = text[start:end + len('</footer>')]
+              for item in expected:
+                  assert item in footer, f'{item} missing from {filename}'
+          visit = Path('nalc/Visit/index.html').read_text(encoding='utf-8')
+          test = Path('nalc/Visit/testimonials/index.html').read_text(encoding='utf-8')
+          assert 'href="../index.html#history"' not in visit[visit.lower().find('<footer'):visit.lower().find('</footer>')]
+          assert 'href="../index.html#mission"' not in visit[visit.lower().find('<footer'):visit.lower().find('</footer>')]
+          assert 'href="../index.html#events"' not in visit[visit.lower().find('<footer'):visit.lower().find('</footer>')]
+          assert 'href="../index.html#award"' not in visit[visit.lower().find('<footer'):visit.lower().find('</footer>')]
+          test_footer = test[test.lower().find('<footer'):test.lower().find('</footer>')]
+          assert 'href="https://miaolibrary.in/nalc.html"' not in test_footer
+          assert 'href="#"' not in test_footer
+
+      - name: Commit changes and remove temporary workflow
+        run: |
+          rm -f .github/workflows/fix-visit-testimonial-footers.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html .github/workflows/fix-visit-testimonial-footers.yml
+          git diff --cached --quiet || git commit -m 'Fix NALC Visit and Testimonials footers'
+          git push
