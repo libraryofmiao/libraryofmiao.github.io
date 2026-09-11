@@ -1,0 +1,264 @@
+name: Match NALC homepage theme on testimonials
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'nalc/Visit/testimonials/index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply homepage theme
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('nalc/Visit/testimonials/index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace('<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">',
+                        '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">')
+          s = s.replace('  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">\n', '')
+          s = s.replace('<meta name="theme-color" content="#2b7a69">', '<meta name="theme-color" content="#060c18">')
+
+          css = r'''  <style>
+    :root {
+      --bg-deep: #060c18;
+      --bg-mid: #0b1528;
+      --bg-card: #0f1e38;
+      --blue-accent: #00d2ff;
+      --blue-bright: #38bdf8;
+      --blue-soft: #38bdf8;
+      --blue-neon: #00f0ff;
+      --neon-glow: 0 0 12px rgba(0,240,255,.65), 0 0 24px rgba(0,210,255,.35);
+      --neon-glow-subtle: 0 0 8px rgba(0,240,255,.45);
+      --gold: #d97706;
+      --gold-light: #fbbf24;
+      --gold-pale: #fde68a;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Inter", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(0,240,255,.08), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(56,189,248,.05), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(217,119,6,.035), transparent 32%);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--blue-neon); border-radius: 3px; }
+    .container { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+
+    /* Same glass navigation language as the NALC homepage */
+    nav.top {
+      position: fixed; inset: 0 0 auto 0; z-index: 50;
+      transition: background .5s, border-color .5s, backdrop-filter .5s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.top.scrolled {
+      background: rgba(6,12,24,.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(0,240,255,.2);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding:.85rem 1.5rem; max-width:80rem; margin:0 auto; width:100%; }
+    .brand { display:flex; align-items:center; gap:.75rem; text-decoration:none; min-width:0; }
+    .brand-mark { width:2.5rem; height:2.5rem; border-radius:9999px; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--gold-light); background:rgba(11,21,40,.8); box-shadow:0 0 12px rgba(217,119,6,.35); color:#fff; font-family:var(--font-display); font-weight:600; overflow:hidden; flex-shrink:0; }
+    .brand-name { font-family:var(--font-display); font-size:.875rem; font-weight:600; color:#fff; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .brand-sub { font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-neon); text-shadow:var(--neon-glow-subtle); white-space:nowrap; }
+    .nav-links { display:none; align-items:center; gap:.25rem; }
+    .glass-link { position:relative; display:inline-flex; align-items:center; gap:.4rem; padding:.45rem 1rem; border-radius:9999px; font-size:.875rem; font-weight:500; letter-spacing:.02em; color:#cbd5e1; text-decoration:none; transition:color .25s,background .25s,box-shadow .25s,transform .2s; border:1px solid transparent; }
+    .glass-link:hover, .glass-link.active { color:var(--blue-neon); text-shadow:var(--neon-glow-subtle); background:rgba(0,240,255,.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-color:rgba(0,240,255,.4); box-shadow:0 0 18px rgba(0,240,255,.3), inset 0 1px 0 rgba(255,255,255,.1); transform:translateY(-1px); }
+    .glow-wrap { position:relative; display:inline-flex; padding:2px; border-radius:12px; background:linear-gradient(0deg,#000,#222); overflow:hidden; isolation:isolate; }
+    .glow-wrap::before { content:''; position:absolute; inset:-50%; background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%); animation:rotateGlow 4s linear infinite; z-index:-1; }
+    @keyframes rotateGlow { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+    .glow-btn { position:relative; display:inline-flex; align-items:center; justify-content:center; background:#111; color:#fff; padding:calc(.45rem - 2px) calc(1rem - 1px); border:none; border-radius:10px; text-decoration:none; white-space:nowrap; font-size:.875rem; font-weight:500; letter-spacing:.02em; z-index:1; }
+    .menu-btn { padding:.5rem; color:var(--blue-neon); flex-shrink:0; }
+    .mobile-menu { display:none; flex-direction:column; gap:.5rem; padding:0 1.5rem 1.25rem; border-top:1px solid rgba(255,255,255,.05); background:rgba(6,12,24,.95); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); width:100%; }
+    .mobile-menu.open { display:flex; }
+
+    /* Homepage-style dark, atmospheric hero */
+    .hero { position:relative; overflow:hidden; padding:8.5rem 0 5rem; background:linear-gradient(180deg,#060c18 0%,#0b1528 58%,#060c18 100%); border-bottom:1px solid rgba(0,240,255,.08); }
+    .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(6,12,24,.98) 0%,rgba(6,12,24,.78) 45%,rgba(6,12,24,.35) 100%); }
+    .hero::after { content:""; position:absolute; width:32rem; height:32rem; right:-12rem; top:-12rem; border-radius:50%; border:1px solid rgba(0,240,255,.12); box-shadow:0 0 80px rgba(0,240,255,.06), inset 0 0 80px rgba(0,240,255,.04); }
+    .hero .container { position:relative; z-index:1; }
+    .hero-grid { max-width:70rem; }
+    .eyebrow, .section-kicker { display:inline-flex; align-items:center; gap:.5rem; font-size:.75rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-neon); text-shadow:var(--neon-glow-subtle); margin-bottom:1rem; }
+    .eyebrow i { width:.375rem; height:.375rem; border-radius:9999px; background:var(--blue-neon); box-shadow:0 0 10px var(--blue-neon); animation:pulse 2s infinite; display:inline-block; }
+    @keyframes pulse { 50%{opacity:.4} }
+    .hero h1 { font-family:var(--font-display); font-weight:300; font-size:clamp(2.7rem,7vw,5.5rem); line-height:1.05; letter-spacing:-.035em; color:#fff; margin-bottom:1rem; }
+    .hero h1 span { color:var(--blue-neon); text-shadow:var(--neon-glow); }
+    .hero p { max-width:44rem; font-size:1.12rem; color:#cbd5e1; margin:0; }
+
+    section { padding:4rem 0; width:100%; }
+    section#testimonials { background:rgba(0,0,0,.18); }
+    .section-kicker { display:block; margin-bottom:.7rem; }
+    .section-title { font-family:var(--font-display); font-weight:300; font-size:clamp(2.1rem,4vw,3.2rem); line-height:1.15; letter-spacing:-.025em; margin-bottom:.8rem; color:#fff; }
+    .section-subtitle { color:#94a3b8; max-width:44rem; font-size:1.05rem; margin-bottom:2.5rem; }
+
+    /* Testimonial cards use the homepage service-card/glass treatment */
+    .glass { background:rgba(15,30,56,.5); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.08); border-radius:1rem; box-shadow:0 12px 40px rgba(0,0,0,.28); }
+    .testimonial-card { padding:2rem; margin-bottom:1.75rem; transition:background .3s,border-color .3s,transform .3s,box-shadow .3s; }
+    .testimonial-card:hover { background:rgba(20,38,70,.7); border-color:rgba(0,240,255,.4); transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 15px rgba(0,240,255,.25); }
+    .t-date { font-size:.75rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-neon); text-shadow:var(--neon-glow-subtle); margin-bottom:.5rem; }
+    .t-name { font-family:var(--font-display); font-size:1.55rem; font-weight:500; color:#fff; margin-bottom:.2rem; letter-spacing:-.015em; }
+    .t-designation { font-size:.92rem; color:#94a3b8; font-style:italic; margin-bottom:1rem; }
+    .t-praise { font-size:1rem; line-height:1.7; color:#cbd5e1; margin-bottom:1.35rem; border-left:2px solid var(--blue-neon); padding-left:1rem; }
+    .t-image-wrap { background:rgba(6,12,24,.72); border-radius:.9rem; border:1px solid rgba(255,255,255,.08); padding:.75rem; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.04); }
+    .t-image-wrap img { width:100%; height:auto; border-radius:.55rem; }
+    .t-caption { font-size:.78rem; color:#94a3b8; text-align:center; margin-top:.55rem; font-style:italic; }
+    .year-divider { display:flex; align-items:center; gap:1rem; margin:2.75rem 0 1.5rem; }
+    .year-divider span { font-family:var(--font-display); font-size:1.35rem; font-weight:500; color:var(--blue-neon); text-shadow:var(--neon-glow-subtle); letter-spacing:.04em; }
+    .year-divider::before { content:""; width:3rem; height:2px; background:linear-gradient(90deg,var(--blue-neon),transparent); box-shadow:0 0 8px rgba(0,240,255,.6); }
+    .year-divider::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,rgba(0,240,255,.35),transparent); }
+    .archive-note { border-top:1px solid rgba(255,255,255,.08) !important; }
+    .archive-note p { color:#94a3b8 !important; }
+    .archive-note strong { color:#fff; }
+
+    footer { background:#060c18; color:rgba(255,255,255,.78); padding:3rem 0 2rem; margin-top:0; border-top:1px solid rgba(0,240,255,.12); }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; }
+    .footer-links { display:flex; flex-wrap:wrap; gap:.5rem; margin:0; }
+    .footer-links a { color:#cbd5e1; font-size:.875rem; font-weight:500; padding:.45rem .75rem; border-radius:9999px; transition:.2s; }
+    .footer-links a:hover { color:var(--blue-neon); background:rgba(0,240,255,.08); text-shadow:var(--neon-glow-subtle); }
+    .footer-meta { font-size:.8rem; color:#94a3b8; margin:1.25rem 0 0; }
+    .footer-copy { margin:.4rem 0 0; color:#64748b; font-size:.78rem; }
+
+    @media (min-width:768px) {
+      .nav-links { display:flex; }
+      .menu-btn, .mobile-menu { display:none !important; }
+      .testimonial-card { padding:2.1rem 2.2rem 1.7rem; }
+    }
+    @media (max-width:767px) {
+      .nav-inner { padding:.7rem 1rem; }
+      .brand-sub { display:none; }
+      .hero { padding:7rem 0 3.5rem; }
+      .hero h1 { font-size:clamp(2.4rem,12vw,3.5rem); }
+      .hero p { font-size:1rem; }
+      section { padding:3.5rem 0; }
+      .testimonial-card { padding:1.35rem; }
+      .t-name { font-size:1.35rem; }
+      .footer-inner { align-items:flex-start; }
+    }
+  </style>'''
+
+          s = re.sub(r'  <style>.*?</style>', css, s, count=1, flags=re.S)
+
+          header = r'''  <header>
+    <nav class="top" id="nav">
+      <div class="nav-inner">
+        <a class="brand" href="https://miaolibrary.in/" aria-label="Sub Divisional Library Miao home">
+          <span class="brand-mark">N</span>
+          <span>
+            <span class="brand-name">Sub Divisional Library Miao</span>
+            <span class="brand-sub">New Age Learning Centre</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a class="glass-link" href="https://miaolibrary.in/">Home</a>
+          <a class="glass-link" href="https://miaolibrary.in/nalc.html">About NALC</a>
+          <a class="glass-link active" href="#testimonials">Testimonials</a>
+          <a class="glass-link" href="https://miaolibrary.in/nalc.html#award">PM Award</a>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" type="button">
+          <svg id="iconOpen" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <svg id="iconClose" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a class="glass-link" href="https://miaolibrary.in/">Home</a>
+        <a class="glass-link" href="https://miaolibrary.in/nalc.html">About NALC</a>
+        <a class="glass-link active" href="#testimonials">Testimonials</a>
+        <a class="glass-link" href="https://miaolibrary.in/nalc.html#award">PM Award</a>
+        <div class="glow-wrap"><a class="glow-btn" href="https://miaolibrary.in/nalc.html">NALC</a></div>
+      </div>
+    </nav>
+  </header>'''
+          s = re.sub(r'  <header class="menu">.*?</header>', header, s, count=1, flags=re.S)
+
+          footer = r'''  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="https://miaolibrary.in/">Home</a>
+          <a href="https://miaolibrary.in/nalc.html">About NALC</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="https://miaolibrary.in/nalc.html#award">PM Award</a>
+          <a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a>
+        </div>
+        <div class="glow-wrap"><a class="glow-btn" href="https://miaolibrary.in/nalc.html">NALC</a></div>
+      </div>
+      <p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p>
+      <p class="footer-copy">© NALC Miao</p>
+    </div>
+  </footer>'''
+          s = re.sub(r'  <footer>.*?</footer>', footer, s, count=1, flags=re.S)
+
+          script = r'''  <script>
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const iconOpen = document.getElementById("iconOpen");
+    const iconClose = document.getElementById("iconClose");
+    window.addEventListener("scroll", function () {
+      nav.classList.toggle("scrolled", window.scrollY > 60);
+    }, { passive: true });
+    menuBtn.addEventListener("click", function () {
+      const open = mobileMenu.classList.toggle("open");
+      iconOpen.style.display = open ? "none" : "block";
+      iconClose.style.display = open ? "block" : "none";
+    });
+    mobileMenu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        mobileMenu.classList.remove("open");
+        iconOpen.style.display = "block";
+        iconClose.style.display = "none";
+      });
+    });
+  </script>'''
+          s = re.sub(r'  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>', script, s)
+
+          # Keep the testimonial wording and WebP image references untouched.
+          p.write_text(s, encoding='utf-8')
+          PY
+
+          grep -q -- '--bg-deep: #060c18' nalc/Visit/testimonials/index.html
+          test "$(grep -c '\.webp' nalc/Visit/testimonials/index.html)" -ge 13
+          grep -q 'class="nav-links"' nalc/Visit/testimonials/index.html
+          grep -q 'background:#060c18' nalc/Visit/testimonials/index.html
+
+      - name: Commit and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/index.html
+          git commit -m 'Match testimonials page to NALC homepage theme'
+          git push
+          git rm .github/workflows/theme-nalc-testimonials.yml
+          git commit -m 'Remove temporary testimonials theme workflow'
+          git push
