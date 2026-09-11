@@ -69,6 +69,13 @@
     @media(max-width:991px){.navbar-shell{width:95%;margin-inline:auto;border-radius:1.4rem}.hero{padding-top:5rem}.hero-card img{height:360px}.story-grid,.award-wrap{grid-template-columns:1fr}.pill-grid{grid-template-columns:repeat(2,1fr)}.event-card{grid-template-columns:1fr}.event-media{min-height:270px}.gallery-grid{grid-template-columns:repeat(2,1fr)}.social-panel{grid-template-columns:1fr}}
     @media(max-width:575px){section{padding:4.5rem 0}.hero h1{font-size:3rem}.hero-card{padding:.6rem}.hero-card img{height:260px}.pill-grid,.gallery-grid{grid-template-columns:1fr}.story-card,.event-copy{padding:1.5rem}.event-copy h3{font-size:2rem}.a4-stage{width:92%}.btn{width:100%}.gov-reference-links{flex-direction:column}.dots{margin-left:1rem;margin-top:-2.6rem}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+    /* Visits & Testimonials glow buttons — NALC page only */
+    .nav-glow-wrap,.footer-glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:999px;background:linear-gradient(0deg,#000,#222);overflow:hidden;isolation:isolate}
+    .nav-glow-wrap::before,.footer-glow-wrap::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:nalcVisitsTestimonialsGlow 4s linear infinite;z-index:-1}
+    @keyframes nalcVisitsTestimonialsGlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .nav-glow-wrap .nav-link,.footer-glow-wrap .footer-link{position:relative;display:inline-flex;align-items:center;justify-content:center;background:#fff!important;color:#232323!important;border-radius:999px;padding:6px 13px!important;font-weight:600;white-space:nowrap}
+    .nav-glow-wrap .nav-link:hover,.footer-glow-wrap .footer-link:hover{background:#fff!important;color:#232323!important}
   </style>
 </head>
 <body>
@@ -82,7 +89,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nalcNav" aria-label="Toggle navigation"><span>☰</span></button>
         <div class="collapse navbar-collapse" id="nalcNav">
           <div class="navbar-nav ms-auto align-items-lg-center">
-            <a class="nav-link" href="/">Home</a><a class="nav-link" href="#history">History</a><a class="nav-link" href="#mission">Mission</a><a class="nav-link" href="#events">Events</a><a class="nav-link" href="Visit/index.html">Visits</a><a class="nav-link" href="Visit/testimonials/index.html">Testimonials</a><a class="nav-link" href="#award">PM Award</a>
+            <a class="nav-link" href="/">Home</a><a class="nav-link" href="#history">History</a><a class="nav-link" href="#mission">Mission</a><a class="nav-link" href="#events">Events</a><div class="nav-glow-wrap"><a class="nav-link" href="Visit/index.html">Visits</a></div><div class="nav-glow-wrap"><a class="nav-link" href="Visit/testimonials/index.html">Testimonials</a></div><a class="nav-link" href="#award">PM Award</a>
           </div>
         </div>
       </div>
@@ -207,7 +214,7 @@
   </main>
 
   <footer>
-    <div class="container"><div class="footer-links"><a href="/">Home</a><a href="#history">History</a><a href="#mission">Mission</a><a href="#events">Events</a><a href="#award">PM Award</a><a href="https://miaolibrary.in/">miaolibrary.in</a><a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X</a></div><p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p><p style="margin:0;opacity:.72">© NALC Miao</p></div>
+    <div class="container"><div class="footer-links"><a href="/">Home</a><a href="#history">History</a><a href="#mission">Mission</a><a href="#events">Events</a><div class="footer-glow-wrap"><a class="footer-link" href="Visit/index.html">Visits</a></div><div class="footer-glow-wrap"><a class="footer-link" href="Visit/testimonials/index.html">Testimonials</a></div><a href="#award">PM Award</a><a href="https://miaolibrary.in/">miaolibrary.in</a><a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X</a></div><p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p><p style="margin:0;opacity:.72">© NALC Miao</p></div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
