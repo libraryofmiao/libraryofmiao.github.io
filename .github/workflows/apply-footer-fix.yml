@@ -1,0 +1,63 @@
+name: Apply NALC Footer Corrections
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-footer-fix.yml'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Correct footer sections
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          files = {
+              'nalc/Visit/index.html': '''<footer><div class="wrap"><div class="footer-links"><a href="/">Home</a><a href="../index.html">NALC Home</a><a href="../Visit/index.html" aria-current="page">Visits</a><a href="../Visit/testimonials/index.html">Testimonials</a></div><div class="footer-meta">© 2026 New Age Learning Centre (NALC), Miao · Sub Divisional Library, Miao · Arunachal Pradesh, India</div></div></footer>''',
+              'nalc/Visit/testimonials/index.html': '''<footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="../../index.html">NALC Home</a>
+        <a href="../index.html">Visits</a>
+        <a href="./index.html" aria-current="page">Testimonials</a>
+        <a href="../../index.html#award">PM Award</a>
+        <a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
+      <p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p>
+      <p style="margin:.4rem 0 0;opacity:.65;font-size:.82rem;">© 2026 NALC Miao · Official website: miaolibrary.in</p>
+    </div>
+  </footer>'''
+          }
+
+          for name, replacement in files.items():
+              p = Path(name)
+              s = p.read_text(encoding='utf-8')
+              a = s.lower().find('<footer')
+              b = s.lower().find('</footer>')
+              if a < 0 or b < 0:
+                  raise SystemExit(f'Footer not found in {name}')
+              p.write_text(s[:a] + replacement + s[b+len('</footer>'):], encoding='utf-8')
+          print('Footer replacements completed.')
+          PY
+      - name: Verify and commit
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          checks = {
+            'nalc/Visit/index.html': ['href="/"','href="../index.html"','href="../Visit/index.html"','href="../Visit/testimonials/index.html"'],
+            'nalc/Visit/testimonials/index.html': ['href="/"','href="../../index.html"','href="../index.html"','href="./index.html"','href="../../index.html#award"','href="https://x.com/NalcMiao"']
+          }
+          for name, links in checks.items():
+              s=Path(name).read_text(encoding='utf-8'); a=s.lower().find('<footer'); b=s.lower().find('</footer>')
+              footer=s[a:b+9]
+              for x in links: assert x in footer, f'{x} missing from {name}'
+          print('Verification passed.')
+          PY
+          rm -f .github/workflows/inspect-nalc-footers.yml .github/workflows/fix-nalc-footers.yml .github/workflows/apply-footer-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html .github/workflows/inspect-nalc-footers.yml .github/workflows/fix-nalc-footers.yml .github/workflows/apply-footer-fix.yml
+          git commit -m 'Correct NALC Visit and Testimonials footers'
+          git push
