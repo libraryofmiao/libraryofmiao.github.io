@@ -1,0 +1,32 @@
+name: Make NALC button transparent
+on:
+  push:
+    paths:
+      - '.github/workflows/transparent-nalc.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Change only NALC button background
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='''    .glow-btn {\n      position: relative;\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      background: #111;'''
+          new=old.replace('background: #111;', 'background: transparent;')
+          if s.count(old) != 1:
+              raise SystemExit(f'Expected exactly one target CSS block, found {s.count(old)}')
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit the CSS-only change
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --exit-code && exit 0 || true
+          git commit -m 'Make NALC glow buttons transparent'
+          git push
