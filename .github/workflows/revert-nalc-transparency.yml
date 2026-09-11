@@ -1,0 +1,29 @@
+name: Revert NALC button transparency
+on:
+  push:
+    paths:
+      - '.github/workflows/revert-nalc-transparency.yml'
+permissions:
+  contents: write
+jobs:
+  revert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore only NALC button background
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='''    .glow-btn {\n      position: relative;\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      background: transparent;'''
+          new=old.replace('background: transparent;', 'background: #111;')
+          if s.count(old) != 1:
+              raise SystemExit(f'Expected exactly one target CSS block, found {s.count(old)}')
+          p.write_text(s.replace(old,new,1))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Revert NALC button transparency'
+          git push
