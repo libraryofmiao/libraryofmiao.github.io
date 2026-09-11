@@ -1,0 +1,51 @@
+name: Match testimonials theme to NALC homepage
+
+on:
+  push:
+    paths:
+      - '.github/workflows/match-testimonials-to-nalc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  match-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply NALC homepage theme
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          target = Path('nalc/index.html').read_text(encoding='utf-8')
+          page_path = Path('nalc/Visit/testimonials/index.html')
+          page = page_path.read_text(encoding='utf-8')
+
+          m = re.search(r'<style>.*?</style>', target, flags=re.S)
+          if not m:
+              raise SystemExit('Could not extract the NALC homepage style block.')
+
+          nalc_css = m.group(0)
+          testimonial_css = r'''\n  <style>\n    /* Testimonials-specific layout, using the NALC homepage visual system above. */\n    .testimonial-card {\n      padding: 2rem;\n      margin-bottom: 1.5rem;\n      border-radius: 2rem;\n      transition: transform .25s, box-shadow .25s;\n    }\n    .testimonial-card:hover {\n      transform: translateY(-4px);\n      box-shadow: 0 28px 70px rgba(27,31,10,.13);\n    }\n    .t-date {\n      font-size: .78rem;\n      font-weight: 800;\n      letter-spacing: .08em;\n      text-transform: uppercase;\n      color: var(--primary);\n      margin-bottom: .5rem;\n    }\n    .t-name {\n      font-size: 1.35rem;\n      font-weight: 800;\n      color: var(--ink);\n      margin-bottom: .2rem;\n      letter-spacing: -.02em;\n    }\n    .t-designation {\n      font-size: .95rem;\n      color: var(--muted);\n      font-style: italic;\n      margin-bottom: 1.1rem;\n    }\n    .t-praise {\n      font-size: 1.08rem;\n      line-height: 1.6;\n      color: var(--ink);\n      margin-bottom: 1.35rem;\n      border-left: 4px solid var(--lime);\n      padding-left: 1.15rem;\n    }\n    .t-image-wrap {\n      background: rgba(255,255,255,.55);\n      border-radius: 1.35rem;\n      border: 1px solid rgba(27,31,10,.07);\n      padding: .8rem;\n      overflow: hidden;\n      box-shadow: inset 0 1px 0 rgba(255,255,255,.75);\n    }\n    .t-image-wrap img {\n      width: 100%;\n      height: auto;\n      border-radius: .95rem;\n    }\n    .t-caption {\n      font-size: .78rem;\n      color: var(--muted);\n      text-align: center;\n      margin-top: .55rem;\n      font-style: italic;\n    }\n    .year-divider {\n      display: flex;\n      align-items: center;\n      gap: 1rem;\n      margin: 3rem 0 1.5rem;\n    }\n    .year-divider span {\n      font-size: 1.05rem;\n      font-weight: 800;\n      color: var(--primary);\n      letter-spacing: .08em;\n    }\n    .year-divider::after {\n      content: '';\n      flex: 1;\n      height: 1px;\n      background: linear-gradient(90deg, var(--primary), transparent);\n    }\n    @media(max-width:767px){\n      .testimonial-card { padding: 1.35rem; border-radius: 1.5rem; }\n      .t-praise { font-size: 1rem; }\n    }\n  </style>'''
+
+          page = re.sub(r'<style>.*?</style>', nalc_css + testimonial_css, page, count=1, flags=re.S)
+          if '<style>' not in page:
+              raise SystemExit('Testimonials style replacement failed.')
+          page_path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit and clean up temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/index.html
+          git rm .github/workflows/match-testimonials-to-nalc.yml
+          git commit -m 'Match testimonials page to NALC homepage design'
+          git push
