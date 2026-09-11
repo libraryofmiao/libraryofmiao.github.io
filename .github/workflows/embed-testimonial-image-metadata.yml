@@ -1,0 +1,132 @@
+name: Embed testimonial card data into WebP metadata
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'nalc/Visit/testimonials/index.html'
+      - 'nalc/Visit/testimonials/images/*.webp'
+      - '.github/workflows/embed-testimonial-image-metadata.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install ExifTool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libimage-exiftool-perl
+
+      - name: Embed card data into corresponding WebP metadata
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import subprocess
+          import re
+
+          html_path = Path('nalc/Visit/testimonials/index.html')
+          image_dir = Path('nalc/Visit/testimonials/images')
+          html = html_path.read_text(encoding='utf-8')
+
+          class CardParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.cards = []
+                  self.current = None
+                  self.stack = []
+                  self.current_text = None
+                  self.buf = []
+                  self.img_src = None
+
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  classes = set((attrs.get('class') or '').split())
+                  if tag == 'article' and 'testimonial-card' in classes:
+                      self.current = {'image': None, 'date': '', 'name': '', 'designation': '', 'praise': '', 'caption': ''}
+                  if self.current is not None:
+                      if tag == 'img' and attrs.get('src'):
+                          self.current['image'] = attrs['src']
+                      for key, cls in [('date','t-date'),('name','t-name'),('designation','t-designation'),('praise','t-praise'),('caption','t-caption')]:
+                          if cls in classes:
+                              self.current_text = key
+                              self.buf = []
+                  self.stack.append(tag)
+
+              def handle_data(self, data):
+                  if self.current is not None and self.current_text:
+                      self.buf.append(data)
+
+              def handle_endtag(self, tag):
+                  if self.current is not None and self.current_text:
+                      # Capture only when the relevant element closes.
+                      if (self.current_text == 'date' and tag == 'div') or (self.current_text == 'name' and tag == 'div') or (self.current_text == 'designation' and tag == 'div') or (self.current_text == 'praise' and tag == 'div') or (self.current_text == 'caption' and tag == 'div'):
+                          self.current[self.current_text] = re.sub(r'\\s+', ' ', ''.join(self.buf)).strip()
+                          self.current_text = None
+                          self.buf = []
+                  if tag == 'article' and self.current is not None:
+                      self.cards.append(self.current)
+                      self.current = None
+                  if self.stack:
+                      self.stack.pop()
+
+          parser = CardParser()
+          parser.feed(html)
+          cards = [c for c in parser.cards if c['image']]
+          if not cards:
+              raise SystemExit('No testimonial cards with images were found.')
+
+          author = 'Sub Divisional Library Miao — https://miaolibrary.in/'
+          changed = []
+          for c in cards:
+              rel = c['image'].lstrip('./')
+              img = image_dir / Path(rel).name
+              if not img.exists():
+                  raise SystemExit(f'Missing image for card: {img}')
+
+              parts = [c['date'], c['name'], c['designation'], c['praise']]
+              if c['caption']:
+                  parts.append(c['caption'])
+              description = '\\n'.join(p for p in parts if p)
+
+              cmd = [
+                  'exiftool', '-overwrite_original',
+                  f'-Artist={author}',
+                  f'-XMP-dc:Creator={author}',
+                  f'-Title={c["name"]}',
+                  f'-XMP-dc:Title={c["name"]}',
+                  f'-Description={description}',
+                  f'-XMP-dc:Description={description}',
+                  f'-Comment={description}',
+                  str(img)
+              ]
+              subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+              changed.append(str(img))
+
+          print(f'Embedded metadata in {len(changed)} WebP images:')
+          for p in changed:
+              print(f' - {p}')
+          PY
+
+      - name: Verify embedded metadata
+        run: |
+          exiftool -s -s -s -Artist -XMP-dc:Creator -Title -Description -XMP-dc:Description nalc/Visit/testimonials/images/*.webp
+
+      - name: Commit metadata changes and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/images/*.webp
+          git rm .github/workflows/embed-testimonial-image-metadata.yml
+          if git diff --cached --quiet; then
+            echo 'No metadata changes to commit.'
+          else
+            git commit -m 'Embed testimonial card data in WebP metadata'
+            git push
+          fi
