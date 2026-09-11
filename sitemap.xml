@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://miaolibrary.in/</loc></url>
-  <url><loc>https://miaolibrary.in/opac.html</loc></url>
+  <url>
+    <loc>https://miaolibrary.in/</loc>
+  </url>
+  <url>
+    <loc>https://miaolibrary.in/opac.html</loc>
+  </url>
+  <url>
+    <loc>https://miaolibrary.in/nalc/index.html</loc>
+  </url>
+  <url>
+    <loc>https://miaolibrary.in/nalc/Visit/index.html</loc>
+  </url>
+  <url>
+    <loc>https://miaolibrary.in/nalc/Visit/testimonials/index.html</loc>
+  </url>
 </urlset>
