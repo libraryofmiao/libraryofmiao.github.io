@@ -8,56 +8,55 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Correct footer sections
+      - name: Standardize footer sections to NALC homepage
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          files = {
-              'nalc/Visit/index.html': '''<footer><div class="wrap"><div class="footer-links"><a href="/">Home</a><a href="../index.html">NALC Home</a><a href="../Visit/index.html" aria-current="page">Visits</a><a href="../Visit/testimonials/index.html">Testimonials</a></div><div class="footer-meta">© 2026 New Age Learning Centre (NALC), Miao · Sub Divisional Library, Miao · Arunachal Pradesh, India</div></div></footer>''',
-              'nalc/Visit/testimonials/index.html': '''<footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="../../index.html">NALC Home</a>
-        <a href="../index.html">Visits</a>
-        <a href="./index.html" aria-current="page">Testimonials</a>
-        <a href="../../index.html#award">PM Award</a>
-        <a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a>
-      </div>
-      <p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p>
-      <p style="margin:.4rem 0 0;opacity:.65;font-size:.82rem;">© 2026 NALC Miao · Official website: miaolibrary.in</p>
-    </div>
+          footer = '''  <footer>
+    <div class="container"><div class="footer-links"><a href="/">Home</a><a href="/nalc/index.html#history">History</a><a href="/nalc/index.html#mission">Mission</a><a href="/nalc/index.html#events">Events</a><a href="/nalc/index.html#award">PM Award</a><a href="https://miaolibrary.in/">miaolibrary.in</a><a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X</a></div><p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p><p style="margin:0;opacity:.72">© NALC Miao</p></div>
   </footer>'''
-          }
 
-          for name, replacement in files.items():
+          for name in ['nalc/Visit/index.html', 'nalc/Visit/testimonials/index.html']:
               p = Path(name)
               s = p.read_text(encoding='utf-8')
               a = s.lower().find('<footer')
-              b = s.lower().find('</footer>')
+              b = s.lower().find('</footer>', a)
               if a < 0 or b < 0:
                   raise SystemExit(f'Footer not found in {name}')
-              p.write_text(s[:a] + replacement + s[b+len('</footer>'):], encoding='utf-8')
-          print('Footer replacements completed.')
+              p.write_text(s[:a] + footer + s[b + len('</footer>'):], encoding='utf-8')
           PY
-      - name: Verify and commit
+      - name: Verify
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          checks = {
-            'nalc/Visit/index.html': ['href="/"','href="../index.html"','href="../Visit/index.html"','href="../Visit/testimonials/index.html"'],
-            'nalc/Visit/testimonials/index.html': ['href="/"','href="../../index.html"','href="../index.html"','href="./index.html"','href="../../index.html#award"','href="https://x.com/NalcMiao"']
-          }
-          for name, links in checks.items():
-              s=Path(name).read_text(encoding='utf-8'); a=s.lower().find('<footer'); b=s.lower().find('</footer>')
-              footer=s[a:b+9]
-              for x in links: assert x in footer, f'{x} missing from {name}'
-          print('Verification passed.')
+          required = [
+            '<div class="container"><div class="footer-links">',
+            'href="/nalc/index.html#history"',
+            'href="/nalc/index.html#mission"',
+            'href="/nalc/index.html#events"',
+            'href="/nalc/index.html#award"',
+            'href="https://miaolibrary.in/"',
+            'href="https://x.com/NalcMiao"',
+            '© NALC Miao'
+          ]
+          for name in ['nalc/Visit/index.html', 'nalc/Visit/testimonials/index.html']:
+              s = Path(name).read_text(encoding='utf-8')
+              a = s.lower().find('<footer')
+              b = s.lower().find('</footer>', a)
+              footer = s[a:b + len('</footer>')]
+              for item in required:
+                  assert item in footer, f'{item} missing from {name}'
+              assert 'href="#"' not in footer
+              assert 'nalc.html' not in footer
+          print('NALC footer standardization verified.')
           PY
-          rm -f .github/workflows/inspect-nalc-footers.yml .github/workflows/fix-nalc-footers.yml .github/workflows/apply-footer-fix.yml
+      - name: Commit changes and remove temporary workflow
+        run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html .github/workflows/inspect-nalc-footers.yml .github/workflows/fix-nalc-footers.yml .github/workflows/apply-footer-fix.yml
-          git commit -m 'Correct NALC Visit and Testimonials footers'
+          git add nalc/Visit/index.html nalc/Visit/testimonials/index.html
+          git commit -m 'Standardize NALC Visit and Testimonials footers'
+          git rm .github/workflows/apply-footer-fix.yml
+          git commit -m 'Remove temporary footer correction workflow'
           git push
