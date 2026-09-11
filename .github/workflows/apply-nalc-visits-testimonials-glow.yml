@@ -1,0 +1,40 @@
+name: Apply NALC Visits Testimonials glow
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-nalc-visits-testimonials-glow.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply only requested NALC page changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('nalc/index.html')
+          s=p.read_text()
+          css='''\n    /* Visits & Testimonials glow buttons — NALC page only */\n    .nav-glow-wrap,.footer-glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:999px;background:linear-gradient(0deg,#000,#222);overflow:hidden;isolation:isolate}\n    .nav-glow-wrap::before,.footer-glow-wrap::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:nalcVisitsTestimonialsGlow 4s linear infinite;z-index:-1}\n    @keyframes nalcVisitsTestimonialsGlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}\n    .nav-glow-wrap .nav-link,.footer-glow-wrap .footer-link{position:relative;display:inline-flex;align-items:center;justify-content:center;background:#fff!important;color:#232323!important;border-radius:999px;padding:6px 13px!important;font-weight:600;white-space:nowrap}\n    .nav-glow-wrap .nav-link:hover,.footer-glow-wrap .footer-link:hover{background:#fff!important;color:#232323!important}\n'''
+          marker='  </style>'
+          if s.count(marker)!=1: raise SystemExit('Style marker count mismatch')
+          s=s.replace(marker,css+'  </style>',1)
+          nav1='<a class="nav-link" href="Visit/index.html">Visits</a>'
+          nav2='<a class="nav-link" href="Visit/testimonials/index.html">Testimonials</a>'
+          wnav1='<div class="nav-glow-wrap">'+nav1+'</div>'
+          wnav2='<div class="nav-glow-wrap">'+nav2+'</div>'
+          if s.count(nav1)!=1 or s.count(nav2)!=1: raise SystemExit('Navbar target count mismatch')
+          s=s.replace(nav1,wnav1,1).replace(nav2,wnav2,1)
+          footer_old='<a href="#events">Events</a><a href="#award">PM Award</a>'
+          footer_new='<a href="#events">Events</a><div class="footer-glow-wrap"><a class="footer-link" href="Visit/index.html">Visits</a></div><div class="footer-glow-wrap"><a class="footer-link" href="Visit/testimonials/index.html">Testimonials</a></div><a href="#award">PM Award</a>'
+          if s.count(footer_old)!=1: raise SystemExit('Footer target count mismatch')
+          s=s.replace(footer_old,footer_new,1)
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/index.html
+          git diff --cached --exit-code && exit 0 || true
+          git commit -m 'Add NALC glow buttons to Visits and Testimonials'
+          git push
