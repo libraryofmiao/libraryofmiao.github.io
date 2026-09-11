@@ -1,494 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <meta name="description" content="Testimonials from distinguished visitors and dignitaries who visited the New Age Learning Centre (NALC), Miao, Changlang District, Arunachal Pradesh.">
-  <meta name="author" content="New Age Learning Centre, Miao">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://miaolibrary.in/testimonials.html">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Visitors’ Remarks & Testimonials | NALC Miao">
-  <meta property="og:description" content="Remarks recorded by senior officers, academicians and distinguished guests in the Visitors’ Book of New Age Learning Centre, Miao.">
-  <meta property="og:url" content="https://miaolibrary.in/testimonials.html">
-  <meta name="theme-color" content="#2b7a69">
-  <title>Visitors’ Remarks & Testimonials | New Age Learning Centre (NALC), Miao</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    :root {
-      --primary: #2b7a69;
-      --primary-dark: #1f5c50;
-      --primary-soft: rgba(43,122,105,.12);
-      --bg: #f4f7f5;
-      --card: rgba(255,255,255,.72);
-      --text: #1a2e29;
-      --muted: #5c736c;
-      --border: rgba(43,122,105,.15);
-      --shadow: 0 18px 50px rgba(27,31,10,.08);
-      --radius: 1.25rem;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Inter Tight", system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      margin: 0;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    /* Navbar – matching nalc.html */
-    .menu { position: sticky; top: 0; z-index: 100; padding: .85rem 0; }
-    .navbar-shell {
-      background: rgba(255,255,255,.78);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 999px;
-      box-shadow: 0 10px 40px rgba(27,31,10,.06);
-      padding: .35rem 1rem;
-    }
-    .navbar-brand { font-weight: 700; color: var(--primary); letter-spacing: -.01em; }
-    .navbar-caption { font-size: 1.05rem; margin-left: .6rem; }
-    .nav-link {
-      color: var(--muted) !important;
-      font-weight: 500;
-      font-size: .95rem;
-      padding: .55rem 1rem !important;
-      border-radius: 999px;
-      transition: .2s;
-    }
-    .nav-link:hover, .nav-link.active { color: var(--primary) !important; background: var(--primary-soft); }
-
-    /* Hero */
-    .hero {
-      padding: 5.5rem 0 3.5rem;
-      background: linear-gradient(165deg, #e8f3ef 0%, #f4f7f5 55%, #fff 100%);
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 1.1rem;
-    }
-    .eyebrow i {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--primary);
-      display: inline-block;
-    }
-    .hero h1 {
-      font-size: clamp(2.4rem, 5.5vw, 3.6rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -.03em;
-      margin-bottom: 1.1rem;
-      color: var(--text);
-    }
-    .hero h1 span { color: var(--primary); }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 38rem;
-      margin-bottom: 0;
-    }
-
-    /* Section common */
-    section { padding: 4.5rem 0; }
-    .section-kicker {
-      display: block;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: .75rem;
-    }
-    .section-title {
-      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -.025em;
-      margin-bottom: .85rem;
-      color: var(--text);
-    }
-    .section-subtitle {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 42rem;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Glass card */
-    .glass {
-      background: var(--card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.85);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    /* Testimonial cards */
-    .testimonial-card {
-      padding: 1.75rem 1.75rem 1.4rem;
-      margin-bottom: 1.75rem;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 22px 55px rgba(27,31,10,.11);
-    }
-    .t-date {
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: .45rem;
-    }
-    .t-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: .2rem;
-      letter-spacing: -.015em;
-    }
-    .t-designation {
-      font-size: .92rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-bottom: 1rem;
-    }
-    .t-praise {
-      font-size: 1rem;
-      line-height: 1.65;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      border-left: 3px solid var(--primary);
-      padding-left: 1rem;
-    }
-    .t-image-wrap {
-      background: #fff;
-      border-radius: .9rem;
-      border: 1px solid var(--border);
-      padding: .75rem;
-      overflow: hidden;
-    }
-    .t-image-wrap img {
-      width: 100%;
-      height: auto;
-      border-radius: .55rem;
-    }
-    .t-caption {
-      font-size: .78rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: .55rem;
-      font-style: italic;
-    }
-
-    /* Year divider */
-    .year-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 2.75rem 0 1.5rem;
-    }
-    .year-divider span {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: .04em;
-    }
-    .year-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--primary), transparent);
-    }
-
-    /* Footer */
-    footer {
-      background: #1a2e29;
-      color: rgba(255,255,255,.78);
-      padding: 2.5rem 0 1.75rem;
-      margin-top: 2rem;
-    }
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem 1.5rem;
-      margin-bottom: 1.25rem;
-    }
-    .footer-links a {
-      color: rgba(255,255,255,.7);
-      font-size: .92rem;
-      font-weight: 500;
-    }
-    .footer-links a:hover { color: #fff; }
-    .footer-meta { font-size: .85rem; opacity: .7; margin: 0; }
-
-    /* Responsive */
-    @media (max-width: 767px) {
-      .hero { padding: 4.5rem 0 2.5rem; }
-      .hero h1 { font-size: 2.15rem; }
-      .testimonial-card { padding: 1.35rem; }
-      section { padding: 3.5rem 0; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="description" content="Testimonials from distinguished visitors and dignitaries who visited the New Age Learning Centre (NALC), Miao, Changlang District, Arunachal Pradesh.">
+<meta name="author" content="New Age Learning Centre, Miao">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://miaolibrary.in/testimonials.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Visitors’ Remarks & Testimonials | NALC Miao">
+<meta property="og:description" content="Remarks recorded by senior officers, academicians and distinguished guests in the Visitors’ Book of New Age Learning Centre, Miao.">
+<meta property="og:url" content="https://miaolibrary.in/testimonials.html">
+<meta name="theme-color" content="#060c18">
+<title>Visitors’ Remarks & Testimonials | New Age Learning Centre (NALC), Miao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-deep:#060c18;--bg-mid:#0b1528;--bg-card:#0f1e38;--blue-neon:#00f0ff;--gold-light:#fbbf24;--text-main:#f1f5f9;--text-muted:#94a3b8;--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",system-ui,sans-serif;--neon-glow:0 0 12px rgba(0,240,255,.65),0 0 24px rgba(0,210,255,.35);--neon-glow-subtle:0 0 8px rgba(0,240,255,.45)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-main);line-height:1.5;overflow-x:hidden}body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 15% 10%,rgba(0,240,255,.08),transparent 28%),radial-gradient(circle at 85% 30%,rgba(56,189,248,.05),transparent 30%)}img{max-width:100%;display:block}a{color:inherit}.container{max-width:80rem;margin:0 auto;padding:0 1.5rem;width:100%}
+nav.top{position:fixed;inset:0 0 auto 0;z-index:50;transition:.5s;border-bottom:1px solid transparent}nav.top.scrolled{background:rgba(6,12,24,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:rgba(0,240,255,.2)}.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;max-width:80rem;margin:0 auto;width:100%}.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;min-width:0}.brand-mark{width:2.5rem;height:2.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--gold-light);background:rgba(11,21,40,.8);box-shadow:0 0 12px rgba(217,119,6,.35);color:#fff;font-family:var(--font-display);font-weight:600}.brand-name{font-family:var(--font-display);font-size:.875rem;font-weight:600;color:#fff;letter-spacing:.02em;white-space:nowrap}.brand-sub{display:block;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-neon);text-shadow:var(--neon-glow-subtle)}.nav-links{display:none;align-items:center;gap:.25rem}.glass-link{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:9999px;font-size:.875rem;font-weight:500;letter-spacing:.02em;color:#cbd5e1;text-decoration:none;border:1px solid transparent;transition:.25s}.glass-link:hover,.glass-link.active{color:var(--blue-neon);text-shadow:var(--neon-glow-subtle);background:rgba(0,240,255,.1);border-color:rgba(0,240,255,.4);box-shadow:0 0 18px rgba(0,240,255,.3),inset 0 1px 0 rgba(255,255,255,.1)}.menu-btn{padding:.5rem;color:var(--blue-neon);background:none;border:0;font-size:1.4rem}.mobile-menu{display:none;flex-direction:column;gap:.5rem;padding:0 1.5rem 1.25rem;background:rgba(6,12,24,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);width:100%}.mobile-menu.open{display:flex}.glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:12px;background:linear-gradient(0deg,#000,#222);overflow:hidden;isolation:isolate}.glow-wrap::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:rotateGlow 4s linear infinite;z-index:-1}@keyframes rotateGlow{to{transform:rotate(360deg)}}.glow-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;background:#111;color:#fff;padding:.3rem .9rem;border-radius:10px;text-decoration:none;font-size:.875rem;font-weight:500;z-index:1}
+.hero{position:relative;overflow:hidden;padding:8.5rem 0 5rem;background:linear-gradient(180deg,#060c18 0%,#0b1528 58%,#060c18 100%);border-bottom:1px solid rgba(0,240,255,.08)}.hero::after{content:"";position:absolute;width:32rem;height:32rem;right:-12rem;top:-12rem;border-radius:50%;border:1px solid rgba(0,240,255,.12);box-shadow:0 0 80px rgba(0,240,255,.06)}.hero .container{position:relative;z-index:1}.eyebrow,.section-kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-neon);text-shadow:var(--neon-glow-subtle);margin-bottom:1rem}.eyebrow i{width:.375rem;height:.375rem;border-radius:9999px;background:var(--blue-neon);box-shadow:0 0 10px var(--blue-neon)}.hero h1{font-family:var(--font-display);font-weight:300;font-size:clamp(2.7rem,7vw,5.5rem);line-height:1.05;letter-spacing:-.035em;color:#fff;margin-bottom:1rem}.hero h1 span{color:var(--blue-neon);text-shadow:var(--neon-glow)}.hero p{max-width:44rem;font-size:1.12rem;color:#cbd5e1;margin:0}
+section{padding:4rem 0;background:rgba(0,0,0,.18)}.section-kicker{display:block;margin-bottom:.7rem}.section-title{font-family:var(--font-display);font-weight:300;font-size:clamp(2.1rem,4vw,3.2rem);line-height:1.15;letter-spacing:-.025em;margin-bottom:.8rem;color:#fff}.section-subtitle{color:#94a3b8;max-width:44rem;font-size:1.05rem;margin-bottom:2.5rem}.glass{background:rgba(15,30,56,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:1rem;box-shadow:0 12px 40px rgba(0,0,0,.28)}.testimonial-card{padding:2rem;margin-bottom:1.75rem;transition:.3s}.testimonial-card:hover{background:rgba(20,38,70,.7);border-color:rgba(0,240,255,.4);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 15px rgba(0,240,255,.25)}.t-date{font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-neon);text-shadow:var(--neon-glow-subtle);margin-bottom:.5rem}.t-name{font-family:var(--font-display);font-size:1.55rem;font-weight:500;color:#fff;margin-bottom:.2rem}.t-designation{font-size:.92rem;color:#94a3b8;font-style:italic;margin-bottom:1rem}.t-praise{font-size:1rem;line-height:1.7;color:#cbd5e1;margin-bottom:1.35rem;border-left:2px solid var(--blue-neon);padding-left:1rem}.t-image-wrap{background:rgba(6,12,24,.72);border-radius:.9rem;border:1px solid rgba(255,255,255,.08);padding:.75rem;overflow:hidden}.t-image-wrap img{width:100%;height:auto;border-radius:.55rem}.t-caption{font-size:.78rem;color:#94a3b8;text-align:center;margin-top:.55rem;font-style:italic}.year-divider{display:flex;align-items:center;gap:1rem;margin:2.75rem 0 1.5rem}.year-divider span{font-family:var(--font-display);font-size:1.35rem;font-weight:500;color:var(--blue-neon);text-shadow:var(--neon-glow-subtle)}.year-divider::before{content:"";width:3rem;height:2px;background:linear-gradient(90deg,var(--blue-neon),transparent);box-shadow:0 0 8px rgba(0,240,255,.6)}.year-divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(0,240,255,.35),transparent)}.archive-note{border-top:1px solid rgba(255,255,255,.08)!important}.archive-note p{color:#94a3b8!important}.archive-note strong{color:#fff}
+footer{background:#060c18;color:rgba(255,255,255,.78);padding:3rem 0 2rem;border-top:1px solid rgba(0,240,255,.12)}.footer-links{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}.footer-links a{color:#cbd5e1;font-size:.875rem;font-weight:500;padding:.45rem .75rem;border-radius:9999px}.footer-links a:hover{color:var(--blue-neon);background:rgba(0,240,255,.08)}.footer-meta{font-size:.8rem;color:#94a3b8;margin:0}.footer-copy{margin:.4rem 0 0;color:#64748b;font-size:.78rem}
+@media(min-width:768px){.nav-links{display:flex}.menu-btn,.mobile-menu{display:none!important}.testimonial-card{padding:2.1rem 2.2rem 1.7rem}}@media(max-width:767px){.nav-inner{padding:.7rem 1rem}.brand-sub{display:none}.hero{padding:7rem 0 3.5rem}.hero h1{font-size:clamp(2.4rem,12vw,3.5rem)}section{padding:3.5rem 0}.testimonial-card{padding:1.35rem}}
+</style>
 </head>
 <body>
-  <header class="menu">
-    <nav class="navbar navbar-expand-lg">
-      <div class="container navbar-shell">
-        <a class="navbar-brand d-flex align-items-center" href="https://miaolibrary.in/" aria-label="NALC Miao home">
-          <span style="display:inline-flex;width:2.3rem;height:2.3rem;border-radius:50%;background:var(--primary);color:#fff;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;">N</span>
-          <span class="navbar-caption">NALC Miao</span>
-        </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nalcNav" aria-label="Toggle navigation">
-          <span style="font-size:1.4rem;color:var(--primary);">☰</span>
-        </button>
-        <div class="collapse navbar-collapse" id="nalcNav">
-          <div class="navbar-nav ms-auto align-items-lg-center">
-            <a class="nav-link" href="https://miaolibrary.in/">Home</a>
-            <a class="nav-link" href="https://miaolibrary.in/nalc.html">About NALC</a>
-            <a class="nav-link active" href="#">Testimonials</a>
-            <a class="nav-link" href="https://miaolibrary.in/nalc.html#award">PM Award</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8">
-            <span class="eyebrow"><i></i> Visitors’ Book · NALC Miao</span>
-            <h1>Remarks from <span>distinguished guests</span></h1>
-            <p>
-              A selection of handwritten remarks recorded by senior officers, academicians and distinguished visitors 
-              in the Visitors’ Book of the New Age Learning Centre, Miao between November 2022 and May 2024.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials">
-      <div class="container">
-        <span class="section-kicker">From the Visitors’ Book</span>
-        <h2 class="section-title">Words of encouragement &amp; appreciation</h2>
-        <p class="section-subtitle">
-          These remarks have been carefully transcribed from the original handwritten entries. 
-          The accompanying images are faithful black-and-white reproductions of the original pages.
-        </p>
-
-        <!-- 2022 -->
-        <div class="year-divider"><span>2022</span></div>
-
-        <!-- 1. C.D. Mungyak -->
-        <article class="testimonial-card glass">
-          <div class="t-date">10 November 2022</div>
-          <div class="t-name">Shri C.D. Mungyak</div>
-          <div class="t-designation">Director, Science &amp; Technology, Government of Arunachal Pradesh</div>
-          <div class="t-praise">“One of the best library seen in the State.”</div>
-          <div class="t-image-wrap">
-            <img src="images/01_cd_mungyak.webp" alt="Handwritten remark by Shri C.D. Mungyak" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 2. Suwara Mungyak -->
-        <article class="testimonial-card glass">
-          <div class="t-date">10 November 2022</div>
-          <div class="t-name">Smt. Suwara Mungyak</div>
-          <div class="t-designation">Lecturer, C.P. Namchoom Government Polytechnic College, Namsai</div>
-          <div class="t-praise">“A very innovative idea. This will benefit the children and the elders too. Congratulations.”</div>
-          <div class="t-image-wrap">
-            <img src="images/02_suwara.webp" alt="Handwritten remark by Smt. Suwara Mungyak" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 3. Abha Singh -->
-        <article class="testimonial-card glass">
-          <div class="t-date">15 November 2022</div>
-          <div class="t-name">Smt. Abha Singh</div>
-          <div class="t-designation">Retired Indian Forest Service (IFS), Uttar Pradesh</div>
-          <div class="t-praise">“It's a good library. Collection of books are and thoughts are inspirational and a way to succeed for the children and youth. May God bless all the persons related to this thought.”</div>
-          <div class="t-image-wrap">
-            <img src="images/03_abha.webp" alt="Handwritten remark by Smt. Abha Singh" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 4. Abhinav Jain -->
-        <article class="testimonial-card glass">
-          <div class="t-date">30 November 2022</div>
-          <div class="t-name">Shri Abhinav Jain</div>
-          <div class="t-designation">Officer Trainee, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div>
-          <div class="t-praise">“The place is well designed and properly planned. There are books relevant for all age groups. Enjoy learning. All the best.”</div>
-          <div class="t-image-wrap">
-            <img src="images/04_abhinav.webp" alt="Handwritten remark by Shri Abhinav Jain" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 5. Shrikant Kelgandre -->
-        <article class="testimonial-card glass">
-          <div class="t-date">30 November 2022</div>
-          <div class="t-name">Shri Shrikant Kelgandre, IFS</div>
-          <div class="t-designation">Officer Trainee, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div>
-          <div class="t-praise">“It is a very good place for Civil service preparation. Nice Collection of books. Also promotes reading habit among students.”</div>
-          <div class="t-image-wrap">
-            <img src="images/05_shrikant.webp" alt="Handwritten remark by Shri Shrikant Kelgandre" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 2023 -->
-        <div class="year-divider"><span>2023</span></div>
-
-        <!-- 6. Arvind Hanglem -->
-        <article class="testimonial-card glass">
-          <div class="t-date">30 September 2023</div>
-          <div class="t-name">Shri Arvind Hanglem</div>
-          <div class="t-designation">Indian Administrative Service (IAS), 2023 Batch</div>
-          <div class="t-praise">“'An idea born, cannot be killed'. An idea can change millions – not just the present but also for the future and the unseen souls. Driven by motivation and the inner zeal to change peoples' lives, DC Sunny Sir started this wonderful initiative of NALC which will create spiral effect to all the people &amp; especially the youngsters. As a civil servant myself, I myself thrilled with this amazing initiative. Hope that the aspirations of NALC stands strong like the lofty mountains of Arunachal Pradesh and let it shine like the rising sun of the far east.”</div>
-          <div class="t-image-wrap">
-            <img src="images/07_arvind.webp" alt="Handwritten remark by Shri Arvind Hanglem" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 7. Vishwajeet Soumyan -->
-        <article class="testimonial-card glass">
-          <div class="t-date">Circa late 2023</div>
-          <div class="t-name">Shri Vishwajeet Soumyan</div>
-          <div class="t-designation">IPS Probationer, Lal Bahadur Shastri National Academy of Administration (LBSNAA), Mussoorie</div>
-          <div class="t-praise">“Learning centre is very student friendly. Great to visit here. Very pleased to visit here.”</div>
-          <div class="t-image-wrap">
-            <img src="images/06_vishwajeet.webp" alt="Handwritten remark by Shri Vishwajeet Soumyan" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 8. Visitor -->
-        <article class="testimonial-card glass">
-          <div class="t-date">31 November 2023 (as written)</div>
-          <div class="t-name">Visitor (Signature partially legible)</div>
-          <div class="t-designation">—</div>
-          <div class="t-praise">“A beautiful place to learn, think and educate with a wonderful environment.”</div>
-          <div class="t-image-wrap">
-            <img src="images/08_beautiful_place.webp" alt="Handwritten remark by a distinguished visitor" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 9. First Lady -->
-        <article class="testimonial-card glass">
-          <div class="t-date">28 December 2023</div>
-          <div class="t-name">Smt. Anagha Parnaik</div>
-          <div class="t-designation">First Lady of Arunachal Pradesh, Raj Bhavan</div>
-          <div class="t-praise">“It's wonderful and enchanting to be here New Age Learning Centre Miao. Meeting the young students of this beautiful town is like blessing. They are so intelligent and full of spirit and laughter. God Bless them. And I compliment the staff who are so committed and helpful so the students can learn and gain knowledge.”</div>
-          <div class="t-image-wrap">
-            <img src="images/09_panaik.webp" alt="Handwritten remark by Smt. Anagha Parnaik, First Lady of Arunachal Pradesh" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 2024 -->
-        <div class="year-divider"><span>2024</span></div>
-
-        <!-- 10. Rahul Srivastava -->
-        <article class="testimonial-card glass">
-          <div class="t-date">30 January 2024</div>
-          <div class="t-name">Shri Rahul Srivastava</div>
-          <div class="t-designation">Indian Administrative Service (IAS), 2023 Batch (Bharat Darshan)</div>
-          <div class="t-praise">“Dear Team NALC Changlang / Miao. It is a great pleasure to meet with all participants, their activities and enthusiasm. Sh. UN Singh Ji &amp; Team is doing a commendable job. On behalf of the IAS'2023 batch of probationers (Bharat Darshan), I wish them all the best for their future endeavours!”</div>
-          <div class="t-image-wrap">
-            <img src="images/10_rahul.webp" alt="Handwritten remark by Shri Rahul Srivastava" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 11. Dr. Anupam Talwar -->
-        <article class="testimonial-card glass">
-          <div class="t-date">31 January 2024</div>
-          <div class="t-name">Dr. Anupam Talwar</div>
-          <div class="t-designation">Deputy Director, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div>
-          <div class="t-praise">“A tastefully made library, maintained by an enthusiastic team. Good to see the reading spaces which look welcoming and the chart that indicates career avenues after 10th / 12th. Best wishes to the entire team.”</div>
-          <div class="t-image-wrap">
-            <img src="images/11_anupom.webp" alt="Handwritten remark by Dr. Anupam Talwar" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 12. Sunny K. Singh -->
-        <article class="testimonial-card glass">
-          <div class="t-date">04 March 2024</div>
-          <div class="t-name">Shri Sunny K. Singh, IAS</div>
-          <div class="t-designation">Then Deputy Commissioner, Changlang District, Arunachal Pradesh</div>
-          <div class="t-praise">“I got extremely emotional to part my ways with physically with NALC-Miao owing to my transfer from Changlang district. I believe NALC is the best experiment that me the whole NALC team together performed and this Center will go in long way to promote fun learning and inquisitiveness amongst the present and coming generation. Will dearly miss all team and members who are like family to me and will always be part of my fond memories. Good luck to all NALC team &amp; members! Thank you.”</div>
-          <div class="t-image-wrap">
-            <img src="images/12_sunny.webp" alt="Handwritten remark by Shri Sunny K. Singh, IAS" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <!-- 13. Viji -->
-        <article class="testimonial-card glass">
-          <div class="t-date">12 May 2024</div>
-          <div class="t-name">Prof. Viji</div>
-          <div class="t-designation">Professor, IFMR Graduate School of Business, Krea University, Chennai</div>
-          <div class="t-praise">“I am very touched and impressed with NALC facilities &amp; the enthusiasm shown by the students.”</div>
-          <div class="t-image-wrap">
-            <img src="images/13_viji.webp" alt="Handwritten remark by Prof. Viji" loading="lazy">
-            <div class="t-caption">Original handwritten entry (including signature)</div>
-          </div>
-        </article>
-
-        <div class="mt-5 pt-3" style="border-top:1px solid var(--border);">
-          <p style="font-size:.9rem;color:var(--muted);max-width:40rem;">
-            <strong>Note:</strong> All images are faithful black-and-white reproductions of the original handwritten entries from the Visitors’ Book. 
-            Names and designations have been recorded with due respect to protocol and rank. 
-            This page is maintained for archival and public information purposes of the New Age Learning Centre, Miao.
-          </p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="https://miaolibrary.in/">Home</a>
-        <a href="https://miaolibrary.in/nalc.html">About NALC</a>
-        <a href="#">Testimonials</a>
-        <a href="https://miaolibrary.in/nalc.html#award">PM Award</a>
-        <a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a>
-      </div>
-      <p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p>
-      <p style="margin:.4rem 0 0;opacity:.65;font-size:.82rem;">© NALC Miao</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<header>
+<nav class="top" id="nav">
+<div class="nav-inner">
+<a class="brand" href="https://miaolibrary.in/" aria-label="Sub Divisional Library Miao home"><span class="brand-mark">N</span><span><span class="brand-name">Sub Divisional Library Miao</span><span class="brand-sub">New Age Learning Centre</span></span></a>
+<div class="nav-links"><a class="glass-link" href="https://miaolibrary.in/">Home</a><a class="glass-link" href="https://miaolibrary.in/nalc.html">About NALC</a><a class="glass-link active" href="#testimonials">Testimonials</a><a class="glass-link" href="https://miaolibrary.in/nalc.html#award">PM Award</a></div>
+<button class="menu-btn" id="menuBtn" aria-label="Toggle menu" type="button">☰</button>
+</div>
+<div class="mobile-menu" id="mobileMenu"><a class="glass-link" href="https://miaolibrary.in/">Home</a><a class="glass-link" href="https://miaolibrary.in/nalc.html">About NALC</a><a class="glass-link active" href="#testimonials">Testimonials</a><a class="glass-link" href="https://miaolibrary.in/nalc.html#award">PM Award</a><div class="glow-wrap"><a class="glow-btn" href="https://miaolibrary.in/nalc.html">NALC</a></div></div>
+</nav>
+</header>
+<main>
+<section class="hero"><div class="container"><span class="eyebrow"><i></i> Visitors’ Book · NALC Miao</span><h1>Remarks from <span>distinguished guests</span></h1><p>A selection of handwritten remarks recorded by senior officers, academicians and distinguished visitors in the Visitors’ Book of the New Age Learning Centre, Miao between November 2022 and May 2024.</p></div></section>
+<section id="testimonials"><div class="container"><span class="section-kicker">From the Visitors’ Book</span><h2 class="section-title">Words of encouragement &amp; appreciation</h2><p class="section-subtitle">These remarks have been carefully transcribed from the original handwritten entries. The accompanying images are faithful black-and-white reproductions of the original pages.</p>
+<div class="year-divider"><span>2022</span></div>
+<article class="testimonial-card glass"><div class="t-date">10 November 2022</div><div class="t-name">Shri C.D. Mungyak</div><div class="t-designation">Director, Science &amp; Technology, Government of Arunachal Pradesh</div><div class="t-praise">“One of the best library seen in the State.”</div><div class="t-image-wrap"><img src="images/01_cd_mungyak.webp" alt="Handwritten remark by Shri C.D. Mungyak" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">10 November 2022</div><div class="t-name">Smt. Suwara Mungyak</div><div class="t-designation">Lecturer, C.P. Namchoom Government Polytechnic College, Namsai</div><div class="t-praise">“A very innovative idea. This will benefit the children and the elders too. Congratulations.”</div><div class="t-image-wrap"><img src="images/02_suwara.webp" alt="Handwritten remark by Smt. Suwara Mungyak" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">15 November 2022</div><div class="t-name">Smt. Abha Singh</div><div class="t-designation">Retired Indian Forest Service (IFS), Uttar Pradesh</div><div class="t-praise">“It's a good library. Collection of books are and thoughts are inspirational and a way to succeed for the children and youth. May God bless all the persons related to this thought.”</div><div class="t-image-wrap"><img src="images/03_abha.webp" alt="Handwritten remark by Smt. Abha Singh" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">30 November 2022</div><div class="t-name">Shri Abhinav Jain</div><div class="t-designation">Officer Trainee, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div><div class="t-praise">“The place is well designed and properly planned. There are books relevant for all age groups. Enjoy learning. All the best.”</div><div class="t-image-wrap"><img src="images/04_abhinav.webp" alt="Handwritten remark by Shri Abhinav Jain" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">30 November 2022</div><div class="t-name">Shri Shrikant Kelgandre, IFS</div><div class="t-designation">Officer Trainee, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div><div class="t-praise">“It is a very good place for Civil service preparation. Nice Collection of books. Also promotes reading habit among students.”</div><div class="t-image-wrap"><img src="images/05_shrikant.webp" alt="Handwritten remark by Shri Shrikant Kelgandre" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<div class="year-divider"><span>2023</span></div>
+<article class="testimonial-card glass"><div class="t-date">30 September 2023</div><div class="t-name">Shri Arvind Hanglem</div><div class="t-designation">Indian Administrative Service (IAS), 2023 Batch</div><div class="t-praise">“'An idea born, cannot be killed'. An idea can change millions – not just the present but also for the future and the unseen souls. Driven by motivation and the inner zeal to change peoples' lives, DC Sunny Sir started this wonderful initiative of NALC which will create spiral effect to all the people &amp; especially the youngsters. As a civil servant myself, I myself thrilled with this amazing initiative. Hope that the aspirations of NALC stands strong like the lofty mountains of Arunachal Pradesh and let it shine like the rising sun of the far east.”</div><div class="t-image-wrap"><img src="images/07_arvind.webp" alt="Handwritten remark by Shri Arvind Hanglem" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">Circa late 2023</div><div class="t-name">Shri Vishwajeet Soumyan</div><div class="t-designation">IPS Probationer, Lal Bahadur Shastri National Academy of Administration (LBSNAA), Mussoorie</div><div class="t-praise">“Learning centre is very student friendly. Great to visit here. Very pleased to visit here.”</div><div class="t-image-wrap"><img src="images/06_vishwajeet.webp" alt="Handwritten remark by Shri Vishwajeet Soumyan" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">31 November 2023 (as written)</div><div class="t-name">Visitor (Signature partially legible)</div><div class="t-designation">—</div><div class="t-praise">“A beautiful place to learn, think and educate with a wonderful environment.”</div><div class="t-image-wrap"><img src="images/08_beautiful_place.webp" alt="Handwritten remark by a distinguished visitor" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">28 December 2023</div><div class="t-name">Smt. Anagha Parnaik</div><div class="t-designation">First Lady of Arunachal Pradesh, Raj Bhavan</div><div class="t-praise">“It's wonderful and enchanting to be here New Age Learning Centre Miao. Meeting the young students of this beautiful town is like blessing. They are so intelligent and full of spirit and laughter. God Bless them. And I compliment the staff who are so committed and helpful so the students can learn and gain knowledge.”</div><div class="t-image-wrap"><img src="images/09_panaik.webp" alt="Handwritten remark by Smt. Anagha Parnaik, First Lady of Arunachal Pradesh" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<div class="year-divider"><span>2024</span></div>
+<article class="testimonial-card glass"><div class="t-date">30 January 2024</div><div class="t-name">Shri Rahul Srivastava</div><div class="t-designation">Indian Administrative Service (IAS), 2023 Batch (Bharat Darshan)</div><div class="t-praise">“Dear Team NALC Changlang / Miao. It is a great pleasure to meet with all participants, their activities and enthusiasm. Sh. UN Singh Ji &amp; Team is doing a commendable job. On behalf of the IAS'2023 batch of probationers (Bharat Darshan), I wish them all the best for their future endeavours!”</div><div class="t-image-wrap"><img src="images/10_rahul.webp" alt="Handwritten remark by Shri Rahul Srivastava" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">31 January 2024</div><div class="t-name">Dr. Anupam Talwar</div><div class="t-designation">Deputy Director, Lal Bahadur Shastri National Academy of Administration (LBSNAA)</div><div class="t-praise">“A tastefully made library, maintained by an enthusiastic team. Good to see the reading spaces which look welcoming and the chart that indicates career avenues after 10th / 12th. Best wishes to the entire team.”</div><div class="t-image-wrap"><img src="images/11_anupom.webp" alt="Handwritten remark by Dr. Anupam Talwar" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">04 March 2024</div><div class="t-name">Shri Sunny K. Singh, IAS</div><div class="t-designation">Then Deputy Commissioner, Changlang District, Arunachal Pradesh</div><div class="t-praise">“I got extremely emotional to part my ways with physically with NALC-Miao owing to my transfer from Changlang district. I believe NALC is the best experiment that me the whole NALC team together performed and this Center will go in long way to promote fun learning and inquisitiveness amongst the present and coming generation. Will dearly miss all team and members who are like family to me and will always be part of my fond memories. Good luck to all NALC team &amp; members! Thank you.”</div><div class="t-image-wrap"><img src="images/12_sunny.webp" alt="Handwritten remark by Shri Sunny K. Singh, IAS" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<article class="testimonial-card glass"><div class="t-date">12 May 2024</div><div class="t-name">Prof. Viji</div><div class="t-designation">Professor, IFMR Graduate School of Business, Krea University, Chennai</div><div class="t-praise">“I am very touched and impressed with NALC facilities &amp; the enthusiasm shown by the students.”</div><div class="t-image-wrap"><img src="images/13_viji.webp" alt="Handwritten remark by Prof. Viji" loading="lazy"><div class="t-caption">Original handwritten entry (including signature)</div></div></article>
+<div class="archive-note" style="padding-top:1.25rem;margin-top:3rem"><p style="font-size:.9rem;max-width:40rem"><strong>Note:</strong> All images are faithful black-and-white reproductions of the original handwritten entries from the Visitors’ Book. Names and designations have been recorded with due respect to protocol and rank. This page is maintained for archival and public information purposes of the New Age Learning Centre, Miao.</p></div>
+</div></section>
+</main>
+<footer><div class="container"><div class="footer-links"><a href="https://miaolibrary.in/">Home</a><a href="https://miaolibrary.in/nalc.html">About NALC</a><a href="#testimonials">Testimonials</a><a href="https://miaolibrary.in/nalc.html#award">PM Award</a><a href="https://x.com/NalcMiao" target="_blank" rel="noopener">X / Twitter</a></div><p class="footer-meta">New Age Learning Centre (NALC), Miao · Sub Divisional Library · Changlang, Arunachal Pradesh, India</p><p class="footer-copy">© NALC Miao</p></div></footer>
+<script>const nav=document.getElementById("nav"),menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementById("mobileMenu");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>60),{passive:true});menuBtn.addEventListener("click",()=>mobileMenu.classList.toggle("open"));mobileMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>mobileMenu.classList.remove("open")));</script>
 </body>
 </html>
