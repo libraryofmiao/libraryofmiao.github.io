@@ -1,0 +1,37 @@
+name: Surgical Founder Text Fix
+on:
+  push:
+    branches: [main]
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace designation line only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('nalc/Visit/testimonials/founder/index.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'Served as Deputy Commissioner of New Delhi and OSD to the Chief Secretary, Government of NCT of Delhi.'
+          new = 'Served as District Magistrate of New Delhi and OSD to the Chief Secretary, Government of NCT of Delhi.'
+          if old not in s:
+              raise SystemExit('Target text not found')
+          if s.count(old) != 1:
+              raise SystemExit(f'Expected 1 occurrence, found {s.count(old)}')
+          p.write_text(s.replace(old, new), encoding='utf-8')
+          PY
+      - name: Commit text-only change
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/founder/index.html
+          git diff --cached --quiet || git commit -m 'Correct New Delhi designation in founder profile'
+          git push
+      - name: Remove temporary workflow
+        run: |
+          git rm .github/workflows/_surgical_line_fix.yml
+          git commit -m 'Remove temporary founder text fix workflow'
+          git push
