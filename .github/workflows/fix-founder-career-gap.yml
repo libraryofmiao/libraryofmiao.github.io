@@ -1,0 +1,38 @@
+name: Fix Founder Career Gap
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-founder-career-gap.yml'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Insert missing 2024-2025 career card
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('nalc/Visit/testimonials/founder/index.html')
+          s = p.read_text(encoding='utf-8')
+          if 'Deputy Commissioner, New Delhi' in s and 'OSD to Chief Secretary' in s:
+              print('Gap card already present; no change needed.')
+          else:
+              pattern = r'(<div class="career-card glass"><div class="career-period">March 2024 – September 2024</div>.*?</div>)(<div class="career-card glass"><div class="career-period">2025 – Present</div>)'
+              replacement = r'''\1<div class="career-card glass"><div class="career-period">October 2024 – 2025</div><h3>Deputy Commissioner · New Delhi &amp; OSD to Chief Secretary</h3><ul><li>Served as Deputy Commissioner of New Delhi and OSD to the Chief Secretary, Government of NCT of Delhi.</li><li>Assumed the New Delhi district assignment in October 2024 following his transfer from Arunachal Pradesh.</li></ul></div>\2'''
+              ns, n = re.subn(pattern, replacement, s, count=1, flags=re.S)
+              if n != 1:
+                  raise SystemExit('Target career cards not found; no file change made.')
+              p.write_text(ns, encoding='utf-8')
+              print('Inserted missing career card.')
+          PY
+      - name: Remove temporary workflow
+        run: |
+          rm -f .github/workflows/fix-founder-career-gap.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nalc/Visit/testimonials/founder/index.html .github/workflows/fix-founder-career-gap.yml
+          git diff --cached --quiet || git commit -m 'Add missing 2024-2025 founder career timeline entry'
+          git push
