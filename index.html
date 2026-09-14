@@ -7,7 +7,6 @@
   <title>Sub Divisional Library Miao</title>
   <meta name="description" content="Arunachal Pradesh's first futuristic New Age Learning Centre in Miao, Changlang district. This is the official website of new age learning centre, Miao, Changlang District, Arunachal Pradesh">
   <meta name="theme-color" content="#060c18">
-  <link rel="icon" type="image/webp" href="index_files/cbimage_3vTi.webp">
   <link rel="canonical" href="https://miaolibrary.in/">
   <meta property="og:title" content="Sub Divisional Library Miao">
   <meta property="og:description" content="Arunachal Pradesh's first futuristic New Age Learning Centre in Miao, Changlang district. This is the official website of new age learning centre, Miao, Changlang District, Arunachal Pradesh">
@@ -172,7 +171,9 @@
       letter-spacing: 0.02em;
       z-index: 1;
     }
-    .glow-btn:hover { color: #fff; }
+    .glow-btn:hover {
+      color: #fff;
+    }
     .blue-divider {
       width: 3rem; height: 2px;
       background: linear-gradient(90deg, var(--blue-neon), transparent);
@@ -301,84 +302,275 @@
     h1 { 
       font-family: var(--font-display); 
       font-weight: 300; 
-      font-size: clamp(2.5rem, 7vw, 5.5rem); 
-      line-height: .95; 
-      letter-spacing: -.03em; 
-      margin: .5rem 0 1rem; 
-      max-width: 12ch; 
+      font-size: clamp(2.5rem, 7vw, 6rem); 
+      line-height: 1.05; 
+      color: #ffffff; 
+      margin-bottom: 0.75rem; 
     }
-    h1 span { color: var(--blue-neon); text-shadow: var(--neon-glow); }
-    .hero-copy { max-width: 34rem; color: #cbd5e1; font-size: clamp(.95rem, 1.5vw, 1.1rem); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
-    .hero-actions .glass-link { padding: .65rem 1.1rem; }
-    .hero-stat { align-self: end; justify-self: start; padding: 1rem 1.1rem; border-left: 2px solid var(--blue-neon); background: rgba(6,12,24,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); max-width: 20rem; }
-    .hero-stat .num { font-family: var(--font-display); font-size: 1.65rem; color: #fff; }
-    .hero-stat .lbl { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .12em; }
+    h1 .blue { color: var(--blue-neon); text-shadow: var(--neon-glow); }
+    h1 .gold { color: #fbbf24; }
+    .lede { max-width: 28rem; color: #cbd5e1; margin-bottom: 1.25rem; font-size: 1.15rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; }
+    
+    /* Fly-in from right and slow smooth tilt animation using exact original Fraunces font */
+    @keyframes flyAndTilt {
+      0% {
+        opacity: 0;
+        transform: translate3d(85vw, 0, 0) skewX(0deg);
+        font-style: normal;
+      }
+      15% {
+        opacity: 1;
+      }
+      50% {
+        transform: translate3d(0, 0, 0) skewX(0deg);
+        font-style: normal;
+      }
+      85% {
+        transform: translate3d(0, 0, 0) skewX(-8deg);
+        font-style: normal;
+      }
+      100% {
+        opacity: 1;
+        /* Return skew to 0 at the exact moment the native italic style kicks in to prevent double-slanting */
+        transform: translate3d(0, 0, 0) skewX(0deg);
+        font-style: italic;
+      }
+    }
 
-    section { padding: 5.5rem 0; }
-    .section-head { margin-bottom: 2.25rem; }
-    .kicker { color: var(--blue-neon); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; }
-    h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1; margin: .35rem 0 .75rem; letter-spacing: -.025em; }
-    .section-lead { max-width: 42rem; color: var(--text-muted); }
+    .hero-fly-in {
+      display: inline-block;
+      opacity: 0;
+      font-family: var(--font-display) !important;
+      font-weight: 400 !important;
+      font-style: normal;
+      animation: flyAndTilt 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      transform-origin: bottom left;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, opacity, font-style;
+    }
 
-    .two { display: grid; gap: 2rem; align-items: center; }
-    .photo { position: relative; }
-    .photo-frame { border-radius: 1.25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 25px 70px rgba(0,0,0,.45); }
-    .photo-frame img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-    .photo-grad { position: absolute; inset: auto 0 0 0; height: 35%; background: linear-gradient(to top, rgba(6,12,24,.8), transparent); pointer-events: none; }
-    .badge { position: absolute; left: 1rem; bottom: 1rem; padding: .75rem 1rem; border: 1px solid rgba(0,240,255,.35); background: rgba(6,12,24,.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: .75rem; }
-    .badge .k { font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; color: var(--blue-neon); }
-    .badge .d { font-family: var(--font-display); font-size: 1.15rem; }
-    .about-copy p { color: #cbd5e1; margin-bottom: 1rem; }
-    .quote { margin-top: 1.25rem; padding: 1rem 1.1rem; border-left: 2px solid var(--gold-light); color: #e2e8f0; background: rgba(217,119,6,.05); }
+    .stats { 
+      display: none; 
+      grid-template-columns: 1fr 1fr; 
+      gap: .75rem; 
+      align-self: end; 
+      margin-top: 0;
+      margin-bottom: 3.5rem;
+    }
+    .stat {
+      border-radius: 0.85rem; 
+      padding: 0.95rem 1.15rem;
+      background: rgba(15,30,56,.5); 
+      backdrop-filter: blur(12px); 
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.08);
+      min-width: 0;
+    }
+    .stat-val { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); }
+    .stat-unit { font-size: .9rem; letter-spacing: .16em; text-transform: uppercase; color: #94a3b8; margin-left: .35rem; }
+    .stat-label { font-size: .9rem; color: #cbd5e1; margin-top: 0.15rem; }
+    .explore { position: absolute; bottom: 0.85rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .3rem; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(0,240,255,.6); text-shadow: var(--neon-glow-subtle); }
+    .explore svg { animation: bounce 1.4s infinite; }
 
-    .services-grid { display: grid; gap: 1rem; }
-    .service-icon { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: .75rem; border: 1px solid rgba(0,240,255,.35); color: var(--blue-neon); background: rgba(0,240,255,.08); margin-bottom: 1rem; }
-    .service-card h3 { font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; margin-bottom: .5rem; }
-    .service-card p { color: var(--text-muted); font-size: .92rem; }
-    .service-card .arrow { margin-top: auto; padding-top: 1.5rem; color: var(--blue-neon); font-size: .85rem; }
+    section { padding: 4rem 0; width: 100%; }
+    .shade { background: rgba(0,0,0,.25); }
+    .shade-2 { background: rgba(0,0,0,.35); }
+    .kicker { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); margin-bottom: 1rem; }
+    h2 { font-family: var(--font-display); font-weight: 300; font-size: 2.25rem; line-height: 1.15; color: #ffffff; margin-bottom: 1.5rem; }
+    h2 em { color: var(--blue-neon); text-shadow: var(--neon-glow); font-style: italic; }
+    h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; color: #e2e8f0; margin-bottom: .75rem; }
+    p.body { color: #cbd5e1; margin-bottom: 1rem; }
+    p.body strong { color: #ffffff; font-weight: 600; }
+    .icon-blue { color: var(--blue-neon); filter: drop-shadow(0 0 6px rgba(0,240,255,0.6)); margin-bottom: 1rem; flex-shrink: 0; }
+    .icon-gold { color: #fbbf24; margin-bottom: 1rem; flex-shrink: 0; }
+    .muted { color: #94a3b8; font-size: .875rem; line-height: 1.6; }
 
-    .collection { position: relative; overflow: hidden; }
-    .coll-img { position: relative; min-height: 28rem; border-radius: 1.25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
-    .coll-img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .coll-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,12,24,.95), rgba(6,12,24,.15) 65%, transparent); }
-    .coll-panel { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 1.25rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-    .tag { padding: .35rem .65rem; border-radius: 9999px; border: 1px solid rgba(255,255,255,.14); background: rgba(6,12,24,.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #e2e8f0; font-size: .78rem; }
+    .two { display: grid; gap: 4rem; align-items: center; }
+    .photo { position: relative; min-width: 0; }
+    .photo-frame { aspect-ratio: 4/5; overflow: hidden; border-radius: 1rem; border: 1px solid rgba(255,255,255,.08); width: 100%; }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-grad {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        var(--bg-deep) 0%,
+        var(--bg-deep) 10%,
+        transparent 10%,
+        transparent 90%,
+        var(--bg-deep) 90%,
+        var(--bg-deep) 100%
+      );
+    }
+    .badge {
+      position: absolute; right: -.5rem; bottom: -1.25rem;
+      border-radius: 1rem; padding: 1.25rem;
+      border: 1px solid rgba(0,240,255,.45);
+      background: rgba(11,21,40,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 15px rgba(0,240,255,.2);
+    }
+    .badge .k { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); margin-bottom: .25rem; }
+    .badge .d { font-family: var(--font-display); font-weight: 600; color: #ffffff; }
+    .badge .s { font-size: .75rem; color: #94a3b8; margin-top: .15rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .chip { padding: .5rem 1rem; border-radius: 9999px; border: 1px solid rgba(0,240,255,.4); background: rgba(0,240,255,.1); color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); font-size: .875rem; }
 
-    .contact-card { display: grid; gap: 1.5rem; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(0,240,255,.18); background: rgba(15,30,56,.45); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
-    .contact-links { display: flex; flex-wrap: wrap; gap: .65rem; }
-    .contact-links a { text-decoration: none; }
-    form { display: grid; gap: .75rem; }
-    input, textarea { width: 100%; border: 1px solid rgba(255,255,255,.12); border-radius: .75rem; padding: .8rem .9rem; background: rgba(6,12,24,.55); color: #fff; outline: none; }
-    input:focus, textarea:focus { border-color: rgba(0,240,255,.55); box-shadow: 0 0 0 3px rgba(0,240,255,.08); }
-    textarea { min-height: 8rem; resize: vertical; }
-    .submit { justify-self: start; padding: .65rem 1rem; border-radius: .7rem; border: 1px solid rgba(0,240,255,.55); color: var(--blue-neon); background: rgba(0,240,255,.06); }
+    /* Mobile responsive adjustments for About Section */
+    @media (max-width: 767px) {
+      /* Mobile-only NALC animation fix: keep the rotating outline above the wrapper background */
+      .mobile-menu .glow-wrap {
+        align-self: flex-start;
+        width: max-content;
+        max-width: 100%;
+      }
+      .mobile-menu .glow-wrap::before {
+        z-index: 0;
+        will-change: transform;
+      }
+      .mobile-menu .glow-btn {
+        z-index: 1;
+        width: auto;
+      }
+      /* Mobile hero spacing only: preserve all typography/design, keep CTAs above Explore */
+      .hero-grid {
+        padding-top: 1.5rem;
+        padding-bottom: 4.25rem;
+      }
+      .hero-grid > .fade-up {
+        min-height: 0;
+        justify-content: flex-start;
+        padding-bottom: 0;
+      }
+      #about .two {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+      }
+      #about .photo {
+        flex: none;
+        width: 100%;
+        position: relative;
+      }
+      #about .photo-frame {
+        aspect-ratio: 16/10;
+        border-radius: 0.75rem;
+      }
+      #about .badge {
+        position: static;
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.7rem 0.9rem;
+        border-radius: 0.65rem;
+      }
+      #about .badge .k {
+        font-size: 0.625rem;
+        margin-bottom: 0.1rem;
+      }
+      #about .badge .d {
+        font-size: 0.8rem;
+      }
+      #about .badge .s {
+        display: block;
+        font-size: 0.7rem;
+      }
+      #about h2 {
+        font-size: 1.9rem;
+        line-height: 1.15;
+        margin-bottom: 0.9rem;
+      }
+      #about p.body {
+        font-size: 0.95rem;
+        line-height: 1.55;
+        text-align: left !important;
+      }
+      #about .chip {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+      }
+    }
 
-    footer { padding: 2rem 0 3rem; border-top: 1px solid rgba(255,255,255,.08); color: var(--text-muted); }
-    .foot { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; justify-content: space-between; }
-    .foot small { font-size: .75rem; }
+    .svc-grid { display: grid; gap: 1.25rem; }
+    
+    .coll-img { position: relative; aspect-ratio: 16/9; overflow: hidden; border-radius: 1rem; border: 1px solid rgba(255,255,255,.08); width: 100%; }
+    .coll-img img { width: 100%; height: 100%; object-fit: cover; }
+    .coll-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgb(6 12 24 / .75), transparent); }
+    .coll-panel { position: absolute; left: 1.5rem; right: 1.5rem; bottom: 1.5rem; border-radius: .75rem; padding: 1.25rem; border: 1px solid rgba(255,255,255,.1); background: rgba(11,21,40,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .tag { font-size: .75rem; padding: .25rem .65rem; border-radius: 9999px; background: rgba(0,240,255,.12); border: 1px solid rgba(0,240,255,.45); color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); }
+
+    .center { text-align: center; }
+    .plans { display: grid; gap: 1.5rem; }
+    .plan {
+      border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255,255,255,.08);
+      background: rgba(15,30,56,.4); display: flex; flex-direction: column;
+      min-width: 0;
+    }
+    .plan.featured { 
+      background: rgba(0,240,255,.08); 
+      border-color: rgba(0,240,255,.55); 
+      position: relative; 
+      overflow: hidden; 
+      box-shadow: 0 0 30px rgba(0,240,255,.2);
+    }
+    .popular { position: absolute; top: 1rem; right: 1rem; font-size: .75rem; padding: .25rem .65rem; border-radius: 9999px; background: rgba(0,240,255,.2); border: 1px solid var(--blue-neon); color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); }
+    .plan-k { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); margin-bottom: .5rem; }
+    .plan.featured .plan-k { color: var(--blue-neon); text-shadow: var(--neon-glow); }
+    .price { font-family: var(--font-display); font-weight: 300; font-size: 2.25rem; margin-bottom: .25rem; color: #ffffff; }
+    .plan.featured .price { color: var(--blue-neon); text-shadow: var(--neon-glow); }
+    .price-sub { font-size: .875rem; color: #94a3b8; margin-bottom: 1.5rem; }
+    .plan ul { list-style: none; flex: 1; display: flex; flex-direction: column; gap: .75rem; font-size: .875rem; color: #cbd5e1; }
+    .plan li { display: flex; align-items: flex-start; gap: .5rem; }
+    .plan li svg { flex-shrink: 0; margin-top: .15rem; color: var(--blue-neon); filter: drop-shadow(0 0 4px rgba(0,240,255,0.6)); }
+    .plan .glass-link { margin-top: 1.5rem; justify-content: center; padding-top: .75rem; padding-bottom: .75rem; }
+
+    .qa-grid, .info-grid { display: grid; gap: 1.25rem; }
+    .info { border-radius: .75rem; padding: 1.25rem; border: 1px solid rgba(255,255,255,.08); background: rgba(15,30,56,.45); text-align: left; min-width: 0; }
+    .info .lab { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); margin-bottom: .25rem; }
+    .info .val { font-size: .875rem; color: #e2e8f0; white-space: pre-line; }
+    .cta-label { font-size: .875rem; font-weight: 500; color: var(--blue-neon); text-shadow: var(--neon-glow-subtle); }
+
+    footer { border-top: 1px solid rgba(255,255,255,.05); padding: 2.5rem 0; background: #040810; width: 100%; }
+    .foot { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .copy { font-size: .75rem; color: #64748b; text-align: center; }
+    .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem; }
+    .glass-link.xs { font-size: .75rem; }
 
     @media (min-width: 640px) {
-      .nav-inner { padding-left: 2rem; padding-right: 2rem; }
-      .hero-grid { padding-left: 2rem; padding-right: 2rem; }
-      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .contact-card { padding: 2rem; }
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .qa-grid, .info-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (min-width: 900px) {
+    @media (min-width: 768px) {
+      /* Desktop only: match the target hero proportions without altering its design */
+      .hero {
+        height: 100dvh;
+        min-height: 100dvh;
+      }
+      .hero-grid {
+        max-width: 80rem;
+        padding-top: 2rem;
+        align-items: center;
+      }
+      section { padding: 7rem 0; }
       .nav-links, .nav-cta { display: flex; }
-      .menu-btn { display: none; }
-      .mobile-menu { display: none !important; }
-      .hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); padding-top: 6rem; padding-bottom: 3rem; }
-      .hero-stat { justify-self: end; margin-bottom: 1rem; }
-      .two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-      .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .contact-card { grid-template-columns: .8fr 1.2fr; align-items: start; }
+      .menu-btn, .mobile-menu { display: none !important; }
+      h2 { font-size: 3rem; }
+      .hero-grid { grid-template-columns: 1fr 1fr; }
+      .stats { display: grid; }
+      .two { grid-template-columns: 1fr 1fr; }
+      .coll-img { aspect-ratio: 4/3; }
+      .plans { grid-template-columns: repeat(3, 1fr); }
+      .foot { flex-direction: row; justify-content: space-between; }
+      .svc-grid, .svc-grid.three { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (min-width: 1200px) {
-      .nav-inner { padding-left: 2.5rem; padding-right: 2.5rem; }
-      .hero-grid { padding-left: 2.5rem; padding-right: 2.5rem; }
-      section { padding-top: 7rem; padding-bottom: 7rem; }
+    @media (min-width: 1024px) {
+      .svc-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, .dot, .explore svg, .hero-fly-in { animation: none !important; opacity: 1 !important; transform: none !important; font-style: italic !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
@@ -398,19 +590,36 @@
         <a class="glass-link" href="#about">About</a>
         <a class="glass-link" href="#services">Services</a>
         <a class="glass-link" href="#collection">Collection</a>
+        <a class="glass-link" href="#contact">Contact</a>
+        <div class="glow-wrap"><a class="glow-btn nalc-link" href="https://nalc.miaolibrary.in/">NALC</a></div>
       </div>
       <div class="nav-cta">
-        <a class="glass-link glass-link-cta" href="#contact">Contact</a>
+        <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          Search Books
+        </a>
+        <a class="glass-link" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          Admin
+        </a>
+        <a class="glass-link glass-link-cta" href="#membership">Become a Member</a>
       </div>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" type="button">
+        <svg id="iconOpen" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <svg id="iconClose" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a class="glass-link" href="#about">About</a>
       <a class="glass-link" href="#services">Services</a>
       <a class="glass-link" href="#collection">Collection</a>
-      <div class="mobile-extra"><a class="glass-link glass-link-cta" href="#contact">Contact</a></div>
+      <a class="glass-link" href="#contact">Contact</a>
+      <div class="glow-wrap"><a class="glow-btn nalc-link" href="https://nalc.miaolibrary.in/">NALC</a></div>
+      <div class="mobile-extra">
+        <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books (OPAC)</a>
+        <a class="glass-link" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">Admin (Koha)</a>
+        <a class="glass-link glass-link-cta" href="#membership">Become a Member</a>
+      </div>
     </div>
   </nav>
 
@@ -421,17 +630,30 @@
     <div class="hero-grid">
       <div class="fade-up">
         <div class="pill"><span class="dot"></span> New Age Learning Centre</div>
-        <h1>Read. Learn. <span>Focus.</span> Repeat.</h1>
-        <p class="hero-copy">A modern public library for readers, learners, exam aspirants, and curious minds in Miao. Come for the books. Stay for the knowledge. Leave with bigger dreams.</p>
-        <div class="hero-actions">
-          <a class="glass-link glass-link-cta" href="https://miaolibrary.in/nalc">Explore NALC</a>
-          <a class="glass-link" href="#collection">Explore Collection</a>
+        <h1>Sub Divisional<br><span class="blue hero-fly-in">Library</span><br><span class="gold">Miao</span></h1>
+        <div class="blue-divider"></div>
+        <p class="lede">Arunachal Pradesh's first futuristic New Age Learning Centre — a paradise for book lovers, competitive aspirants, and lifelong learners nestled in the heart of Miao, Changlang district.</p>
+        <div class="hero-btns">
+          <a class="glass-link glass-link-cta" href="#membership" style="padding:.75rem 1.5rem">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            Become a Member
+          </a>
+          <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer" style="padding:.75rem 1.5rem">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            Search Books
+          </a>
         </div>
       </div>
-      <div class="hero-stat">
-        <div class="num">May 7, 2022</div>
-        <div class="lbl">New Age Learning Centre · Miao</div>
+      <div class="stats">
+        <div class="stat"><div><span class="stat-val">2,000</span><span class="stat-unit">sq ft</span></div><div class="stat-label">State-of-the-Art Space</div></div>
+        <div class="stat"><div><span class="stat-val">₹150</span><span class="stat-unit">lifetime</span></div><div class="stat-label">Membership Fee</div></div>
+        <div class="stat"><div><span class="stat-val">PMO</span><span class="stat-unit">recognized</span></div><div class="stat-label">Prime Minister's Office</div></div>
+        <div class="stat"><div><span class="stat-val">Free</span><span class="stat-unit">for first 200+</span></div><div class="stat-label">Children &amp; EWS Members</div></div>
       </div>
+    </div>
+    <div class="explore">
+      <span>Explore</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </div>
   </section>
 
@@ -445,57 +667,79 @@
         <div class="badge">
           <div class="k">Inaugurated</div>
           <div class="d">May 7, 2022</div>
+          <div class="s">by Hon. Min. Shri Kamlung Mossang</div>
         </div>
       </div>
-      <div class="about-copy">
-        <div class="kicker">About the Library</div>
+      <div>
+        <div class="kicker">Our Story</div>
         <div class="blue-divider"></div>
-        <h2>More than a library.</h2>
-        <p>Through quizzes, storytelling, public speaking, photography, painting, music, yoga, career guidance and other activity-based programmes, NALC encourages young minds to step beyond textbooks, discover their talents and develop their personalities.</p>
-        <p>Because the goal isn't simply to produce better readers or better exam scores. The goal is to help create confident, curious and capable young people who dare to dream bigger.</p>
-        <div class="quote">NALC Miao isn't just a library. It's a place where curiosity gets a chance to become a future. 🚀</div>
+        <h2>A paradise for <em>every</em><br>book lover</h2>
+        <p class="body" style="text-align: justify;">The Sub Divisional Library Miao — reimagined as the <strong>New Age Learning Centre (NALC)</strong> — is the brainchild of Miao Additional Deputy Commissioner <strong>Shri Sunny K. Singh</strong>. It is Arunachal Pradesh's first futuristic public library, housed in a two-storey building spanning 2,000 sq ft.</p>
+        <p class="body" style="text-align: justify;">Set up at an estimated cost of <strong>₹30 Lakh</strong>+ through a combination of community contributions and government support, the air-conditioned facility is fully equipped with <strong>tablets, computers, e-readers, virtual reality headset</strong>, and free Wi-Fi. It serves as an interactive hub for local schools and students, hosting dedicated library and reading periods at the NALC premises.</p>
+        <p class="body" style="text-align: justify;">Under its CSR initiative, <strong>Oil India Limited (OIL)</strong> runs Super 30 residential classes for JEE and NEET aspirants here. The NALC also drives <strong>Project Safal</strong> — a district administration initiative to improve board exam passing percentages. It has earned recognition from the <strong>Prime Minister's Office</strong>.</p>
+        <div class="chips">
+          <span class="chip">Free Wi-Fi</span>
+          <span class="chip">Smart Screens</span>
+          <span class="chip">E-Books &amp; Tablets</span>
+          <span class="chip">PMO Recognised</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="services">
+  <section id="services" class="shade">
     <div class="wrap">
-      <div class="section-head">
-        <div class="kicker">What you can do here</div>
-        <div class="blue-divider"></div>
-        <h2>Learn your way.</h2>
-        <p class="section-lead">Whether you're preparing for a competitive exam, keeping up with school and college, or simply looking for your next great read, NALC is your space to learn and focus.</p>
+      <div class="center" style="margin-bottom:4rem">
+        <div class="kicker">What We Offer</div>
+        <div class="blue-divider-center"></div>
+        <h2>Our Services &amp; <em>Resources</em></h2>
       </div>
-      <div class="services-grid">
-        <a class="service-card" href="https://miaolibrary.in/opac">
-          <div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path><path d="M4 5.5v16M8 7h8M8 11h8"></path></svg></div>
-          <h3>Search the Catalogue</h3>
-          <p>Find books and discover what is available through the library's online public access catalogue.</p>
-          <div class="arrow">Open OPAC →</div>
-        </a>
-        <a class="service-card" href="https://miaolibrary.in/nalc">
-          <div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"></circle><path d="M8 14c1.1 1.4 2.4 2 4 2s2.9-.6 4-2M9 9.5h.01M15 9.5h.01"></path></svg></div>
-          <h3>Explore NALC</h3>
-          <p>Discover the New Age Learning Centre, its mission, programmes, activities, and the people who make it possible.</p>
-          <div class="arrow">Visit NALC →</div>
-        </a>
-        <a class="service-card" href="#contact">
-          <div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5h16v13H4z"></path><path d="m4 6 8 6 8-6"></path></svg></div>
-          <h3>Get in Touch</h3>
-          <p>Have a question, suggestion, or idea for a programme? Reach out to the library team.</p>
-          <div class="arrow">Contact us →</div>
-        </a>
+      <div class="svc-grid three">
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg></div>
+          <h3>Diverse Book Collection</h3>
+          <p class="muted">Fiction, non-fiction, children's books, biographies, autobiographies, motivational titles, and academic books across all genres.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+          <h3>Smart Learning Screens</h3>
+          <p class="muted">State-of-the-art smart screens and digital tablets for interactive learning, e-books, and multimedia educational content.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg></div>
+          <h3>Free High-Speed Wi-Fi</h3>
+          <p class="muted">Complimentary high-speed internet access for all members to support research, online learning, and digital exploration.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg></div>
+          <h3>Competitive Exam Resources</h3>
+          <p class="muted">Dedicated resources for UPSC Civil Services, NDA, JEE, NEET preparation — including Super 30 classes by Oil India Limited.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 22V12h6v10"></path></svg></div>
+          <h3>School Central Library</h3>
+          <p class="muted">Acts as the central library for all schools within 500 metres. Structured library periods are held at NALC for students.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon-blue"><svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+          <h3>Project Safal</h3>
+          <p class="muted">Supporting the district administration's Project Safal initiative to improve board exam results for children across the region.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="collection" class="collection">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="kicker">Collection</div>
+  <section id="collection">
+    <div class="wrap two">
+      <div>
+        <div class="kicker">Search the Catalog</div>
         <div class="blue-divider"></div>
-        <h2>Something for every curious mind.</h2>
-        <p class="section-lead">From fiction and non-fiction to children's books, exam preparation, general knowledge, and current affairs.</p>
+        <h2>Find any book<br>in our <em>collection</em></h2>
+        <p class="body">Our library catalog is powered by <strong>Koha</strong>, a world-class open-source integrated library system. Search thousands of titles — from children's picture books and fiction to competitive exam guides and academic references — available for students across Miao and the Vijoynagar circle.</p>
+        <a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer" style="padding:.20rem 1.75rem; font-size:1rem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          Search Books (OPAC)
+        </a>
       </div>
       <div class="coll-img">
         <img src="index_files/photo-1521587760476-6c12a4b040da_3vTi.avif" alt="Sub Divisional Library Miao (New Age Learning Centre, Miao)">
@@ -503,36 +747,114 @@
         <div class="coll-panel">
           <div class="kicker" style="margin-bottom:.5rem">Collection Highlights</div>
           <div class="chips">
-            <span class="tag">Fiction</span><span class="tag">Non-Fiction</span><span class="tag">Children</span><span class="tag">Competitive Exams</span><span class="tag">General Knowledge</span><span class="tag">Current Affairs</span>
+            <span class="tag">Fiction</span><span class="tag">Non-Fiction</span><span class="tag">Children</span>
+            <span class="tag">Competitive</span><span class="tag">Biographies</span><span class="tag">Academic</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="kicker">Contact</div>
-        <div class="blue-divider"></div>
-        <h2>Let's keep learning.</h2>
-        <p class="section-lead">Questions, suggestions, collaborations, or simply want to say hello? We'd love to hear from you.</p>
+  <section id="membership" class="shade-2">
+    <div class="wrap-md">
+      <div class="center" style="margin-bottom:3rem">
+        <div class="kicker">Join Us</div>
+        <div class="blue-divider-center"></div>
+        <h2>Become a <em>Library Member</em></h2>
+        <p class="body" style="max-width:36rem; margin:0 auto; color:#94a3b8">Open to all residents of Miao sub-division and beyond. Join a growing community of readers, learners, and knowledge seekers.</p>
       </div>
-      <div class="contact-card">
-        <div>
-          <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:500;margin-bottom:.65rem">Sub Divisional Library Miao</h3>
-          <p style="color:var(--text-muted);margin-bottom:1rem">ADC Office Complex, Post-Miao, Changlang District, Arunachal Pradesh · 792122</p>
-          <div class="contact-links">
-            <a class="glass-link" href="mailto:admin@miaolibrary.in">Email</a>
-            <a class="glass-link" href="https://miaolibrary.in/">Official Website</a>
-          </div>
+      <div class="plans">
+        <div class="plan">
+          <div class="plan-k">Free Access</div>
+          <div class="price">₹0</div>
+          <div class="price-sub">For eligible members</div>
+          <ul>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> First 200 children — completely free membership</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Economically weaker sections (EWS)</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Full access to all resources</li>
+          </ul>
         </div>
-        <form action="mailto:admin@miaolibrary.in" method="post" enctype="text/plain">
-          <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
-          <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
-          <textarea name="message" placeholder="Your message" aria-label="Your message" required></textarea>
-          <button class="submit" type="submit">Send message →</button>
-        </form>
+        <div class="plan featured">
+          <span class="popular">Popular</span>
+          <div class="plan-k">Lifetime</div>
+          <div class="price">₹150</div>
+          <div class="price-sub">₹50 reg. fee + ₹100 security deposit</div>
+          <ul>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Lifetime membership — one-time fee</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Access to full physical and digital collection</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Free Wi-Fi, tablets and smart screens</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Security deposit refundable on exit</li>
+          </ul>
+          <a class="glass-link glass-link-cta" href="#contact">Register Now</a>
+        </div>
+        <div class="plan">
+          <div class="plan-k">School / Group</div>
+          <div class="price">Free</div>
+          <div class="price-sub">Library period visits</div>
+          <ul>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Schools within 500 m use NALC as their central library</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Project Safal board exam support</li>
+            <li><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Contact us for institutional partnerships</li>
+          </ul>
+          <a class="glass-link" href="#contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-md">
+      <div class="center" style="margin-bottom:2.5rem">
+        <h2 style="margin:0">Quick Access</h2>
+      </div>
+      <div class="qa-grid">
+        <a class="service-card" href="/opac.html" target="_blank" rel="noopener noreferrer">
+          <div class="icon-blue"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+          <h3>Search Books</h3>
+          <p class="muted" style="flex:1; margin-bottom:1.25rem">Browse and search our full catalog via OPAC</p>
+          <span class="cta-label">Open OPAC Catalog →</span>
+        </a>
+        <a class="service-card" href="#membership">
+          <div class="icon-gold"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg></div>
+          <h3>Become a Member</h3>
+          <p class="muted" style="flex:1; margin-bottom:1.25rem">Join NALC and access all resources</p>
+          <span class="cta-label" style="color:#fbbf24; text-shadow:none;">View Membership Plans →</span>
+        </a>
+        <a class="service-card" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">
+          <div class="icon-blue"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
+          <h3>Staff Admin</h3>
+          <p class="muted" style="flex:1; margin-bottom:1.25rem">Koha integrated library system login</p>
+          <span class="cta-label">Staff Login (Koha) →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="shade-2">
+    <div class="wrap-sm center">
+      <div class="kicker">Find Us</div>
+      <div class="blue-divider-center"></div>
+      <h2>Visit <em>our Library</em></h2>
+      <p class="body" style="color:#94a3b8; margin-bottom:2.5rem">We're open to students, residents, and all who seek knowledge.</p>
+      <div class="info-grid">
+        <div class="info">
+          <div class="icon-blue"><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+          <div class="lab">Location</div>
+          <div class="val">Miao, Changlang District
+Arunachal Pradesh, India</div>
+        </div>
+        <div class="info">
+          <div class="icon-blue"><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+          <div class="lab">Hours</div>
+          <div class="val">Monday – Saturday
+9:30 AM – 4:30 PM</div>
+        </div>
+        <div class="info">
+          <div class="icon-blue"><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+          <div class="lab">Contact</div>
+          <div class="val">Sub Divisional Library
+Miao Sub-Division</div>
+        </div>
       </div>
     </div>
   </section>
@@ -548,30 +870,40 @@
           <div class="brand-sub" style="letter-spacing:normal; text-transform:none; color:var(--blue-neon)">New Age Learning Centre · NALC</div>
         </div>
       </div>
-      <small>© 2026 Sub Divisional Library Miao · New Age Learning Centre</small>
+      <div class="foot-links">
+        <a class="glass-link xs" href="#about">About</a>
+        <a class="glass-link xs" href="#services">Services</a>
+        <a class="glass-link xs" href="#membership">Membership</a>
+        <div class="glow-wrap"><a class="glow-btn nalc-link" href="https://nalc.miaolibrary.in/">NALC</a></div>
+        <a class="glass-link xs" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books</a>
+        <a class="glass-link xs" href="https://koha.miaolibrary.in/" target="_blank" rel="noopener noreferrer">Admin</a>
+      </div>
+      <div class="copy">© 2026 Sub Divisional Library Miao<br>Changlang District, Arunachal Pradesh</div>
     </div>
   </footer>
 
   <script>
-    const nav = document.getElementById('nav');
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const iconOpen = document.getElementById("iconOpen");
+    const iconClose = document.getElementById("iconClose");
+    window.addEventListener("scroll", function () {
+      nav.classList.toggle("scrolled", window.scrollY > 60);
     }, { passive: true });
-
-    menuBtn?.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.addEventListener("click", function () {
+      const open = mobileMenu.classList.toggle("open");
+      iconOpen.style.display = open ? "none" : "block";
+      iconClose.style.display = open ? "block" : "none";
     });
-
-    mobileMenu?.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        menuBtn?.setAttribute('aria-expanded', 'false');
+    mobileMenu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        mobileMenu.classList.remove("open");
+        iconOpen.style.display = "block";
+        iconClose.style.display = "none";
       });
     });
   </script>
-</body>
-</html>
+
+
+</body></html>
