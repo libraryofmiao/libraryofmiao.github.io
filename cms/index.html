@@ -150,6 +150,155 @@ main > .card button:not(.secondary):not(.danger){
   main > .card{width:calc(100% - 1rem);border-radius:.85rem!important}
 }
 </style>
+<style>
+/* Final CMS hero/mobile composition corrections */
+.cms-hero .hero-gr{
+  background:linear-gradient(to bottom,rgba(6,12,24,.80) 0%,rgba(6,12,24,.66) 42%,rgba(6,12,24,.84) 100%);
+}
+.cms-hero .hero-grid{
+  width:100%;
+  max-width:80rem;
+  margin:0 auto;
+  grid-template-columns:1fr;
+  justify-items:center;
+  text-align:center;
+}
+.cms-hero .fade-up{
+  width:min(100%,46rem);
+  margin:0 auto;
+  align-items:center;
+}
+.cms-hero h1{
+  text-align:center;
+}
+.cms-hero .lede{
+  width:min(100%,38rem);
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.cms-hero .cms-login-wrap{
+  width:min(100%,32rem);
+  margin-left:auto;
+  margin-right:auto;
+}
+.cms-hero .cms-login-card{
+  width:100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+.cms-hero .explore{
+  left:50%;
+  right:auto;
+  text-align:center;
+}
+
+@media(max-width:767px){
+  .cms-hero{
+    height:auto;
+    min-height:0;
+    overflow:hidden;
+  }
+  .cms-hero .hero-grid{
+    height:auto;
+    min-height:0;
+    width:100%;
+    padding:4.5rem .9rem 2rem;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+    justify-items:center;
+    align-items:start;
+    text-align:center;
+  }
+  .cms-hero .fade-up{
+    width:min(100%,34rem);
+    margin:0 auto;
+    align-items:center;
+  }
+  .cms-hero .pill{
+    margin:0 auto .75rem;
+    font-size:.62rem;
+    letter-spacing:.105em;
+    padding:.32rem .62rem;
+  }
+  .cms-hero h1{
+    width:100%;
+    max-width:34rem;
+    margin:0 auto .7rem;
+    font-size:clamp(2.75rem,9vw,3.45rem);
+    line-height:.98;
+    letter-spacing:-.02em;
+  }
+  .cms-hero .blue-divider{
+    margin:.15rem auto .85rem;
+  }
+  .cms-hero .lede{
+    width:min(100%,32rem);
+    margin:0 auto 1rem;
+    font-size:.94rem;
+    line-height:1.45;
+  }
+  .cms-hero .cms-login-wrap{
+    width:min(100%,32rem);
+    margin:0 auto;
+  }
+  .cms-hero .cms-login-card{
+    width:100%;
+    margin:0 auto;
+    padding:1rem!important;
+  }
+  .cms-hero .cms-login-card h2{
+    font-size:1.35rem;
+    margin-bottom:.65rem;
+  }
+  .cms-hero .cms-login-card .notice{
+    font-size:.78rem;
+    line-height:1.4;
+    padding:.65rem .75rem;
+    margin-bottom:.65rem;
+  }
+  .cms-hero .cms-login-card .status{
+    font-size:.76rem;
+    padding:.55rem .7rem;
+    margin-bottom:.7rem;
+  }
+  .cms-hero .cms-login-card .field{
+    margin-bottom:.65rem;
+  }
+  .cms-hero .cms-login-card input{
+    min-height:2.5rem;
+    padding:.55rem .65rem;
+    font-size:.88rem;
+  }
+  .cms-hero .cms-login-card button{
+    min-height:2.6rem;
+    padding:.55rem .9rem;
+  }
+  .cms-hero .explore{
+    display:none;
+  }
+  .brand-sub{
+    color:#00f0ff!important;
+    text-shadow:0 0 8px rgba(0,240,255,.45)!important;
+  }
+  .menu-btn{
+    color:#00f0ff!important;
+  }
+}
+@media(max-width:380px){
+  .cms-hero .hero-grid{
+    padding:4rem .75rem 1.5rem;
+  }
+  .cms-hero h1{
+    font-size:clamp(2.45rem,10vw,3rem);
+  }
+  .cms-hero .pill{
+    font-size:.57rem;
+  }
+}
+</style>
 </head>
 <body>
 <nav class="top" id="nav"><div class="nav-inner">
