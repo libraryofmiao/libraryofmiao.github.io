@@ -314,7 +314,17 @@ main > .card button:not(.secondary):not(.danger){
 @media(max-width:767px){
   .cms-hero h1 .mobile-space{display:inline}
   .cms-hero h1 .desktop-break{display:none}.cms-hero h1 .content-break{display:block}
-  .cms-hero h1{white-space:nowrap}
+  .cms-hero h1{
+    width:100%;
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    white-space:normal;
+    overflow:visible;
+    font-size:clamp(2rem,8.4vw,3rem);
+    line-height:1.02;
+    text-align:center;
+  }
 }
 @media(min-width:768px){
   .cms-hero h1 .mobile-space{display:none}
