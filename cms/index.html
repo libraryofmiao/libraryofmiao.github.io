@@ -35,13 +35,19 @@ main{padding-top:88px}footer{border-top:1px solid rgba(255,255,255,.05);padding:
   .hero-grid{
     height:auto;
     min-height:0;
+    width:100%;
+    margin:0 auto;
     padding:6.25rem 1rem 1.25rem;
     gap:0;
+    justify-items:center;
+    text-align:center;
   }
   .hero-grid > .fade-up{
-    width:100%;
+    width:min(100%,46rem);
     min-height:0;
     padding:0;
+    margin:0 auto;
+    align-items:center;
   }
   .cms-hero h1{
     font-size:clamp(2.15rem,11.5vw,3.8rem);
@@ -60,11 +66,11 @@ main{padding-top:88px}footer{border-top:1px solid rgba(255,255,255,.05);padding:
     line-height:1.5;
     margin-bottom:.9rem;
   }
-  .cms-login-wrap{max-width:none;width:100%}
+  .cms-login-wrap{width:min(100%,32rem);max-width:32rem;margin:0 auto}
   .cms-login-card{
     width:100%;
     max-width:none;
-    margin:0;
+    margin:0 auto;
     padding:1rem!important;
     border-radius:.9rem!important;
   }
