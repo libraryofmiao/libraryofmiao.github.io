@@ -335,8 +335,11 @@ main > .card button:not(.secondary):not(.danger){
   }
 }
 @media(min-width:768px){
-  .cms-hero{height:calc(100dvh - 120px);min-height:calc(100dvh - 120px)}
-  footer{padding:1.25rem 0}
+  html,body{height:100%;min-height:100dvh}
+  body{display:flex;flex-direction:column;overflow:hidden}
+  .cms-hero{flex:1 1 auto;height:auto;min-height:0}
+  footer{flex:0 0 auto;padding:1.25rem 0}
+  .cms-hero .hero-grid{min-height:0;height:100%}
   .cms-hero h1 .mobile-space{display:none}
   .cms-hero h1 .gold .mobile-space{display:inline}
   .cms-hero h1 .desktop-break{display:none}
