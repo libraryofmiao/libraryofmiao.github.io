@@ -24,6 +24,11 @@ main{padding-top:88px}footer{border-top:1px solid rgba(255,255,255,.05);padding:
   .hero-grid{max-width:80rem;width:100%;margin:0 auto;padding:2rem 1.5rem;align-items:center;grid-template-columns:1fr;justify-items:center;text-align:center}
   .cms-login-wrap{max-width:32rem}
   .cms-login-card{width:100%;max-width:32rem;margin:0 auto}
+  /* Desktop-only CMS heading layout */
+  .cms-hero h1 .desktop-break{display:none}
+  .cms-hero h1 .mobile-space{display:inline}
+  .cms-hero h1 .mobile-space::after{content:' '}
+  .cms-hero h1 .gold{font-size:.78em}
 }
 @media(max-width:767px){
   .mobile-menu .glow-wrap{
