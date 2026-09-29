@@ -31,7 +31,7 @@ a{color:inherit;text-decoration:none}
 .cur{position:fixed;inset:0;z-index:99;background:#02050c;pointer-events:none;animation:up 1.2s .25s cubic-bezier(.77,0,.18,1) forwards}
 @keyframes up{to{clip-path:inset(0 0 100% 0)}}
 header{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 22px) 5vw 0}
-.mono{width:44px;height:44px;border:1px solid rgba(234,240,255,.3);border-radius:50%;display:grid;place-items:center;font:italic 400 1rem 'Fraunces',serif;transition:.4s}
+.mono{width:2.5rem;height:2.5rem;border-radius:9999px;display:block;border:1.5px solid #fbbf24;background:rgba(11,21,40,.8);box-shadow:0 0 12px rgba(217,119,6,.35);overflow:hidden;flex-shrink:0;transition:.4s}.mono img{width:100%;height:100%;object-fit:cover}
 .mono:hover{background:var(--gold);color:#060c18;border-color:var(--gold);rotate:360deg}
 nav{display:flex;gap:1.6rem;font-size:.9rem}
 nav a{position:relative;padding:.3rem 0}
@@ -140,7 +140,7 @@ footer{margin-top:5rem;color:var(--dim);font-size:.85rem}
 <canvas id="fx"></canvas>
 <div class="aur"><i></i><i></i><i></i></div>
 <div class="glow"></div><div class="grain"></div>
-<header><a class="mono" href="#hero" aria-label="Top"></a><nav><a href="#hero">Intro</a><a href="#about">About</a></nav></header>
+<header><a class="mono" href="#hero" aria-label="Top"><img src="/index_files/cbimage_3vTi.webp" alt="Sub Divisional Library Miao Logo"></a><nav><a href="#hero">Intro</a><a href="#about">About</a></nav></header>
 
 <div class="person"><img src="/owner/owner.png" alt="Portrait of the owner"></div>
 
