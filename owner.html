@@ -67,7 +67,7 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 .mq{position:absolute;left:0;top:60vh;z-index:1;white-space:nowrap;display:flex;width:max-content;animation:mq 45s linear infinite;font-weight:300;font-size:11vh;line-height:1;color:rgba(234,240,255,.08);opacity:calc(1 - var(--p)*2)}
 .mq span{padding-right:3vw}
 @keyframes mq{to{transform:translateX(-50%)}}
-.hf{position:absolute;inset:0;z-index:101;transform:translateY(calc(var(--p)*-10vh));opacity:1;pointer-events:none}
+.hf{position:absolute;inset:0;z-index:3;transform:translateY(calc(var(--p)*-10vh));opacity:calc(1 - var(--p)*1.8);pointer-events:none}
 .hf>*{position:absolute;animation:fade 1.4s 2.4s backwards}
 @keyframes fade{from{opacity:0;transform:translateY(24px)}}
 .hi{left:5vw;bottom:13vh;max-width:19rem}
@@ -121,6 +121,7 @@ footer{margin-top:5rem;color:var(--dim);font-size:.85rem}
  :root{--sx:0vw;--ss:.12;--so:.78}
  .person{height:64vh}
  .big{font-size:12vw;top:14vh}
+ .hf{z-index:101;opacity:1}
  .hi{left:6vw;right:6vw;bottom:5vh;max-width:none;text-shadow:0 2px 18px #000}
  .cue{display:none}
  .role{right:6vw;top:11vh}
