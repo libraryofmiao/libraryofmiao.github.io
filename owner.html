@@ -202,7 +202,7 @@ $$('.st').forEach(el=>{el.onpointermove=e=>{const r=el.getBoundingClientRect(),x
 $$('.mag').forEach(b=>{b.onpointermove=e=>{const r=b.getBoundingClientRect();b.style.translate=`${(e.clientX-r.left-r.width/2)*.3}px ${(e.clientY-r.top-r.height/2)*.4}px`};b.onpointerleave=()=>b.style.translate=''});
 
 /* particles that reach toward the cursor */
-const cv=$('#fx'),cx=cv.getContext('2d'),bar=$('.bar'),glow=$('.glow'),tlEl=$('.tl');let W,H,P=[],px=-999,py=-999,tx=0,ty=0,mx=0,my=0,grid,cell=110,sp=0,tl=0,dirty=1;
+const cv=$('#fx'),cx=cv.getContext('2d'),bar=$('.bar'),glow=$('.glow'),tlEl=$('.tl');let W,H,P=[],px=-999,py=-999,tx=0,ty=0,mx=0,my=0,lmx=0,lmy=0,grid,cell=110,sp=0,tl=0;
 function rs(){const d=innerWidth>800?1:Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);P=Array.from({length:Math.min(innerWidth>800?56:80,W/18|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}));sp=document.documentElement.scrollHeight-H;dirty=1}
 function updateScroll(){const y=scrollY,h=innerHeight,p=ease(Math.min(1,y/(h*.9))),t=tlEl.getBoundingClientRect();tl=Math.max(0,Math.min(1,(h*.72-t.top)/t.height));RS.setProperty('--p',p.toFixed(4));RS.setProperty('--tl',tl.toFixed(4));bar.style.transform=`scaleX(${y/Math.max(1,sp)})`}
 rs();addEventListener('resize',()=>{rs();updateScroll()},{passive:true});addEventListener('scroll',updateScroll,{passive:true});
@@ -210,7 +210,7 @@ addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;tx=px/W-.5;ty=py/H-
 const ease=k=>k*k*(3-2*k);
 function tick(){
  mx+=(tx-mx)*.06;my+=(ty-my)*.06;
- if(Math.abs(mx-parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mx')))>0.001||Math.abs(my-parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--my')))>0.001){RS.setProperty('--mx',mx.toFixed(4));RS.setProperty('--my',my.toFixed(4))}
+ if(Math.abs(mx-lmx)>0.001||Math.abs(my-lmy)>0.001){lmx=mx;lmy=my;RS.setProperty('--mx',mx.toFixed(4));RS.setProperty('--my',my.toFixed(4))}
  cx.clearRect(0,0,W,H);
  grid=new Map();
  for(const a of P){if(!RM){a.x+=a.vx;a.y+=a.vy}if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
