@@ -180,7 +180,7 @@ const D={
 /* ================================================= */
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RS=document.documentElement.style,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.title="About "+D.first;
-$('.mono').textContent=D.first.split(' ').map(w=>w[0]).join('').slice(0,2);
+
 $('.big').innerHTML=[...D.name].map((c,i)=>`<span style="--i:${i}">${c==' '?' ':c}</span>`).join('');
 const tg=D.tags.map(t=>`<span>${t} ✦</span>`).join('').repeat(4);$('.mq').innerHTML=`<div style="display:flex">${tg}</div><div style="display:flex">${tg}</div>`;
 $('.role').textContent=D.role;
