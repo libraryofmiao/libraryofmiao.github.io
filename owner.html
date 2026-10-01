@@ -49,10 +49,7 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 @keyframes pin{from{opacity:0;filter:blur(30px) brightness(2.4)}}
 
 /* section 1 */
-#hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
-.mq{position:absolute;left:0;top:60vh;z-index:1;white-space:nowrap;display:flex;width:max-content;animation:mq 45s linear infinite;font-weight:300;font-size:11vh;line-height:1;color:rgba(234,240,255,.08);opacity:calc(1 - var(--p)*2)}
-.mq span{padding-right:3vw}
-@keyframes mq{to{transform:translateX(-50%)}}
+#hero{position:relative;height:100vh;min-height:640px;overflow:hidden}}
 .hf{position:absolute;inset:0;z-index:3;transform:translateY(calc(var(--p)*-10vh));opacity:calc(1 - var(--p)*1.8);pointer-events:none}
 .hf>*{position:absolute;animation:fade 1.4s 2.4s backwards}
 @keyframes fade{from{opacity:0;transform:translateY(24px)}}
@@ -143,7 +140,6 @@ footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
 <section id="hero">
  <div class="typewriter-role" aria-label="Professional roles"><span class="typewriter"></span></div>
 
- <div class="mq" aria-hidden="true"></div>
  <div class="hf"><div class="role"></div><div class="hi"></div><div class="cue"><span>Scroll</span><i></i></div></div>
 </section>
 
@@ -177,7 +173,6 @@ const D={
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RS=document.documentElement.style,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.title="About "+D.first;
 
-const tg=D.tags.map(t=>`<span>${t} ✦</span>`).join('').repeat(4);$('.mq').innerHTML=`<div style="display:flex">${tg}</div><div style="display:flex">${tg}</div>`;
 $('.role').textContent=D.role;
 $('.hi').innerHTML=`<small>${D.greeting.trim()} ${D.first.trim()}</small><p>${D.intro}</p>`;
 $('.hd').innerHTML=D.headline.split(' ').map((w,i)=>`<span class="w"><span style="--i:${i}">${w}</span></span>`).join('');
