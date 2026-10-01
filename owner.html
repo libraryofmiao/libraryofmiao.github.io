@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060c18;--ink:#eaf0ff;--dim:#8b97b5;--gold:#ffb454;--teal:#5eead4;--iris:#7c6cff;--p:0;--mx:0;--my:0;--tl:0;--sx:-31vw;--ss:.3;--so:0;box-sizing:border-box;color-scheme:dark}
+:root{--bg:#060c18;--ink:#eaf0ff;--dim:#8b97b5;--gold:#ffb454;--teal:#5eead4;--iris:#7c6cff;--p:0;--mx:0;--my:0;--tl:0;--exit:0;--sx:-31vw;--ss:.3;--so:0;box-sizing:border-box;color-scheme:dark}
 *{box-sizing:inherit;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:300 16px/1.65 'Space Grotesk',system-ui,sans-serif;overflow-x:hidden}
@@ -36,7 +36,7 @@ nav{display:flex;gap:1.6rem;font-size:.9rem}
 nav a{position:relative;padding:.3rem 0}.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;min-width:0}.brand-name{font-family:'Space Grotesk',system-ui,sans-serif;font-size:.875rem;font-weight:600;color:#fff;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand-sub{font-family:'Space Grotesk',system-ui,sans-serif;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45),0 0 18px rgba(0,210,255,.28);white-space:nowrap}
 nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transition:.4s;transform-origin:right}
 nav a:hover:after{transform:scaleX(1);transform-origin:left}
-.person{position:fixed;left:50%;bottom:0;height:90vh;aspect-ratio:1200/896;z-index:100;pointer-events:none;transform-origin:50% 100%;transform:translate3d(calc(-50% + var(--p)*var(--sx) + var(--mx)*-2vw),calc(var(--p)*2vh + var(--my)*-1.2vh),0) scale(calc(1 - var(--p)*var(--ss)));opacity:calc(1 - var(--p)*var(--so));animation:pin 2s 1.1s cubic-bezier(.2,.9,.2,1) backwards;-webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);mask-composite:intersect}
+.person{position:fixed;left:50%;bottom:0;height:90vh;aspect-ratio:1200/896;z-index:100;pointer-events:none;transform-origin:50% 100%;transform:translate3d(calc(-50% + var(--p)*var(--sx) + var(--exit)*-45vw + var(--mx)*-2vw),calc(var(--p)*2vh + var(--my)*-1.2vh),0) scale(calc(1 - var(--p)*var(--ss)));opacity:calc(1 - var(--p)*var(--so));animation:pin 2s 1.1s cubic-bezier(.2,.9,.2,1) backwards;-webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);mask-composite:intersect}
 .person img{display:block;width:100%;height:100%}
 @keyframes pin{from{opacity:0;filter:blur(30px) brightness(2.4)}}
 #hero{position:relative;height:100vh;min-height:640px;overflow:hidden}}
@@ -178,7 +178,7 @@ $$('.st').forEach(el=>{el.onpointermove=e=>{const r=el.getBoundingClientRect(),x
 $$('.mag').forEach(b=>{b.onpointermove=e=>{const r=b.getBoundingClientRect();b.style.translate=`${(e.clientX-r.left-r.width/2)*.3}px ${(e.clientY-r.top-r.height/2)*.4}px`};b.onpointerleave=()=>b.style.translate=''});
 const cv=$('#fx'),cx=cv.getContext('2d'),bar=$('.bar'),glow=$('.glow'),tlEl=$('.tl');let W,H,P=[],px=-999,py=-999,tx=0,ty=0,mx=0,my=0,lmx=0,lmy=0,grid,cell=110,sp=0,tl=0;
 function rs(){const d=innerWidth>800?1:Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);P=Array.from({length:Math.min(innerWidth>800?56:80,W/18|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}));sp=document.documentElement.scrollHeight-H;dirty=1}
-function updateScroll(){const y=scrollY,h=innerHeight,p=ease(Math.min(1,y/(h*.9))),t=tlEl.getBoundingClientRect();tl=Math.max(0,Math.min(1,(h*.72-t.top)/t.height));RS.setProperty('--p',p.toFixed(4));RS.setProperty('--tl',tl.toFixed(4));bar.style.transform=`scaleX(${y/Math.max(1,sp)})`}
+function updateScroll(){const y=scrollY,h=innerHeight,p=ease(Math.min(1,y/(h*.9))),exit=innerWidth>800?ease(Math.min(1,Math.max(0,(y-h*.9)/(h*.9)))):0,t=tlEl.getBoundingClientRect();tl=Math.max(0,Math.min(1,(h*.72-t.top)/t.height));RS.setProperty('--p',p.toFixed(4));RS.setProperty('--exit',exit.toFixed(4));RS.setProperty('--tl',tl.toFixed(4));bar.style.transform=`scaleX(${y/Math.max(1,sp)})`}
 rs();addEventListener('resize',()=>{rs();updateScroll()},{passive:true});addEventListener('scroll',updateScroll,{passive:true});
 addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;tx=px/W-.5;ty=py/H-.5;glow.style.transform=`translate(${px}px,${py}px)`},{passive:true});
 const ease=k=>k*k*(3-2*k);
