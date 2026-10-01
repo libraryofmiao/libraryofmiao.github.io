@@ -50,13 +50,6 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 
 /* section 1 */
 #hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
-.rings{position:absolute;left:calc(50% - 4.8vh);top:32vh;z-index:1;transform:scale(calc(1 + var(--p)*.8));opacity:calc(1 - var(--p)*1.2)}
-.rings i{position:absolute;border-radius:50%;border:1px dashed rgba(234,240,255,.18);translate:-50% -50%;animation:spin 46s linear infinite}
-.rings i:nth-child(1){width:56vh;height:56vh}
-.rings i:nth-child(2){width:74vh;height:74vh;animation-duration:70s;animation-direction:reverse;border-style:solid;border-color:rgba(255,180,84,.16)}
-.rings i:nth-child(3){width:94vh;height:94vh;animation-duration:100s}
-.rings i:after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px 3px var(--gold)}
-@keyframes spin{to{rotate:360deg}}
 .mq{position:absolute;left:0;top:60vh;z-index:1;white-space:nowrap;display:flex;width:max-content;animation:mq 45s linear infinite;font-weight:300;font-size:11vh;line-height:1;color:rgba(234,240,255,.08);opacity:calc(1 - var(--p)*2)}
 .mq span{padding-right:3vw}
 @keyframes mq{to{transform:translateX(-50%)}}
@@ -135,7 +128,7 @@ footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
 <div class="person"><img src="/owner/owner.png" alt="Portrait of the owner"></div>
 
 <section id="hero">
- <div class="rings"><i></i><i></i><i></i></div>
+
  <div class="mq" aria-hidden="true"></div>
  <div class="hf"><div class="role"></div><div class="hi"></div><div class="cue"><span>Scroll</span><i></i></div></div>
 </section>
