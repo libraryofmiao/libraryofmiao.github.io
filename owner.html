@@ -16,8 +16,6 @@ body{background:var(--bg);color:var(--ink);font:300 16px/1.65 'Space Grotesk',sy
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .serif,h2,.big,.q,.num,.hi p{font-family:'Fraunces',Georgia,serif}
-
-/* atmosphere */
 #fx,.aur,.grain,.glow{position:fixed;pointer-events:none}
 #fx{inset:0;width:100%;height:100%;z-index:0}
 .aur{inset:0;z-index:0;filter:blur(70px);opacity:.3;transform:translateY(calc(var(--p)*-14vh))}
@@ -38,17 +36,9 @@ nav{display:flex;gap:1.6rem;font-size:.9rem}
 nav a{position:relative;padding:.3rem 0}.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;min-width:0}.brand-name{font-family:'Space Grotesk',system-ui,sans-serif;font-size:.875rem;font-weight:600;color:#fff;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand-sub{font-family:'Space Grotesk',system-ui,sans-serif;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45),0 0 18px rgba(0,210,255,.28);white-space:nowrap}
 nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transition:.4s;transform-origin:right}
 nav a:hover:after{transform:scaleX(1);transform-origin:left}
-
-/* the portrait: one element that travels between both sections */
-.person{position:fixed;left:50%;bottom:0;height:90vh;aspect-ratio:1200/896;z-index:100;pointer-events:none;transform-origin:50% 100%;
- transform:translate3d(calc(-50% + var(--p)*var(--sx) + var(--mx)*-2vw),calc(var(--p)*2vh + var(--my)*-1.2vh),0) scale(calc(1 - var(--p)*var(--ss)));
- opacity:calc(1 - var(--p)*var(--so));animation:pin 2s 1.1s cubic-bezier(.2,.9,.2,1) backwards;
- -webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);-webkit-mask-composite:source-in;
- mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);mask-composite:intersect}
+.person{position:fixed;left:50%;bottom:0;height:90vh;aspect-ratio:1200/896;z-index:100;pointer-events:none;transform-origin:50% 100%;transform:translate3d(calc(-50% + var(--p)*var(--sx) + var(--mx)*-2vw),calc(var(--p)*2vh + var(--my)*-1.2vh),0) scale(calc(1 - var(--p)*var(--ss)));opacity:calc(1 - var(--p)*var(--so));animation:pin 2s 1.1s cubic-bezier(.2,.9,.2,1) backwards;-webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 86%,transparent 99%),linear-gradient(to right,transparent 2%,#000 8%,#000 85.5%,transparent 88.5%);mask-composite:intersect}
 .person img{display:block;width:100%;height:100%}
 @keyframes pin{from{opacity:0;filter:blur(30px) brightness(2.4)}}
-
-/* section 1 */
 #hero{position:relative;height:100vh;min-height:640px;overflow:hidden}}
 .hf{position:absolute;inset:0;z-index:3;transform:translateY(calc(var(--p)*-10vh));opacity:calc(1 - var(--p)*1.8);pointer-events:none}
 .hf>*{position:absolute;animation:fade 1.4s 2.4s backwards}
@@ -57,7 +47,7 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 .hi small{display:block;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45),0 0 18px rgba(0,210,255,.28);font-size:1.5rem;margin-bottom:.6rem;white-space:nowrap}
 .hi p{font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.8vw,1.7rem);line-height:1.35}
 .role{right:5vw;top:15vh;display:flex;align-items:center;gap:.7rem;padding:.55rem 1.1rem;border:1px solid rgba(234,240,255,.22);border-radius:99px;backdrop-filter:blur(10px);font-size:.9rem}
-.typewriter-role{position:absolute;right:5vw;top:15vh;z-index:101;transform:translateY(calc(100% + 1.2rem));font-size:clamp(3.8rem,6.8vw,5.8rem);font-weight:400;line-height:1;white-space:nowrap;min-width:11ch;max-width:calc(50vw - 10vw);color:#eaf0ff;text-align:left;text-shadow:0 0 8px rgba(94,234,212,.35)}
+.typewriter-role{position:absolute;right:3vw;top:15vh;z-index:101;transform:translateY(calc(100% + 1.2rem));font-size:clamp(3.04rem,5.44vw,4.64rem);font-weight:400;line-height:1;white-space:nowrap;min-width:11ch;max-width:calc(50vw - 10vw);color:#eaf0ff;text-align:left;text-shadow:0 0 8px rgba(94,234,212,.35)}
 .typewriter{--caret:currentcolor;display:inline-block;white-space:nowrap;min-width:11ch}
 .typewriter::before{content:"";animation:typing 12s steps(1,end) infinite}
 .typewriter::after{content:"";display:inline-block;width:1px;height:1em;margin-left:3px;vertical-align:-.08em;border-right:1px solid var(--caret);animation:blink .6s linear infinite}
@@ -75,8 +65,6 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 .cue{right:5vw;bottom:13vh;display:flex;flex-direction:column;align-items:center;gap:.8rem;font-size:.85rem;color:var(--dim)}
 .cue i{width:1px;height:64px;background:linear-gradient(var(--gold) 50%,transparent 50%) 0 0/1px 200%;animation:drip 1.8s infinite}
 @keyframes drip{to{background-position:0 -100%}}
-
-/* section 2 */
 #about{position:relative;z-index:3;padding:16vh 6vw 10vh 47vw;min-height:200vh}
 .rv{opacity:0;transform:translateY(46px);filter:blur(8px);transition:1.1s cubic-bezier(.2,.9,.2,1) calc(var(--d,0)*.12s)}
 .rv.in{opacity:1;transform:none;filter:none}
@@ -87,7 +75,8 @@ h2{font-weight:300;font-size:clamp(2.3rem,4.6vw,4.8rem);line-height:1.04;letter-
 .bio{margin-top:2.4rem;max-width:760px;color:#eaf0ff;text-align:justify;line-height:1.7}.bio p{text-indent:2em}
 .bio p+p{margin-top:1.1rem}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;width:min(100%,980px)}
-.st{position:relative;padding:1.3rem 1.2rem;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,180,84,.22),rgba(255,255,255,.03) 60%);backdrop-filter:blur(14px);transition:transform .25s}\n.deg{margin:1.25rem 0 0;padding:0;text-align:left;list-style:none;display:grid;gap:.55rem}.deg li{position:relative;padding-left:1rem;font-size:.78rem;line-height:1.45;color:#dce5f7;font-weight:500;list-style:none}.deg li::marker{content:""}.deg li::before{content:"•";position:absolute;left:0;color:var(--gold)}
+.st{position:relative;padding:1.3rem 1.2rem;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,180,84,.22),rgba(255,255,255,.03) 60%);backdrop-filter:blur(14px);transition:transform .25s}
+.deg{margin:1.25rem 0 0;padding:0;text-align:left;list-style:none;display:grid;gap:.55rem}.deg li{position:relative;padding-left:1rem;font-size:.78rem;line-height:1.45;color:#dce5f7;font-weight:500;list-style:none}.deg li::marker{content:""}.deg li::before{content:"•";position:absolute;left:0;color:var(--gold)}
 .num{display:block;font-size:clamp(2rem,3.4vw,3.4rem);line-height:1;font-weight:300;color:var(--gold);text-shadow:0 0 8px rgba(255,180,84,.45),0 0 18px rgba(255,180,84,.25)}
 .st span{color:#eaf0ff;font-size:.9rem}
 .tl{position:relative;margin-top:5rem;padding-left:2.2rem}
@@ -112,16 +101,14 @@ h2{font-weight:300;font-size:clamp(2.3rem,4.6vw,4.8rem);line-height:1.04;letter-
 .btn{display:inline-block;margin-top:2.4rem;padding:1.05rem 2.2rem;border-radius:99px;font-weight:500;color:#060c18;background:linear-gradient(90deg,var(--gold),var(--teal),var(--gold)) 0 0/200% 100%;animation:sweep2 4s linear infinite;transition:translate .3s}
 @keyframes sweep2{to{background-position:-200% 0}}
 footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
-
 @media (max-width:800px){
  :root{--sx:0vw;--ss:.12;--so:.78}
  .person{height:64vh}
- .typewriter-role{right:6vw;top:15vh;transform:translateY(calc(100% + 1rem));font-size:clamp(1.9rem,10vw,4rem);max-width:42vw;overflow:hidden}
+ .typewriter-role{right:4vw;top:15vh;transform:translateY(calc(100% + 1rem));font-size:clamp(1.52rem,8vw,3.2rem);max-width:42vw;overflow:hidden}
  #about{padding:24vh 6vw 8vh}
  .hd{white-space:normal;max-width:100%;overflow-wrap:break-word;text-align:center;font-size:clamp(3rem,10vw,5rem);line-height:1.02;letter-spacing:-.035em}
  .stats{grid-template-columns:1fr 1fr 1fr;gap:.6rem;width:100%}
  .st{padding:1rem .8rem}
-
 }
 @media (prefers-reduced-motion:reduce){
  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -134,15 +121,11 @@ footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
 <div class="aur"><i></i><i></i><i></i></div>
 <div class="glow"></div><div class="grain"></div>
 <header><a class="brand" href="#hero" aria-label="Top"><div class="mono"><img src="/index_files/cbimage_3vTi.webp" alt="Sub Divisional Library Miao Logo"></div><div><div class="brand-name">Sub Divisional Library</div><div class="brand-sub">Miao · NALC</div></div></a><nav><a href="#hero">Intro</a><a href="#about">About</a></nav></header>
-
 <div class="person"><img src="/owner/owner.png" alt="Portrait of the owner"></div>
-
 <section id="hero">
  <div class="typewriter-role" aria-label="Professional roles"><span class="typewriter"></span></div>
-
  <div class="hf"><div class="role"></div><div class="hi"></div><div class="cue"><span>Scroll</span><i></i></div></div>
 </section>
-
 <section id="about">
  <h2 class="hd"></h2>
  <div class="bio"></div>
@@ -152,27 +135,16 @@ footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
  <div class="ct rv"></div>
  <footer class="rv"></footer>
 </section>
-
 <script>
-/* ============ EDIT YOUR DETAILS HERE ============ */
 const D={
- name:"A M TRIPATHI",
- first:"Ankit Mani Tripathi",
- role:"Founder and Owner",
- greeting:"Hello, I'm",
- intro:"I build at the crossroads of technology, knowledge and public service—turning curious ideas into useful things.",
- tags:["Developer","Educator","Technophile","Librarian"],
- headline:"Threads of My Journey",
+ name:"A M TRIPATHI",first:"Ankit Mani Tripathi",role:"Founder and Owner",greeting:"Hello, I'm",intro:"I build at the crossroads of technology, knowledge and public service—turning curious ideas into useful things.",tags:["Developer","Educator","Technophile","Librarian"],headline:"Threads of My Journey",
  bio:["An Electronics Engineering Diploma holder with Bachelor's degrees in Political Science, Economics and Library & Information Science, and Master's degrees in Political Science and Library & Information Science, I have always been drawn to the space where different disciplines meet. I learned Computer Applications and Graphic Designing at the age of 12, and that early curiosity became a habit of learning, making, and asking what could be built differently.","In March 2024, I joined the Arunachal Pradesh Police as police personnel, entering public service through discipline, responsibility and service. In June 2026, I joined Sub Divisional Library Miao as a Junior Librarian, where those threads came together. I developed a Membership Web Application as a leap toward library automation, built miaolibrary.in, introduced Koha for library automation, and created the Miao Library Patron App to help users access and use library resources more efficiently."],
  stats:[[1,"","Engineering diploma",["Diploma in Electronics Engineering","Diploma in Graphic Designing"]],[3,"","Bachelor degrees",["Bachelor of Arts in Economics & Political Science","Bachelor of Education","Bachelor of Library & Information Science"]],[2,"","Master’s degrees",["Master of Arts in Political Science","Master of Library & Information Science"]]],
  timeline:[["Age 12","The First Spark","Computer applications and graphic designing became more than subjects—they became tools for curiosity, creativity and making things."],["September 2013","Five Years in ISO Auditing","Worked as an Auditor with an ISO Certification Body for five consecutive years, gaining experience in auditing, standards, compliance, documentation and quality systems."],["March 2024","A New Kind of Service","Joining the Arunachal Pradesh Police brought a new chapter of public service, grounded in discipline, responsibility and duty."],["June 2026","Into the Library","Joining Sub Divisional Library Miao as a Junior Librarian brought technology, information and public service together in one place."],["August 2026","Building the Library Online","Developed miaolibrary.in, the official website of Sub Divisional Library Miao."],["10 September 2026","Public Launch","miaolibrary.in was opened to the public as the official digital presence of Sub Divisional Library Miao."],["2026","A Leap Toward Automation","The Membership Web Application and the adoption of Koha began turning library work into a more connected digital experience."],["2026","Building for the Patron","The Miao Library Patron App extended that journey to the people who matter most—the patrons—helping them use library resources more efficiently."]],
- quote:"I like old knowledge, new tools and the dangerous little question in between: What if we built it differently?",
- contact:[["Email","admin@miaolibrary.in","mailto:admin@miaolibrary.in"],["Phone","+91 84709 86025","tel:+918470986025"],["Based in","Miao, Arunachal Pradesh",""]]
+ quote:"I like old knowledge, new tools and the dangerous little question in between: What if we built it differently?",contact:[["Email","admin@miaolibrary.in","mailto:admin@miaolibrary.in"],["Phone","+91 84709 86025","tel:+918470986025"],["Based in","Miao, Arunachal Pradesh",""]]
 };
-/* ================================================= */
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RS=document.documentElement.style,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.title="About "+D.first;
-
 $('.role').textContent=D.role;
 $('.hi').innerHTML=`<small>${D.greeting.trim()} ${D.first.trim()}</small><p>${D.intro}</p>`;
 $('.hd').innerHTML=D.headline.split(' ').map((w,i)=>`<span class="w"><span style="--i:${i}">${w}</span></span>`).join('');
@@ -182,37 +154,18 @@ $('.tl').innerHTML=D.timeline.map(t=>`<div class="ti rv"><b>${t[0]}</b><h3>${t[1
 $('.q').textContent=D.quote;
 $('.ct').innerHTML=D.contact.map(c=>`<${c[2]?'a href="'+c[2]+'"':'div'} class="cl"><small>${c[0]}</small><span>${c[1]}</span></${c[2]?'a':'div'}>`).join('')+(D.contact[0][2]?`<a class="btn mag" href="${D.contact[0][2]}">Get in touch</a>`:'');
 $('footer').textContent=`© ${new Date().getFullYear()} ${D.first}`;
-
-/* reveal + count-up */
 const count=el=>{const n=+el.dataset.n,t=performance.now();(function f(now){const k=Math.min(1,(now-t)/1800),e=k==1?1:1-Math.pow(2,-10*k);el.textContent=Math.round(n*e)+el.dataset.s;if(k<1)requestAnimationFrame(f)})(t)};
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');if(e.target.dataset.n)count(e.target);io.unobserve(e.target)}),{threshold:.3});
 $$('.rv,.hd,.num').forEach(n=>io.observe(n));
-
-/* 3D tilt + magnetic */
 $$('.st').forEach(el=>{el.onpointermove=e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;el.style.transform=`perspective(700px) rotateY(${(x-.5)*16}deg) rotateX(${(.5-y)*16}deg)`;el.style.setProperty('--gx',x*100+'%');el.style.setProperty('--gy',y*100+'%')};el.onpointerleave=()=>el.style.transform=''});
 $$('.mag').forEach(b=>{b.onpointermove=e=>{const r=b.getBoundingClientRect();b.style.translate=`${(e.clientX-r.left-r.width/2)*.3}px ${(e.clientY-r.top-r.height/2)*.4}px`};b.onpointerleave=()=>b.style.translate=''});
-
-/* particles that reach toward the cursor */
 const cv=$('#fx'),cx=cv.getContext('2d'),bar=$('.bar'),glow=$('.glow'),tlEl=$('.tl');let W,H,P=[],px=-999,py=-999,tx=0,ty=0,mx=0,my=0,lmx=0,lmy=0,grid,cell=110,sp=0,tl=0;
 function rs(){const d=innerWidth>800?1:Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);P=Array.from({length:Math.min(innerWidth>800?56:80,W/18|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}));sp=document.documentElement.scrollHeight-H;dirty=1}
 function updateScroll(){const y=scrollY,h=innerHeight,p=ease(Math.min(1,y/(h*.9))),t=tlEl.getBoundingClientRect();tl=Math.max(0,Math.min(1,(h*.72-t.top)/t.height));RS.setProperty('--p',p.toFixed(4));RS.setProperty('--tl',tl.toFixed(4));bar.style.transform=`scaleX(${y/Math.max(1,sp)})`}
 rs();addEventListener('resize',()=>{rs();updateScroll()},{passive:true});addEventListener('scroll',updateScroll,{passive:true});
 addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;tx=px/W-.5;ty=py/H-.5;glow.style.transform=`translate(${px}px,${py}px)`},{passive:true});
 const ease=k=>k*k*(3-2*k);
-function tick(){
- mx+=(tx-mx)*.06;my+=(ty-my)*.06;
- if(Math.abs(mx-lmx)>0.001||Math.abs(my-lmy)>0.001){lmx=mx;lmy=my;RS.setProperty('--mx',mx.toFixed(4));RS.setProperty('--my',my.toFixed(4))}
- cx.clearRect(0,0,W,H);
- grid=new Map();
- for(const a of P){if(!RM){a.x+=a.vx;a.y+=a.vy}if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
-  cx.fillStyle='rgba(234,240,255,.5)';cx.fillRect(a.x,a.y,1.6,1.6);
-  const gx=Math.floor(a.x/cell),gy=Math.floor(a.y/cell),key=gx+','+gy;let bucket=grid.get(key);if(!bucket)grid.set(key,bucket=[]);bucket.push(a);
- }
- for(const a of P){const gx=Math.floor(a.x/cell),gy=Math.floor(a.y/cell);
-  for(let ix=-1;ix<=1;ix++)for(let iy=-1;iy<=1;iy++){const bucket=grid.get((gx+ix)+','+(gy+iy));if(!bucket)continue;for(const b of bucket){if(a>=b)continue;const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;if(d2<12100){const d=Math.sqrt(d2);cx.strokeStyle=`rgba(94,234,212,${.14*(1-d/110)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}}
-  const dx=a.x-px,dy=a.y-py,d2=dx*dx+dy*dy;if(d2<28900){const dm=Math.sqrt(d2);cx.strokeStyle=`rgba(255,180,84,${.5*(1-dm/170)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(px,py);cx.stroke()}
- }
- requestAnimationFrame(tick)}
+function tick(){mx+=(tx-mx)*.06;my+=(ty-my)*.06;if(Math.abs(mx-lmx)>.001||Math.abs(my-lmy)>.001){lmx=mx;lmy=my;RS.setProperty('--mx',mx.toFixed(4));RS.setProperty('--my',my.toFixed(4))}cx.clearRect(0,0,W,H);grid=new Map();for(const a of P){if(!RM){a.x+=a.vx;a.y+=a.vy}if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;cx.fillStyle='rgba(234,240,255,.5)';cx.fillRect(a.x,a.y,1.6,1.6);const gx=Math.floor(a.x/cell),gy=Math.floor(a.y/cell),key=gx+','+gy;let bucket=grid.get(key);if(!bucket)grid.set(key,bucket=[]);bucket.push(a)}for(const a of P){const gx=Math.floor(a.x/cell),gy=Math.floor(a.y/cell);for(let ix=-1;ix<=1;ix++)for(let iy=-1;iy<=1;iy++){const bucket=grid.get((gx+ix)+','+(gy+iy));if(!bucket)continue;for(const b of bucket){if(a>=b)continue;const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;if(d2<12100){const d=Math.sqrt(d2);cx.strokeStyle=`rgba(94,234,212,${.14*(1-d/110)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}}const dx=a.x-px,dy=a.y-py,d2=dx*dx+dy*dy;if(d2<28900){const dm=Math.sqrt(d2);cx.strokeStyle=`rgba(255,180,84,${.5*(1-dm/170)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(px,py);cx.stroke()}}requestAnimationFrame(tick)}
 updateScroll();addEventListener('load',()=>requestAnimationFrame(tick),{once:true});
 </script>
 </body>
