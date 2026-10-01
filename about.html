@@ -57,9 +57,9 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 0;background:#0
 html{scroll-snap-type:y mandatory;scroll-padding-top:5rem}
 #foundation,#recent-history,#migration,#present{height:100dvh;min-height:0;scroll-snap-align:start;scroll-snap-stop:always;view-timeline:--about-section;padding:0;position:relative}
 #foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:fixed;top:5rem;left:0;right:0;height:calc(100dvh - 5rem);overflow:visible;display:flex;flex-direction:column;justify-content:center;animation:about-backwards-scroll ease-in-out both;animation-timeline:--about-section;z-index:1;visibility:visible;opacity:1}
-#foundation>.wrap{padding-top:2.5rem}
+#foundation>.wrap{padding-top:2.5rem;animation:about-foundation-scroll ease-in-out both;animation-timeline:--about-section}
 .two{width:100%}
-@keyframes about-backwards-scroll{0%{transform:translate3d(0,-100%,0);opacity:0}50%{transform:translate3d(0,0,0);opacity:1}100%{transform:translate3d(0,100%,0);opacity:0}}
+@keyframes about-backwards-scroll{0%{transform:translate3d(0,-100%,0);opacity:0}50%{transform:translate3d(0,0,0);opacity:1}100%{transform:translate3d(0,100%,0);opacity:0}}@keyframes about-foundation-scroll{0%{transform:translate3d(0,0,0);opacity:1}50%{transform:translate3d(0,0,0);opacity:1}100%{transform:translate3d(0,100%,0);opacity:0}}
 }
 @media(min-width:768px) and (prefers-reduced-motion:reduce){html{scroll-snap-type:none}#foundation,#recent-history,#migration,#present{height:auto;min-height:calc(100dvh - 5rem);scroll-snap-align:none;scroll-snap-stop:normal;view-timeline:none;padding:2.5rem 0}#foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:static;height:auto;overflow:visible;display:block;animation:none;transform:none;opacity:1}.about-canvas #foundation{position:relative}}
 @media(max-width:430px){.back-link{font-size:0}.back-link::after{content:"← Home";font-size:.8rem}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gallery-item img{transition:none}.back-link,.section-nav a,.skip-link{transition:none}.section-nav{scroll-behavior:auto}}
