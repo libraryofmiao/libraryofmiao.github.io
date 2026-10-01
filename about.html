@@ -55,8 +55,8 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 0;background:#0
 @media(min-width:768px){.foot{flex-direction:row;justify-content:space-between}}
 @media(min-width:768px){
 html{scroll-snap-type:y mandatory;scroll-padding-top:5rem}
-#foundation,#recent-history,#migration,#present{height:100dvh;min-height:0;scroll-snap-align:start;scroll-snap-stop:always;view-timeline:--about-section;padding:0;position:relative;overflow:hidden}
-#foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:relative;height:100%;overflow:visible;display:flex;flex-direction:column;justify-content:center;animation:about-backwards-scroll ease-in-out both;animation-timeline:--about-section;z-index:1;visibility:visible;opacity:1}
+#foundation,#recent-history,#migration,#present{height:calc(100dvh - 5rem);min-height:calc(100svh - 5rem);max-height:calc(100dvh - 5rem);scroll-snap-align:start;scroll-snap-stop:always;scroll-margin-top:5rem;view-timeline:--about-section;padding:0;position:relative;overflow:hidden}
+#foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:relative;height:100%;overflow:visible;display:flex;flex-direction:column;justify-content:center;animation:about-backwards-scroll ease-in-out both;animation-timeline:--about-section;animation-range:entry 0% exit 100%;z-index:1;visibility:visible;opacity:1}
 #foundation>.wrap{padding-top:2.5rem}
 .two{width:100%}
 @keyframes about-backwards-scroll{0%{transform:translate3d(0,-35%,0);opacity:0}50%{transform:translate3d(0,0,0);opacity:1}100%{transform:translate3d(0,35%,0);opacity:0}}
