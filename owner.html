@@ -49,7 +49,7 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 .role{right:5vw;top:15vh;display:flex;align-items:center;gap:.7rem;padding:.55rem 1.1rem;border:1px solid rgba(234,240,255,.22);border-radius:99px;backdrop-filter:blur(10px);font-size:.9rem}
 .typewriter-role{position:absolute;right:1vw;top:15vh;z-index:101;transform:translateY(calc(100% + 1.2rem));font-size:clamp(3.04rem,5.44vw,4.64rem);font-weight:400;line-height:1;white-space:nowrap;min-width:11ch;max-width:calc(50vw - 10vw);color:#eaf0ff;text-align:left;text-shadow:0 0 8px rgba(94,234,212,.35)}
 .typewriter{--caret:currentcolor;display:inline-block;white-space:nowrap;min-width:11ch}
-.typewriter::before{content:"";animation:typing 12s steps(1,end) infinite}
+.typewriter::before{content:"";display:none}
 .typewriter::after{content:"";display:inline-block;width:1px;height:1em;margin-left:3px;vertical-align:-.08em;border-right:1px solid var(--caret);animation:blink .6s linear infinite}
 @keyframes typing{
 0%,1.5%{content:""} 2%,3.5%{content:"D"} 4%,5.5%{content:"De"} 6%,7.5%{content:"Dev"} 8%,9.5%{content:"Deve"} 10%,11.5%{content:"Devel"} 12%,13.5%{content:"Develo"} 14%,15.5%{content:"Develop"} 16%,17.5%{content:"Develope"} 18%,21%{content:"Developer"}
@@ -144,6 +144,24 @@ const D={
 };
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RS=document.documentElement.style,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.title="About "+D.first;
+const typewriter=$('.typewriter');
+const roles=["Developer","Technophile","Librarian"];
+let roleIndex=0;
+function runTypewriter(){
+ const role=roles[roleIndex];
+ typewriter.textContent=role;
+ typewriter.style.clipPath='inset(0 100% 0 0)';
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  typewriter.style.transition='clip-path 1.05s cubic-bezier(.65,0,.35,1)';
+  typewriter.style.clipPath='inset(0 0 0 0)';
+ }));
+ setTimeout(()=>{
+  typewriter.style.transition='clip-path .75s cubic-bezier(.65,0,.35,1)';
+  typewriter.style.clipPath='inset(0 100% 0 0)';
+  setTimeout(()=>{roleIndex=(roleIndex+1)%roles.length;runTypewriter()},900);
+ },2600);
+}
+runTypewriter();
 $('.role').textContent=D.role;
 $('.hi').innerHTML=`<small>${D.greeting.trim()} ${D.first.trim()}</small><p>${D.intro}</p>`;
 $('.hd').innerHTML=D.headline.split(' ').map((w,i)=>`<span class="w"><span style="--i:${i}">${w}</span></span>`).join('');
