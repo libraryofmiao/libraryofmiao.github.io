@@ -50,14 +50,6 @@ nav a:hover:after{transform:scaleX(1);transform-origin:left}
 
 /* section 1 */
 #hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
-.big{position:absolute;left:0;right:0;top:16vh;text-align:center;z-index:0;white-space:pre;font-family:'Space Grotesk',system-ui,sans-serif;font-style:normal;font-weight:300;font-size:15vw;line-height:1;letter-spacing:-.03em;pointer-events:none;
- transform:translate3d(calc(var(--p)*-32vw + var(--mx)*3vw),calc(var(--p)*-6vh),0);opacity:calc(1 - var(--p)*.95)}
-.big span{display:inline-block;color:transparent;-webkit-text-stroke:1.2px rgba(234,240,255,.4);
- background:linear-gradient(100deg,transparent 42%,var(--gold) 50%,transparent 58%) 0 0/300% 100%;-webkit-background-clip:text;background-clip:text;
- animation:rise 1.5s calc(1.2s + var(--i)*.07s) cubic-bezier(.2,.9,.2,1) backwards,sweep 6s calc(3s + var(--i)*.12s) linear infinite}
-.big span:nth-child(5){margin-left:.28em}.big span:nth-child(12){margin-right:.28em}
-@keyframes rise{from{transform:translateY(110%) rotate(9deg);opacity:0}}
-@keyframes sweep{from{background-position:120% 0}to{background-position:-120% 0}}
 .rings{position:absolute;left:calc(50% - 4.8vh);top:32vh;z-index:1;transform:scale(calc(1 + var(--p)*.8));opacity:calc(1 - var(--p)*1.2)}
 .rings i{position:absolute;border-radius:50%;border:1px dashed rgba(234,240,255,.18);translate:-50% -50%;animation:spin 46s linear infinite}
 .rings i:nth-child(1){width:56vh;height:56vh}
@@ -150,7 +142,6 @@ footer{margin-top:5rem;color:#eaf0ff;font-size:.85rem}
 
 <section id="hero">
  <div class="rings"><i></i><i></i><i></i></div>
- <div class="big" aria-label="Owner name"></div>
  <div class="mq" aria-hidden="true"></div>
  <div class="hf"><div class="role"></div><div class="hi"></div><div class="cue"><span>Scroll</span><i></i></div></div>
 </section>
@@ -185,7 +176,6 @@ const D={
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RS=document.documentElement.style,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.title="About "+D.first;
 
-$('.big').innerHTML=[...D.name].map((c,i)=>`<span style="--i:${i}">${c==' '?' ':c}</span>`).join('');
 const tg=D.tags.map(t=>`<span>${t} ✦</span>`).join('').repeat(4);$('.mq').innerHTML=`<div style="display:flex">${tg}</div><div style="display:flex">${tg}</div>`;
 $('.role').textContent=D.role;
 $('.hi').innerHTML=`<small>${D.greeting.trim()} ${D.first.trim()}</small><p>${D.intro}</p>`;
