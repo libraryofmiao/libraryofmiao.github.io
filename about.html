@@ -55,11 +55,10 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 0;background:#0
 @media(min-width:768px){.foot{flex-direction:row;justify-content:space-between}}
 @media(min-width:768px){
 html{scroll-snap-type:y mandatory;scroll-padding-top:5rem}
-#foundation,#recent-history,#migration,#present{height:calc(100dvh - 5rem);min-height:calc(100svh - 5rem);max-height:calc(100dvh - 5rem);scroll-snap-align:start;scroll-snap-stop:always;scroll-margin-top:5rem;view-timeline:--about-section;padding:0;position:relative;overflow:hidden}
+#foundation,#recent-history,#migration,#present{height:calc(100dvh - 5rem);min-height:calc(100svh - 5rem);max-height:calc(100dvh - 5rem);scroll-snap-align:start;scroll-snap-stop:always;scroll-margin-top:5rem;padding:0;position:relative;overflow:hidden}
 #foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:relative;height:100%;overflow:visible;display:flex;flex-direction:column;justify-content:center;z-index:1;visibility:visible;opacity:1}
 #foundation>.wrap{padding-top:2.5rem}
 .two{width:100%}
-@keyframes about-backwards-scroll{0%{transform:translate3d(0,-35%,0)}50%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,35%,0)}}
 }
 @media(min-width:768px) and (prefers-reduced-motion:reduce){html{scroll-snap-type:none}#foundation,#recent-history,#migration,#present{height:auto;min-height:calc(100dvh - 5rem);scroll-snap-align:none;scroll-snap-stop:normal;view-timeline:none;padding:2.5rem 0}#foundation>.wrap,#recent-history>.wrap,#migration>.wrap,#present>.wrap{position:static;height:auto;overflow:visible;display:block;animation:none;transform:none;opacity:1}.about-canvas #foundation{position:relative}}
 @media(max-width:430px){.back-link{font-size:0}.back-link::after{content:"← Home";font-size:.8rem}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gallery-item img{transition:none}.back-link,.section-nav a,.skip-link{transition:none}.section-nav{scroll-behavior:auto}}
