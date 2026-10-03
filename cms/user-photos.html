@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Miao Library CMS — User Photos</title>
+<style>
+:root{--ink:#17324d;--muted:#66788a;--paper:#f6f8fb;--card:#fff;--line:#dce5ed;--accent:#b47a35;--navy:#12324b;--danger:#9d493d;--shadow:0 8px 24px #17324d1a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+header{background:linear-gradient(135deg,#12324b,#28566e);color:#fff;padding:30px 20px;box-shadow:0 4px 18px #12324b22}
+header .wrap,main{max-width:1200px;margin:auto}
+.brand{display:flex;align-items:center;gap:16px}
+.mark{width:58px;height:58px;border:2px solid #d9b477;border-radius:50%;display:grid;place-items:center;font:25px Georgia}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font:12px Arial,sans-serif;color:#e5c58f}
+.title{font-size:28px;margin:4px 0}
+.subtitle{font:14px Arial,sans-serif;opacity:.82}
+main{padding:28px 16px 48px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.topbar h1{margin:0;font-size:28px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:12px 18px;background:var(--navy);color:#fff;font:700 14px Arial,sans-serif;cursor:pointer}
+button.secondary{background:#e8eef3;color:var(--ink)}
+button.danger{background:var(--danger)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.status{padding:10px 12px;border-radius:10px;background:#eef5f8;font:13px Arial,sans-serif;margin-bottom:18px}
+.status.error{background:#fff0ee;color:#7c3028}
+.status.success{background:#eef8f0;color:#276038}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.heroHead{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:14px}
+.heroHead h2{margin:0;font-size:22px}
+.heroHead small{color:var(--muted);font:12px Arial,sans-serif}
+.scroller{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,280px);gap:16px;overflow-x:auto;overflow-y:hidden;padding:4px 4px 16px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.photoCard{scroll-snap-align:start;background:#fbfcfd;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:350px}
+.photoFrame{height:245px;background:#edf2f5;display:grid;place-items:center;overflow:hidden}
+.photoFrame img{width:100%;height:100%;object-fit:cover}
+.photoFrame .loading{font:12px Arial,sans-serif;color:var(--muted)}
+.cardBody{padding:14px 14px 12px;display:flex;flex-direction:column;gap:7px;flex:1}
+.cardTitle{font:700 19px Arial,sans-serif;word-break:break-word}
+.meta{font:12px Arial,sans-serif;color:var(--muted)}
+.cardActions{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.cardActions button{flex:1;padding:10px 8px;font-size:12px}
+.empty{min-height:240px;display:grid;place-items:center;text-align:center;color:var(--muted);font:14px Arial,sans-serif}
+.note{margin-top:16px;color:var(--muted);font:12px Arial,sans-serif;line-height:1.5}
+input[type=file]{display:none}
+@media(max-width:650px){
+ header{padding:22px 16px}
+ .title{font-size:23px}
+ main{padding:20px 12px 36px}
+ .topbar{align-items:stretch}
+ .topbar .actions{width:100%}
+ .topbar .actions button{flex:1}
+ .scroller{grid-auto-columns:minmax(82vw,82vw)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">M</div>
+      <div>
+        <div class="eyebrow">Miao Library · New Age Learning Centre</div>
+        <div class="title">User Photo Management</div>
+        <div class="subtitle">Secure patron-photo storage in Cloudflare R2</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="topbar">
+    <h1>Patron Photos</h1>
+    <div class="actions">
+      <button class="secondary" id="dashboardBtn">CMS Dashboard</button>
+      <button id="uploadBtn">＋ Upload New User Photo</button>
+      <input id="newFile" type="file" accept="image/jpeg,image/png,image/webp">
+    </div>
+  </div>
+
+  <div id="status" class="status">Loading user photos…</div>
+
+  <section class="hero">
+    <div class="heroHead">
+      <h2>Uploaded Photos</h2>
+      <small id="count">0 photos</small>
+    </div>
+    <div id="scroller" class="scroller"></div>
+    <div class="note">New uploads keep the selected file name. Replace keeps the existing photo's saved name/key, so a replacement for <b>SDLM0001.jpg</b> remains <b>patron-photos/SDLM0001.jpg</b>.</div>
+  </section>
+</main>
+
+<script>
+const API='https://api.miaolibrary.in';
+const token=()=>sessionStorage.getItem('cms_admin_token')||'';
+const $=id=>document.getElementById(id);
+let items=[];
+const objectUrls=[];
+
+function clearObjectUrls(){while(objectUrls.length)URL.revokeObjectURL(objectUrls.pop())}
+function setStatus(message,type=''){const el=$('status');el.textContent=message;el.className='status'+(type?' '+type:'')}
+function authHeaders(extra={}){return Object.assign({'Authorization':'Bearer '+token()},extra)}
+async function api(path,options={}){
+  const headers=authHeaders(options.headers||{});
+  const r=await fetch(API+path,Object.assign({},options,{headers}));
+  let data={};try{data=await r.json()}catch{}
+  if(!r.ok){const e=new Error(data.detail||('Request failed ('+r.status+')'));e.status=r.status;throw e}
+  return data
+}
+function handleAuth(e){
+  if(e&&e.status===401){
+    sessionStorage.removeItem('cms_admin_token');
+    location.href='admin.html';
+    return true;
+  }
+  return false;
+}
+function formatSize(n){
+  if(n<1024)return n+' B';
+  if(n<1024*1024)return (n/1024).toFixed(1)+' KB';
+  return (n/1024/1024).toFixed(1)+' MB';
+}
+function formatDate(v){
+  if(!v)return '';
+  const d=new Date(v);
+  return Number.isNaN(d.getTime())?'':d.toLocaleString();
+}
+async function previewUrl(key){
+  const r=await fetch(API+'/cms/admin/user-photos/object?key='+encodeURIComponent(key),{headers:authHeaders()});
+  if(r.status===401){const e=new Error('Session expired');e.status=401;throw e}
+  if(!r.ok)throw new Error('Preview unavailable');
+  const u=URL.createObjectURL(await r.blob());objectUrls.push(u);return u;
+}
+function card(item){
+  const el=document.createElement('article');el.className='photoCard';
+  el.innerHTML='<div class="photoFrame"><div class="loading">Loading preview…</div></div>'+
+    '<div class="cardBody"><div class="cardTitle"></div><div class="meta"></div>'+
+    '<div class="cardActions"><button class="secondary replace">Replace</button><button class="danger delete">Delete</button></div></div>';
+  el.querySelector('.cardTitle').textContent=item.title;
+  el.querySelector('.meta').textContent=formatSize(item.size)+(item.updated?' · '+formatDate(item.updated):'');
+  const input=document.createElement('input');input.type='file';input.accept='image/jpeg,image/png,image/webp';input.style.display='none';el.appendChild(input);
+  el.querySelector('.replace').onclick=()=>input.click();
+  input.onchange=async()=>{if(input.files[0])await replacePhoto(item,input.files[0])};
+  el.querySelector('.delete').onclick=()=>deletePhoto(item);
+  previewUrl(item.key).then(url=>{
+    const frame=el.querySelector('.photoFrame');frame.innerHTML='';
+    const img=document.createElement('img');img.src=url;img.alt=item.title;frame.appendChild(img);
+  }).catch(e=>{
+    if(handleAuth(e))return;
+    el.querySelector('.photoFrame').innerHTML='<div class="loading">Preview unavailable</div>';
+  });
+  return el;
+}
+async function loadPhotos(){
+  clearObjectUrls();
+  try{
+    setStatus('Loading user photos…');
+    const data=await api('/cms/admin/user-photos');
+    items=Array.isArray(data.items)?data.items:[];
+    $('count').textContent=items.length+' photo'+(items.length===1?'':'s');
+    const sc=$('scroller');sc.innerHTML='';
+    if(!items.length){sc.innerHTML='<div class="empty">No user photos have been uploaded yet.<br>Use “Upload New User Photo” to add the first one.</div>'}
+    else items.forEach(x=>sc.appendChild(card(x)));
+    setStatus('Signed in · '+items.length+' user photo'+(items.length===1?'':'s')+' loaded.','success');
+  }catch(e){if(!handleAuth(e))setStatus(e.message||'Unable to load photos.','error')}
+}
+async function uploadNew(file){
+  try{
+    if(!/^image\/(jpeg|png|webp)$/.test(file.type)){setStatus('Only JPG, PNG or WEBP photos are allowed.','error');return}
+    if(file.size>10*1024*1024){setStatus('Photo exceeds 10 MB.','error');return}
+    setStatus('Uploading '+file.name+'…');
+    await api('/cms/admin/user-photos',{method:'POST',headers:{'Content-Type':file.type,'X-Photo-Name':file.name},body:file});
+    setStatus('Photo uploaded successfully.','success');await loadPhotos();
+  }catch(e){
+    if(handleAuth(e))return;
+    setStatus(e.status===409?'That filename already exists. Use Replace on the existing card.':e.message||'Upload failed.','error');
+  }
+}
+async function replacePhoto(item,file){
+  try{
+    if(!/^image\/(jpeg|png|webp)$/.test(file.type)){setStatus('Only JPG, PNG or WEBP photos are allowed.','error');return}
+    if(file.size>10*1024*1024){setStatus('Photo exceeds 10 MB.','error');return}
+    if(!confirm('Replace '+item.title+'? The existing saved filename will be preserved.'))return;
+    setStatus('Replacing '+item.title+'…');
+    await api('/cms/admin/user-photos?target='+encodeURIComponent(item.key),{method:'POST',headers:{'Content-Type':file.type,'X-Photo-Name':file.name},body:file});
+    setStatus(item.title+' replaced successfully.','success');await loadPhotos();
+  }catch(e){if(!handleAuth(e))setStatus(e.message||'Replace failed.','error')}
+}
+async function deletePhoto(item){
+  if(!confirm('Delete '+item.title+' permanently?'))return;
+  try{
+    setStatus('Deleting '+item.title+'…');
+    await api('/cms/admin/user-photos?key='+encodeURIComponent(item.key),{method:'DELETE'});
+    setStatus(item.title+' deleted.','success');await loadPhotos();
+  }catch(e){if(!handleAuth(e))setStatus(e.message||'Delete failed.','error')}
+}
+$('uploadBtn').onclick=()=>$('newFile').click();
+$('newFile').onchange=async()=>{const f=$('newFile').files[0];$('newFile').value='';if(f)await uploadNew(f)};
+$('dashboardBtn').onclick=()=>location.href='admin.html';
+if(!token())location.href='admin.html';else loadPhotos();
+</script>
+</body>
+</html>
