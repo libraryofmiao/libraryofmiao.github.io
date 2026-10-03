@@ -53,20 +53,62 @@ input[type=file]{display:none}
  .scroller{grid-auto-columns:minmax(82vw,82vw)}
 }
 </style>
+<style>
+/* Unified Miao Library CMS theme — presentation only; functionality untouched */
+:root{--bg-deep:#060c18;--blue-neon:#00f0ff;--gold:#fbbf24;--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg-deep)!important;color:#f1f5f9!important;font-family:var(--font-body)!important;min-height:100vh}
+header{display:none!important}
+nav.top{position:fixed;inset:0 0 auto 0;z-index:100;border-bottom:1px solid transparent;transition:background .5s,border-color .5s,backdrop-filter .5s}
+nav.top.scrolled{background:rgba(6,12,24,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:rgba(0,240,255,.2)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;max-width:80rem;margin:auto}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;min-width:0}
+.logo{width:2.5rem;height:2.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:1.5px solid #fbbf24;background:rgba(11,21,40,.8);box-shadow:0 0 12px rgba(217,119,6,.35);overflow:hidden;flex-shrink:0}
+.logo img{width:100%;height:100%;object-fit:cover}
+.brand-name{font-family:var(--font-display);font-size:.875rem;font-weight:600;color:#fff!important;letter-spacing:.02em;text-shadow:0 0 8px rgba(255,255,255,.18)}
+.brand-sub{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#00f0ff!important;text-shadow:0 0 8px rgba(0,240,255,.45)!important}
+.nav-links,.nav-cta{display:none;align-items:center;gap:.25rem}
+.menu-btn{padding:.5rem;color:var(--blue-neon);flex-shrink:0;background:none;border:0}
+.glass-link{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:9999px;font-size:.875rem;font-weight:500;letter-spacing:.02em;color:#cbd5e1;text-decoration:none;transition:.25s;border:1px solid transparent}
+.glass-link:hover{color:var(--blue-neon);text-shadow:0 0 8px rgba(0,240,255,.45);background:rgba(0,240,255,.1);backdrop-filter:blur(12px);border-color:rgba(0,240,255,.4);box-shadow:0 0 18px rgba(0,240,255,.3);transform:translateY(-1px)}
+.glass-link-cta{border-color:rgba(0,240,255,.6);color:#fff;box-shadow:0 0 15px rgba(0,210,255,.2)}
+.glow-wrap{position:relative;display:inline-flex;padding:2px;border-radius:12px;background:linear-gradient(0deg,#000,#222);overflow:hidden}
+.glow-wrap:before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0%,#0ff 25%,transparent 50%);animation:rotateGlow 4s linear infinite}
+@keyframes rotateGlow{to{transform:rotate(360deg)}}
+.glow-btn{position:relative;display:inline-flex;align-items:center;background:#111;color:#fff;padding:.35rem 1rem;border-radius:10px;text-decoration:none;font-size:.875rem;z-index:1}
+.mobile-menu{display:none;flex-direction:column;gap:.5rem;padding:0 1.5rem 1.25rem;border-top:1px solid rgba(255,255,255,.05);background:rgba(6,12,24,.95);backdrop-filter:blur(16px);width:100%}
+.mobile-menu.open{display:flex}
+.mobile-extra{display:flex;flex-direction:column;gap:.5rem;margin-top:.25rem;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.1)}
+main{max-width:80rem!important;width:100%!important;margin:0 auto!important;padding:7rem 1.5rem 3rem!important}
+footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 0;background:#040810;margin-top:2rem}
+.foot{max-width:80rem;margin:auto;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.copy{font-size:.75rem;color:#64748b;text-align:center}.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem}.glass-link.xs{font-size:.75rem}
+@media(min-width:768px){.nav-links,.nav-cta{display:flex}.menu-btn,.mobile-menu{display:none!important}.foot{flex-direction:row;justify-content:space-between}}
+/* Content surfaces inherit the CMS index visual language */
+.card,.hero{background:rgba(15,30,56,.62)!important;color:#e2e8f0!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:1rem!important;box-shadow:0 12px 40px rgba(0,0,0,.28)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.card h1,.card h2,.card h3,.hero h1,.hero h2,.hero h3{font-family:var(--font-display)!important;color:#fff!important;font-weight:300}
+label{color:#cbd5e1!important}input,select,textarea{background:rgba(255,255,255,.06)!important;color:#f8fafc!important;border-color:rgba(255,255,255,.14)!important}
+button{font-family:var(--font-body)!important}
+button:not(.secondary):not(.danger){background:rgba(0,240,255,.1)!important;color:#fff!important;border:1px solid rgba(0,240,255,.55)!important}
+button.secondary{background:rgba(255,255,255,.07)!important;color:#cbd5e1!important;border:1px solid rgba(255,255,255,.12)!important}
+button.danger{background:rgba(157,73,61,.7)!important;color:#fff!important;border:1px solid rgba(255,130,110,.3)!important}
+.status{background:rgba(255,255,255,.07)!important;color:#cbd5e1!important;border:1px solid rgba(255,255,255,.08)}
+.status.success{background:rgba(0,240,255,.08)!important;color:#bffcff!important;border-color:rgba(0,240,255,.22)}
+.status.error{background:rgba(157,73,61,.16)!important;color:#fecaca!important;border-color:rgba(255,130,110,.25)}
+.notice{background:rgba(0,240,255,.07)!important;color:#cbd5e1!important;border-left-color:#00f0ff!important}
+.preview,.empty{background:rgba(255,255,255,.035)!important;color:#94a3b8!important;border-color:rgba(255,255,255,.14)!important}
+.item{border-color:rgba(255,255,255,.1)!important}.item p,.item small{color:#94a3b8!important}
+@media(max-width:767px){main{padding:6rem .75rem 2rem!important}.card,.hero{border-radius:.85rem!important}.nav-inner{padding:.75rem 1rem}.mobile-menu{padding-left:1rem;padding-right:1rem}}
+</style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <div class="brand">
-      <div class="mark">M</div>
-      <div>
-        <div class="eyebrow">Miao Library · New Age Learning Centre</div>
-        <div class="title">User Photo Management</div>
-        <div class="subtitle">Secure patron-photo storage in Cloudflare R2</div>
-      </div>
-    </div>
-  </div>
-</header>
+<nav class="top" id="nav"><div class="nav-inner">
+<a href="/" class="brand"><div class="logo"><img src="/index_files/cbimage_3vTi.webp" alt="Sub Divisional Library Miao Logo"></div><div><div class="brand-name">Sub Divisional Library</div><div class="brand-sub">Miao · NALC</div></div></a>
+<div class="nav-links"><a class="glass-link" href="/">Home</a><a class="glass-link" href="/#services">Services</a><a class="glass-link" href="/#collection">Collection</a><div class="glow-wrap"><a class="glow-btn" href="https://nalc.miaolibrary.in/">NALC</a></div></div>
+<div class="nav-cta"><a class="glass-link glass-link-cta" href="/cms/">CMS Dashboard</a><a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books</a></div>
+<button class="menu-btn" id="menuBtn" aria-label="Toggle menu" type="button"><svg id="iconOpen" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg><svg id="iconClose" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>
+<div class="mobile-menu" id="mobileMenu"><a class="glass-link" href="/">Home</a><a class="glass-link" href="/#services">Services</a><a class="glass-link" href="/#collection">Collection</a><div class="glow-wrap"><a class="glow-btn" href="https://nalc.miaolibrary.in/">NALC</a></div><div class="mobile-extra"><a class="glass-link glass-link-cta" href="/cms/">CMS Dashboard</a><a class="glass-link" href="/opac.html" target="_blank" rel="noopener noreferrer">Search Books (OPAC)</a></div></div></nav>
 
 <main>
   <div class="topbar">
@@ -201,5 +243,6 @@ $('newFile').onchange=async()=>{const f=$('newFile').files[0];$('newFile').value
 $('dashboardBtn').onclick=()=>location.href='admin.html';
 if(!token()){sessionStorage.setItem('cms_return_to','user-photos.html');location.href='admin.html';}else loadPhotos();
 </script>
+<footer><div class="foot"><div class="brand"><div class="logo" style="width:2rem;height:2rem"><img src="/index_files/cbimage_3vTi.webp" alt="Sub Divisional Library Miao Logo" loading="lazy"></div><div><div class="brand-name">Sub Divisional Library Miao</div><div class="brand-sub" style="letter-spacing:normal;text-transform:none">New Age Learning Centre · NALC</div></div></div><div class="foot-links"><a class="glass-link xs" href="/">Home</a><a class="glass-link xs" href="/#services">Services</a><a class="glass-link xs" href="/#membership">Membership</a><div class="glow-wrap"><a class="glow-btn" href="https://nalc.miaolibrary.in/">NALC</a></div><a class="glass-link xs" href="/opac.html" target="_blank">Search Books</a><a class="glass-link xs" href="/cms/">CMS</a></div><div class="copy">© 2026 Sub Divisional Library Miao<br>Changlang District, Arunachal Pradesh</div></div></footer>
 </body>
 </html>
