@@ -92,6 +92,7 @@ input[type=file]{display:none}
 
 <script>
 const API='https://api.miaolibrary.in';
+const PHOTO_API='https://miao-patron-photo-gateway.libraryofmiao.workers.dev';
 const token=()=>sessionStorage.getItem('cms_admin_token')||'';
 const $=id=>document.getElementById(id);
 let items=[];
@@ -127,7 +128,7 @@ function formatDate(v){
   return Number.isNaN(d.getTime())?'':d.toLocaleString();
 }
 async function previewUrl(key){
-  const r=await fetch(API+'/cms/admin/user-photos/object?key='+encodeURIComponent(key),{headers:authHeaders()});
+  const r=await fetch(PHOTO_API+'/cms/admin/user-photos/object?key='+encodeURIComponent(key),{headers:authHeaders()});
   if(r.status===401){const e=new Error('Session expired');e.status=401;throw e}
   if(!r.ok)throw new Error('Preview unavailable');
   const u=URL.createObjectURL(await r.blob());objectUrls.push(u);return u;
@@ -170,7 +171,7 @@ async function uploadNew(file){
     if(!/^image\/(jpeg|png|webp)$/.test(file.type)){setStatus('Only JPG, PNG or WEBP photos are allowed.','error');return}
     if(file.size>10*1024*1024){setStatus('Photo exceeds 10 MB.','error');return}
     setStatus('Uploading '+file.name+'…');
-    await api('/cms/admin/user-photos',{method:'POST',headers:{'Content-Type':file.type,'X-Photo-Name':file.name},body:file});
+    await fetch(PHOTO_API+'/cms/admin/user-photos',{method:'POST',headers:authHeaders({'Content-Type':file.type,'X-Photo-Name':file.name}),body:file}).then(async r=>{let d={};try{d=await r.json()}catch{}if(!r.ok){const e=new Error(d.detail||('Request failed ('+r.status+')'));e.status=r.status;throw e}return d});
     setStatus('Photo uploaded successfully.','success');await loadPhotos();
   }catch(e){
     if(handleAuth(e))return;
@@ -183,7 +184,7 @@ async function replacePhoto(item,file){
     if(file.size>10*1024*1024){setStatus('Photo exceeds 10 MB.','error');return}
     if(!confirm('Replace '+item.title+'? The existing saved filename will be preserved.'))return;
     setStatus('Replacing '+item.title+'…');
-    await api('/cms/admin/user-photos?target='+encodeURIComponent(item.key),{method:'POST',headers:{'Content-Type':file.type,'X-Photo-Name':file.name},body:file});
+    await fetch(PHOTO_API+'/cms/admin/user-photos?target='+encodeURIComponent(item.key),{method:'POST',headers:authHeaders({'Content-Type':file.type,'X-Photo-Name':file.name}),body:file}).then(async r=>{let d={};try{d=await r.json()}catch{}if(!r.ok){const e=new Error(d.detail||('Request failed ('+r.status+')'));e.status=r.status;throw e}return d});
     setStatus(item.title+' replaced successfully.','success');await loadPhotos();
   }catch(e){if(!handleAuth(e))setStatus(e.message||'Replace failed.','error')}
 }
@@ -191,7 +192,7 @@ async function deletePhoto(item){
   if(!confirm('Delete '+item.title+' permanently?'))return;
   try{
     setStatus('Deleting '+item.title+'…');
-    await api('/cms/admin/user-photos?key='+encodeURIComponent(item.key),{method:'DELETE'});
+    await fetch(PHOTO_API+'/cms/admin/user-photos?key='+encodeURIComponent(item.key),{method:'DELETE',headers:authHeaders()}).then(async r=>{let d={};try{d=await r.json()}catch{}if(!r.ok){const e=new Error(d.detail||('Request failed ('+r.status+')'));e.status=r.status;throw e}return d});
     setStatus(item.title+' deleted.','success');await loadPhotos();
   }catch(e){if(!handleAuth(e))setStatus(e.message||'Delete failed.','error')}
 }
