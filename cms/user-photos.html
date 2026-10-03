@@ -110,6 +110,7 @@ async function api(path,options={}){
 function handleAuth(e){
   if(e&&e.status===401){
     sessionStorage.removeItem('cms_admin_token');
+    sessionStorage.setItem('cms_return_to','user-photos.html');
     location.href='admin.html';
     return true;
   }
@@ -197,7 +198,7 @@ async function deletePhoto(item){
 $('uploadBtn').onclick=()=>$('newFile').click();
 $('newFile').onchange=async()=>{const f=$('newFile').files[0];$('newFile').value='';if(f)await uploadNew(f)};
 $('dashboardBtn').onclick=()=>location.href='admin.html';
-if(!token())location.href='admin.html';else loadPhotos();
+if(!token()){sessionStorage.setItem('cms_return_to','user-photos.html');location.href='admin.html';}else loadPhotos();
 </script>
 </body>
 </html>
