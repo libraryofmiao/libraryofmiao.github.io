@@ -83,6 +83,12 @@ button.danger{background:rgba(157,73,61,.7)!important;color:#fff!important;borde
 </section>
 </main>
 <script>
+const nav=document.getElementById("nav"),menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementById("mobileMenu"),iconOpen=document.getElementById("iconOpen"),iconClose=document.getElementById("iconClose");
+window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>60),{passive:true});
+menuBtn.addEventListener("click",()=>{const open=mobileMenu.classList.toggle("open");iconOpen.style.display=open?"none":"block";iconClose.style.display=open?"block":"none"});
+mobileMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{mobileMenu.classList.remove("open");iconOpen.style.display="block";iconClose.style.display="none"}));
+</script>
+<script>
 const API='https://api.miaolibrary.in';
 const $=id=>document.getElementById(id);
 let items=[];let editingId=null;let adminToken=sessionStorage.getItem('cms_admin_token')||'';
